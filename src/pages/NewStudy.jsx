@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NewStudy = () => {
-  return <div></div>;
+  return <div>스터디 생성 페이지입니다.</div>;
 };
 
 export default NewStudy;
