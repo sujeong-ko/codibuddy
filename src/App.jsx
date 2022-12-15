@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import Payment from './pages/Payment';
 import NewStudy from './pages/NewStudy';
+import Login from './components/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path='mypage' element={<MyPage />} />
             <Route path='new' element={<NewStudy />} />
             <Route path='payment' element={<Payment />} />
+            <Route path='login' element={<Login />} />
           </Route>
         </Routes>
       </div>
