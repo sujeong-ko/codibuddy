@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
-class SignIn extends Component {
+class Login extends Component {
   // state = {
   //   email: "",
   //   password: "",
@@ -43,7 +43,7 @@ class SignIn extends Component {
           ////<div className="modalContents" onClick={isOpen}> 로그인 화면은 버튼 클릭해서 들어오면
           /// true인 상태로 있어서 화면이 안꺼진다.
 
-          <div className='modal'>
+          <ModalMain>
             <div
             // onClick={close}
             >
@@ -58,10 +58,8 @@ class SignIn extends Component {
                   className='modalContents'
                   // onClick={isOpen}
                 >
-                  <img
-                    className='signinIcon'
-                    src='/Images/SignIn/signinIcon.png'
-                  />
+                  <div className='loginTitle'>로그인</div>
+                  <div className='IDtext'>ID</div>
                   <input
                     name='email'
                     className='loginId'
@@ -69,6 +67,7 @@ class SignIn extends Component {
                     placeholder='아이디'
                     onChange={this.loginHandler}
                   />
+                  <div className='Passwordtext'>Password</div>
                   <input
                     name='password'
                     className='loginPw'
@@ -76,13 +75,13 @@ class SignIn extends Component {
                     placeholder='비밀번호'
                     onChange={this.loginHandler}
                   />
-                  <div className='loginMid'>
+                  {/* <div className='loginMid'>
                     <label className='autoLogin' htmlFor='hint'>
                       {' '}
                       <input type='checkbox' id='hint' /> 로그인 유지하기
                     </label>
                     <div className='autoLogin'>아이디/비밀번호 찾기</div>
-                  </div>
+                  </div> */}
                   <button className='loginBtn' onClick={this.loginClickHandler}>
                     {' '}
                     로그인{' '}
@@ -109,12 +108,12 @@ class SignIn extends Component {
                     <div className='loginLine'>
                       회원이 아니신가요? <Link to='/signup'>회원가입</Link>
                     </div>
-                    <div className='noUser'>비회원 주문 조회</div>
+                    {/* <div className='noUser'>비회원 주문 조회</div> */}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ModalMain>
           // : null
         }
       </>
@@ -122,4 +121,9 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const ModalMain = tw.div`
+fixed top-0 left-0 right-0
+bg-gray-500/50
+`;
+
+export default Login;
