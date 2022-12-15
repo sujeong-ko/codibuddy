@@ -39,6 +39,7 @@ const Header = () => {
 };
 
 const MyHeader = tw.header`
+w-screen
 h-16
 p-3
 border
