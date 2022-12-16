@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import Payment from './pages/Payment';
@@ -10,10 +11,12 @@ function App() {
     <BrowserRouter>
       <div className='App'>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/mypage' element={<MyPage />} />
-          <Route path='/new' element={<NewStudy />} />
-          <Route path='/payment' element={<Payment />} />
+          <Route path='/' element={<Layout />}>
+            <Route path='' element={<Home />} />
+            <Route path='mypage' element={<MyPage />} />
+            <Route path='new' element={<NewStudy />} />
+            <Route path='payment' element={<Payment />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>

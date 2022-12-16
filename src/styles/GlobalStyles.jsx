@@ -11,15 +11,18 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'S-CoreDream-4Regular';
+    width: 100vw;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
   main {
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    margin: 0 10% 0 10%;
     position: relative;
-    width: 100%;
   }
 
   `;

@@ -16,6 +16,7 @@ module.exports = {
     'no-unused-vars': 1,
     'no-use-before-define': 1,
     'no-redeclare': 1,
+    'react/prop-types': 'off',
     'no-console': 0,
   },
 };
