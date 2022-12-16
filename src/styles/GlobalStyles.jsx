@@ -22,8 +22,6 @@ export const GlobalStyles = createGlobalStyle`
     flex-direction: column;
     width: 80vw;
     margin: 0 10% 0 10%;
-    justify-content: center;
-    align-items: center;
     position: relative;
   }
 
