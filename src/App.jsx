@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import Payment from './pages/Payment';
 import NewStudy from './pages/NewStudy';
+import StudyDetail from './pages/StudyDetail';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -13,8 +14,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route path='' element={<Home />} />
-            <Route path='mypage' element={<MyPage />} />
+            <Route path='study' element={<StudyDetail />} />
             <Route path='new' element={<NewStudy />} />
+            <Route path='mypage' element={<MyPage />} />
             <Route path='payment' element={<Payment />} />
           </Route>
         </Routes>

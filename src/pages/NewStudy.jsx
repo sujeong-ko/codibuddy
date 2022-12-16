@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { useForm } from 'react-hook-form';
 import Button from './../components/Button';
+// import { languages } from '../utils/languages';
 import {
   DateSelect,
   DepositSelect,
@@ -13,8 +14,6 @@ import {
 } from './../components/StudyInfoInput';
 
 const languages = [
-  'HTML',
-  'CSS',
   'JavaScript',
   'TypeScript',
   'React',
@@ -116,8 +115,8 @@ const NewStudy = () => {
           </div>
         </FormWrap>
         <div className='flex justify-end'>
-          <Button type='basic' text='작성취소' onClick={CancleSubmit} />
-          <Button type='submit' text='등록하기' />
+          <Button type='cancle' text='작성취소' onClick={CancleSubmit} />
+          <Button type='basic' text='등록하기' />
         </div>
       </form>
     </>
@@ -140,8 +139,8 @@ w-full
 `;
 
 const InputWrap = tw.div`
-  flex
-  my-2
+flex
+my-2
 `;
 
 const TitleInput = tw.input`
