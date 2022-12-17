@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
-import './Register.css';
 
 class Register extends Component {
   // state = {
@@ -165,7 +164,7 @@ p-2
 
 const RegisterTitle = tw.div`
 mt-1
-text-base
+text-lg
 text-[#52b4d0]
 leading-loose
 text-center
@@ -177,8 +176,10 @@ text-sm
 `;
 
 const ModalContents = tw.div`
-mt-0
-m-auto
+mt-10
+ml-auto
+mr-auto
+mb-auto
 relative
 pr-8
 pl-8
@@ -190,7 +191,7 @@ flex-col
 `;
 
 const Input = tw.input`
-placeholder-shown:bg-[#999999]
+placeholder-shown:bg-slate-50
 rounded-sm
 w-full
 h-3/5
@@ -198,6 +199,7 @@ border-1
 border-[#e5e5e5]
 pt-1
 pb-1
+pl-1
 outline-0
 box-border
 `;
@@ -210,15 +212,15 @@ leading-loose
 `;
 
 const RegisterBtn = tw.button`
-h-3/5
+h-3/7
 text-base
-pt-1
-pb-3
+pt-2
+pb-2
 cursor-pointer
 bg-[#52b4d0]
 text-white
 leading-loose
-mt-3
+mt-10
 mb-2
 rounded-sm
 border-none
