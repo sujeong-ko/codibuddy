@@ -47,22 +47,14 @@ class Register extends Component {
             <div
             // onClick={close}
             >
-              <div className='RegisterModal'>
-                <span
-                  className='close'
-                  // onClick={close}
+              <RegisterModal>
+                <Close onClick={close}>&times;</Close>
+                <ModalContents
+                // onClick={isOpen}
                 >
-                  &times;
-                </span>
-                <div
-                  className='modalContents'
-                  // onClick={isOpen}
-                >
-                  <div className='RegisterTitle'>회원가입</div>
-                  <div className='titleText' id='IDtext'>
-                    ID
-                  </div>
-                  <input
+                  <RegisterTitle>회원가입</RegisterTitle>
+                  <TitleText id='IDtext'>ID</TitleText>
+                  <Input
                     name='ID'
                     className='input'
                     id='idInput'
@@ -71,10 +63,8 @@ class Register extends Component {
                     onChange={this.loginHandler}
                   />
 
-                  <div className='titleText' id='PWtext'>
-                    Password
-                  </div>
-                  <input
+                  <TitleText id='PWtext'>Password</TitleText>
+                  <Input
                     name='password'
                     className='input'
                     id='passwordInput'
@@ -83,10 +73,8 @@ class Register extends Component {
                     onChange={this.loginHandler}
                   />
 
-                  <div className='titleText' id='PWChecktext'>
-                    Password Check
-                  </div>
-                  <input
+                  <TitleText id='PWChecktext'>Password Check</TitleText>
+                  <Input
                     name='PWcheck'
                     className='input'
                     id='PWCheckInput'
@@ -95,10 +83,8 @@ class Register extends Component {
                     onChange={this.loginHandler}
                   />
 
-                  <div className='titleText' id='nicktext'>
-                    Nickname
-                  </div>
-                  <input
+                  <TitleText id='nicktext'>Nickname</TitleText>
+                  <Input
                     name='nickname'
                     className='input'
                     id='nicknameInput'
@@ -107,10 +93,8 @@ class Register extends Component {
                     onChange={this.loginHandler}
                   />
 
-                  <div className='titleText' id='emailtext'>
-                    Email
-                  </div>
-                  <input
+                  <TitleText id='emailtext'>Email</TitleText>
+                  <Input
                     name='email'
                     className='input'
                     id='emailInput'
@@ -126,12 +110,10 @@ class Register extends Component {
                     </label>
                     <div className='autoLogin'>아이디/비밀번호 찾기</div>
                   </div> */}
-                  <button
-                    className='RegisterBtn'
-                    onClick={this.loginClickHandler}>
+                  <RegisterBtn onClick={this.loginClickHandler}>
                     {' '}
                     회원가입{' '}
-                  </button>
+                  </RegisterBtn>
                   {/* <div className='socialBox'>
                     <div className='kakao'>
                       <img
@@ -150,8 +132,8 @@ class Register extends Component {
                       </div>
                     </div>
                   </div> */}
-                </div>
-              </div>
+                </ModalContents>
+              </RegisterModal>
             </div>
           </ModalMain>
           // : null
@@ -164,6 +146,150 @@ class Register extends Component {
 const ModalMain = tw.div`
 fixed top-0 left-0 right-0
 bg-gray-500/50
+h-full
 `;
+
+const RegisterModal = tw.div`
+w-2/5
+h-5/6
+bg-white
+relative
+box-border
+mt-20
+ml-auto
+mb-auto
+mr-auto
+p-2
+
+`;
+
+const RegisterTitle = tw.div`
+mt-1
+text-base
+text-[#52b4d0]
+leading-loose
+text-center
+`;
+
+const Close = tw.span`
+float-right
+text-sm
+`;
+
+const ModalContents = tw.div`
+mt-0
+m-auto
+relative
+pr-8
+pl-8
+pb-7
+box-border
+flex
+justify-center
+flex-col
+`;
+
+const Input = tw.input`
+placeholder-shown:bg-[#999999]
+rounded-sm
+w-full
+h-3/5
+border-1
+border-[#e5e5e5]
+pt-1
+pb-1
+outline-0
+box-border
+`;
+
+const TitleText = tw.div`
+mt-2
+text-base
+text-black
+leading-loose
+`;
+
+const RegisterBtn = tw.button`
+h-3/5
+text-base
+pt-1
+pb-3
+cursor-pointer
+bg-[#52b4d0]
+text-white
+leading-loose
+mt-3
+mb-2
+rounded-sm
+border-none
+`;
+
+//비밀번호 찾기
+// .loginMid {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+// 자동로그인
+// .autoLogin
+//   font-size: 12px;
+//   color: #8d8d8d;
+//   line-height: 3;
+// }
+
+//SNS 연동
+
+// .socialBox {
+//   margin-bottom: 30px;
+// }
+// .kakao {
+//   background-color: #feec34;
+//   border-color: #feec34;
+//   height: 40px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   box-sizing: border-box;
+//   margin-bottom: 10px;
+//   border-radius: 3px;
+// }
+
+// .kakaoLogo {
+//   width: 24px;
+//   height: 25px;
+// }
+// .kakaoText {
+//   width: 300px;
+//   font-size: 15px;
+//   text-align: center;
+//   display: inline-block;
+//   box-sizing: border-box;
+// }
+
+// .facebook {
+//   background-color: #21538a;
+//   border-color: #21538a;
+//   height: 40px;
+//   display: flex;
+//   justify-content: center;
+//   box-sizing: border-box;
+//   color: #fff;
+//   border-radius: 3px;
+// }
+// .facebookText {
+//   padding-top: 12px;
+//   width: 310px;
+//   color: #fff;
+//   font-size: 15px;
+//   text-align: center;
+//   box-sizing: border-box;
+// }
+
+// .facebookLogo {
+//   padding-top: 7px;
+//   width: 24px;
+//   height: 25px;
+// }
 
 export default Register;
