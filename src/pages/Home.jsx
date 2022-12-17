@@ -1,12 +1,21 @@
 import React from 'react';
+import tw from 'tailwind-styled-components';
+import CategoryNav from '../components/CategoryNav';
+import LanguageNav from '../components/LanguageNav';
 import StudyCard from '../components/StudyCard';
 
 const Home = () => {
   return (
-    <div>
+    <Wrap>
+      <CategoryNav />
+      <LanguageNav />
       <StudyCard />
-    </div>
+    </Wrap>
   );
 };
 
 export default Home;
+
+const Wrap = tw.div`
+flex-1
+`;

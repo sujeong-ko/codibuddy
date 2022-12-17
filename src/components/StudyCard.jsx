@@ -51,7 +51,7 @@ const ContentDate = tw.div`
 `;
 
 const ContentTitle = tw.div`
-  text-2xl
+  text-xl
   font-bold
   mt-4
 `;
