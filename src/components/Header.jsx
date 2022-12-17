@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-import logo from '../assets/logo192.png';
+import logo from '../assets/codibuddy-resize.png';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
@@ -13,8 +13,8 @@ const Header = () => {
   const GuestNav = () => {
     return (
       <>
-        <Button>로그인</Button>
-        <Button>회원가입</Button>
+        <NavButton>로그인</NavButton>
+        <NavButton>회원가입</NavButton>
       </>
     );
   };
@@ -22,8 +22,8 @@ const Header = () => {
   const MemberNav = () => {
     return (
       <>
-        <Button>새 글 쓰기</Button>
-        <Button>마이페이지</Button>
+        <NavButton>새 글 쓰기</NavButton>
+        <NavButton>마이페이지</NavButton>
       </>
     );
   };
@@ -42,7 +42,8 @@ const MyHeader = tw.header`
 w-screen
 h-16
 p-3
-border
+border-b
+border-b-inherit
 flex
 justify-between
 items-center
@@ -53,8 +54,8 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const Button = tw.button`
-ml-3
+const NavButton = tw.button`
+m-4
 `;
 
 export default Header;
