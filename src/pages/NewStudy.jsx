@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React from 'react';
 // import styled from 'styled-components';
 // import tw from 'tailwind-styled-components';
@@ -47,6 +48,56 @@
 //   'Zeplin',
 //   'Jest',
 // ];
+=======
+import React from 'react';
+import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
+import { useForm } from 'react-hook-form';
+import Button from './../components/Button';
+// import { languages } from '../utils/languages';
+import {
+  DateSelect,
+  DepositSelect,
+  DurationSelect,
+  HeadcountSelect,
+  PositionSelect,
+  PlaceSelect,
+} from './../components/StudyInfoInput';
+
+const languages = [
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Vue',
+  'Svelt',
+  'Nodejs',
+  'Nextjs',
+  'Java',
+  'Spring',
+  'Go',
+  'Nestjs',
+  'Kotlin',
+  'Express',
+  'MySQL',
+  'MongoDB',
+  'Python',
+  'Django',
+  'php',
+  'GraphQL',
+  'Firebase',
+  'Flutter',
+  'Swift',
+  'ReactNative',
+  'Unity',
+  'AWS',
+  'Kubernetes',
+  'Docker',
+  'Git',
+  'Figma',
+  'Zeplin',
+  'Jest',
+];
+>>>>>>> 9b1f62b21f1490e5f434b5363464212020f1d41c
 
 // const NewStudy = () => {
 //   const { register, handleSubmit } = useForm();
@@ -68,6 +119,7 @@
 //       </div>
 //     );
 
+<<<<<<< HEAD
 //     return (
 //       <>
 //         <p className='my-2'>기술 스택</p>
@@ -123,6 +175,63 @@
 //     </>
 //   );
 // };
+=======
+    return (
+      <>
+        <p className='my-2'>기술 스택</p>
+        <div className='border border-solid border-inherit px-1 py-3 rounded'>
+          {languages.map((item, idx) => {
+            return <CategoryInput key={idx} language={item} />;
+          })}
+        </div>
+      </>
+    );
+  };
+  return (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Discription>1. 스터디 기본 정보를 입력해주세요.</Discription>
+        <FormWrap>
+          <InputWrap>
+            <PositionSelect label='포지션' {...register('position')} />
+            <HeadcountSelect label='최대 인원' {...register('headcount')} />
+          </InputWrap>
+          <InputWrap>
+            <PlaceSelect label='진행 방식' {...register('place')} />
+            <DateSelect label='시작일' {...register('startDate')} />
+          </InputWrap>
+          <InputWrap>
+            <DurationSelect label='진행 기간' {...register('duration')} />
+            <DepositSelect label='예치금' {...register('deposit')} />
+          </InputWrap>
+          <div>
+            <CategorySelect />
+          </div>
+        </FormWrap>
+        <Discription>2. 스터디에 대해 설명해주세요.</Discription>
+        <FormWrap>
+          <TitleInput
+            name='title'
+            id='title'
+            placeholder='제목을 적어주세요.'
+            {...register('title')}
+          />
+          <div>
+            <ContentInput
+              placeholder='내용을 적어주세요.'
+              {...register('content')}
+            />
+          </div>
+        </FormWrap>
+        <div className='flex justify-end'>
+          <Button type='cancle' text='작성취소' onClick={CancleSubmit} />
+          <Button type='basic' text='등록하기' />
+        </div>
+      </form>
+    </>
+  );
+};
+>>>>>>> 9b1f62b21f1490e5f434b5363464212020f1d41c
 
 // export default NewStudy;
 
@@ -139,10 +248,17 @@
 // w-full
 // `;
 
+<<<<<<< HEAD
 // const InputWrap = tw.div`
 //   flex
 //   my-2
 // `;
+=======
+const InputWrap = tw.div`
+flex
+my-2
+`;
+>>>>>>> 9b1f62b21f1490e5f434b5363464212020f1d41c
 
 // const TitleInput = tw.input`
 // w-full

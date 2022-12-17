@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-import logo from '../assets/logo192.png';
+import logo from '../assets/codibuddy-resize.png';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
