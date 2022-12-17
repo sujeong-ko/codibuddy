@@ -4,12 +4,9 @@ import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import Payment from './pages/Payment';
 import NewStudy from './pages/NewStudy';
-<<<<<<< HEAD
 import Login from './components/Login';
 import Register from './components/Register';
-=======
 import StudyDetail from './pages/StudyDetail';
->>>>>>> 9b1f62b21f1490e5f434b5363464212020f1d41c
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
