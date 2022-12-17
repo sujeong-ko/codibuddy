@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
-import './Login.css';
 
 class Login extends Component {
   // state = {
