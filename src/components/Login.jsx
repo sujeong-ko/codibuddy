@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
 
@@ -121,7 +120,7 @@ h-full
 `;
 
 const LoginModal = tw.div`
-w-2/5
+w-2/6
 h-5/6
 bg-white
 relative
