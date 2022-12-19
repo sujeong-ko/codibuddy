@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
 
-class button extends Component {
+class ModalButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,4 +27,4 @@ class button extends Component {
   }
 }
 
-export default button;
+export default ModalButton;
