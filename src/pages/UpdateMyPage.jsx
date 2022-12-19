@@ -1,6 +1,5 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
-import style from './UpdateMyPage.css';
 import userImage from '../assets/user-flat.png';
 
 const UpdateMyPage = () => {
