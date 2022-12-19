@@ -1,13 +1,14 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
-import Button from './Button';
+import Button from './Button.jsx';
 import Comment from './Comment';
 
+const comments = [
+  { author: '죠리퐁', body: '저도 하고싶어여' },
+  { author: '버블티', body: '재밌겠다' },
+];
+
 const CommentList = () => {
-  const comments = [
-    { author: '죠리퐁', body: '저도 하고싶어여' },
-    { author: '버블티', body: '재밌겠다' },
-  ];
   return (
     <CommentWrap>
       <div className='font-bold text-lg'>댓글</div>

@@ -2,25 +2,26 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
-import Button from '../components/Button';
+import Button from '../components/Button.jsx';
 import CommentList from '../components/CommentList';
+
+const studyInfo = {
+  title: '사이드 프로젝트 프론트 팀원 구합니다!',
+  author: '리액트짱이될거야',
+  createdDate: '2022-12-16',
+  position: 'frontEnd',
+  place: 'online',
+  headcount: 3,
+  startDate: '2022-12-20',
+  duration: 1,
+  deposit: 1000,
+  language: ['JavaScript', 'React', 'Java'],
+  content:
+    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, eligendi dolor optio voluptate, in quo voluptatem sit? Facere officiis id adipisci ullam aliquid?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, eligendi dolor optio voluptate, in quo voluptatem sit? Facere officiis id adipisci ullam aliquid?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, eligendi dolor optio voluptate, in quo voluptatem sit? Facere officiis id adipisci ullam aliquid?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, elLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, elLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, elLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, el',
+};
 
 const StudyDetail = () => {
   const navigate = useNavigate();
-  const studyInfo = {
-    title: '사이드 프로젝트 프론트 팀원 구합니다!',
-    author: '리액트짱이될거야',
-    createdDate: '2022-12-16',
-    position: 'frontEnd',
-    place: 'online',
-    headcount: 3,
-    startDate: '2022-12-20',
-    duration: 1,
-    deposit: 1000,
-    language: ['JavaScript', 'React', 'Java'],
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, eligendi dolor optio voluptate, in quo voluptatem sit? Facere officiis id adipisci ullam aliquid?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, eligendi dolor optio voluptate, in quo voluptatem sit? Facere officiis id adipisci ullam aliquid?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, eligendi dolor optio voluptate, in quo voluptatem sit? Facere officiis id adipisci ullam aliquid?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, elLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, elLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, elLorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi quod magnam itaque molestias suscipit mollitia, el',
-  };
 
   return (
     <>
