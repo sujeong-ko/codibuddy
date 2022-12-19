@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { languages } from '../utils/languages';
 import Button from '../components/Button.jsx';
 import { useNavigate } from 'react-router-dom';
+import { DevisionDescription, PageTitle } from '../styles/CommonStyles.jsx';
 
 //해당 스터디 정보에서 아래만 데이터만 받아오기
 const studyInfo = {
@@ -22,10 +23,10 @@ const Payment = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Discription className='flex justify-center text-2xl'>
+      <PageTitle>
         <span>예치금 결제하기</span>
-      </Discription>
-      <Discription>1. 참여할 스터디</Discription>
+      </PageTitle>
+      <DevisionDescription>1. 참여할 스터디</DevisionDescription>
       <StudyWrap>
         <div className='text-2xl font-bold'>{studyInfo.title}</div>
         <StudyInfoDetail>
@@ -43,7 +44,7 @@ const Payment = () => {
           ))}
         </ul>
       </StudyWrap>
-      <Discription>2. 예치금</Discription>
+      <DevisionDescription>2. 예치금</DevisionDescription>
       <PaymentDetailDescription>
         <span>- 시작 전에 스터디가 취소되면 예치금이 자동 환불됩니다. </span>
         <span>
@@ -55,7 +56,7 @@ const Payment = () => {
           {studyInfo.deposit.toLocaleString()}원
         </span>
       </div>
-      <Discription>3. 예치금 결제</Discription>
+      <DevisionDescription>3. 예치금 결제</DevisionDescription>
       <PaymentAmountDetail>
         <span>참가 예치금</span>
         <span>{studyInfo.deposit.toLocaleString()}원</span>
@@ -68,26 +69,18 @@ const Payment = () => {
         <span>결제 후 포인트</span>
         <span>{(userPoint - studyInfo.deposit).toLocaleString()} 포인트</span>
       </PaymentAmountDetail>
-      <div className='flex justify-center'>
-        <Button
-          onClick={() => {
-            // order db에 post 요청?
-            navigate('/');
-          }}
-          text={`${studyInfo.deposit.toLocaleString()}원 결제하기`}
-        />
-      </div>
+      <Button
+        onClick={() => {
+          // order db에 post 요청?
+          navigate('/payment/complete');
+        }}
+        text={`${studyInfo.deposit.toLocaleString()}원 결제하기`}
+      />
     </>
   );
 };
 
 export default Payment;
-
-const Discription = tw.div`
-font-bold
-text-xl
-my-6
-`;
 
 const StudyWrap = tw.div`
 border

@@ -23,7 +23,7 @@ const CancleButton = css`
 
 const MyButton = styled.button`
   padding: 15px;
-  margin: 10px 0 10px 15px;
+  margin: 15px 0 10px 10px;
   border-radius: 8px;
   font-size: 20px;
   font-weight: bold;
