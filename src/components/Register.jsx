@@ -266,5 +266,4 @@ border-none
 //   width: 24px;
 //   height: 25px;
 // }
-
 export default Register;
