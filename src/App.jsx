@@ -7,6 +7,7 @@ import NewStudy from './pages/NewStudy';
 import Login from './components/Login';
 import Register from './components/Register';
 import StudyDetail from './pages/StudyDetail';
+import UpdateMyPage from './pages/UpdateMyPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path='payment' element={<Payment />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
+            <Route path='update-mypage' element={<UpdateMyPage />} />
           </Route>
         </Routes>
       </div>
