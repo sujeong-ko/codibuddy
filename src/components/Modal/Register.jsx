@@ -3,9 +3,19 @@ import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import modalSlice from '../../redux/modalSlice.jsx';
 
 const Register = () => {
-  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => {
+    return state.modal.isOpen;
+  });
+  const close = () => {
+    dispatch(modalSlice.actions.change(!isOpen));
+  };
+
+  const { register } = useForm();
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (

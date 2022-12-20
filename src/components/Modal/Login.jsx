@@ -5,33 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 
 const Login = () => {
-  // state = {
-  //   email: '',
-  //   password: '',
-  // };
-
-  // const loginHandler = (e) => {
-  //   const { name, value } = e.target;
-  //   this.setState({ [name]: value });
-  // };
-
-  // ////계산된 속성명 사용
-
-  // const loginClickHandler = () => {
-  //   const { email, password } = this.state;
-  //   fetch('http://10.58.2.17:8000/auth/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       email,
-  //       password,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => console.log(res));
-  // };
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => {
     return state.modal.isOpen;
@@ -100,7 +73,7 @@ const Login = () => {
                 </div>
               </div> */}
               <S.LoginEnd>
-                <S.LoginLine>
+                <S.LoginLine onClick={close}>
                   회원이 아니신가요? <Link to='/register'>회원가입</Link>
                 </S.LoginLine>
               </S.LoginEnd>
