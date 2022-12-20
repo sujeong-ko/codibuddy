@@ -5,6 +5,7 @@ import { store } from './redux/configureStore';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GlobalStyles } from './styles/GlobalStyles';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 
 const container = document.getElementById('root');
@@ -12,10 +13,13 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <GlobalStyles />
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <GlobalStyles />
+        <App />
+      </Provider>
+    </BrowserRouter>
+    ,
   </React.StrictMode>,
 );
 

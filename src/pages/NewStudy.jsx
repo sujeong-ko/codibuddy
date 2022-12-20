@@ -1,8 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { useForm } from 'react-hook-form';
-import Button from './../components/Button';
+import Button from './../components/Button.jsx';
 import {
   DateSelect,
   DepositSelect,
@@ -11,57 +12,26 @@ import {
   PositionSelect,
   PlaceSelect,
 } from './../components/StudyInfoInput';
-
-const languages = [
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Vue',
-  'Svelt',
-  'Nodejs',
-  'Nextjs',
-  'Java',
-  'Spring',
-  'Go',
-  'Nestjs',
-  'Kotlin',
-  'Express',
-  'MySQL',
-  'MongoDB',
-  'Python',
-  'Django',
-  'php',
-  'GraphQL',
-  'Firebase',
-  'Flutter',
-  'Swift',
-  'ReactNative',
-  'Unity',
-  'AWS',
-  'Kubernetes',
-  'Docker',
-  'Git',
-  'Figma',
-  'Zeplin',
-  'Jest',
-];
+import { languages } from '../utils/languages.jsx';
 
 const NewStudy = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => console.log(data);
-  const CancleSubmit = () => alert('작성을 취소하시겠습니까?');
+  const CancleSubmit = () => {
+    alert('작성을 취소하시겠습니까?');
+    navigate('/');
+  };
 
   const CategorySelect = () => {
-    const CategoryInput = ({ language }) => (
+    const CategoryInput = ({ language, value }) => (
       <div className='inline-block mr-1'>
         <label>
           <input
             className='m-2'
             {...register('language')}
             type='checkbox'
-            value={language}
+            value={value}
           />
           {language}
         </label>
@@ -73,7 +43,13 @@ const NewStudy = () => {
         <p className='my-2'>기술 스택</p>
         <div className='border border-solid border-inherit px-1 py-3 rounded'>
           {languages.map((item, idx) => {
-            return <CategoryInput key={idx} language={item} />;
+            return (
+              <CategoryInput
+                key={idx}
+                language={item.name}
+                value={item.value}
+              />
+            );
           })}
         </div>
       </>
@@ -126,8 +102,6 @@ const NewStudy = () => {
 
 export default NewStudy;
 
-// <div class="relative">
-// <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
 const Discription = tw.div`
 font-bold
 text-lg

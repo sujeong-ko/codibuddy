@@ -5,14 +5,11 @@ import { languages } from '../utils/languages';
 const LanguageNav = () => {
   return (
     <Wrap>
-      {languages?.map((data) => {
-        console.log(data.name);
-        <Image key={data.name} src={data.img}></Image>;
-      })}
-      <Image src={languages[0].img}></Image>
-      <Image src={languages[1].img}></Image>
-      <Image src={languages[3].img}></Image>
-      <Image src={languages[4].img}></Image>
+      {languages?.map((data) => (
+        <ImageWrap key={data.name}>
+          <Image src={data.img}></Image>
+        </ImageWrap>
+      ))}
     </Wrap>
   );
 };
@@ -26,9 +23,17 @@ gap-5
 p-2
 items-center
 min-h-[33px]
+w-fit
+border-b-2
 `;
+const ImageWrap = tw.div`
+bg-red-400
+flex-1
+gap-2
+w-8
 
+`;
 const Image = tw.img`
-  h-[2rem]
-  cursor-pointer
+h-[2rem]
+cursor-pointer
 `;
