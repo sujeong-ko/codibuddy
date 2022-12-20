@@ -1,16 +1,18 @@
 import React from 'react';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import MyPage from './pages/MyPage';
-import Payment from './pages/Payment/Payment';
-import PaymentComplete from './pages/Payment/PaymentComplete';
-import NewStudy from './pages/NewStudy/NewStudy.jsx';
-import Login from './components/Modal/Login';
-import Register from './components/Modal/Register';
-import StudyDetail from './pages/StudyDetail/StudyDetail.jsx';
-import UpdateMyPage from './pages/UpdateMyPage/UpdateMyPage';
 import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import {
+  Home,
+  MyPage,
+  Payment,
+  PaymentComplete,
+  StudyDetail,
+  UpdateMyPage,
+  NewStudy,
+} from './pages';
+import Login from './components/Modal/Login';
+import Register from './components/Modal/Register';
+import Layout from './components/Layout';
 
 function App() {
   const loginIsOpen = useSelector((state) => state.modal.loginIsOpen);
