@@ -1,8 +1,45 @@
 import React from 'react';
-import tw from 'tailwind-styled-components';
 import { Link } from 'react-router-dom';
+import * as S from './Modal.style';
+import { useForm } from 'react-hook-form';
+import { languages } from '../utils/languages.jsx';
 
 const Register = () => {
+  const { register, handleSubmit } = useForm();
+
+  const CategorySelect = () => {
+    const CategoryInput = ({ language, value }) => (
+      <div className='inline-block mr-1'>
+        <label>
+          <input
+            className='m-2'
+            {...register('language')}
+            type='checkbox'
+            value={value}
+          />
+          {language}
+        </label>
+      </div>
+    );
+
+    return (
+      <>
+        <p className='my-2'>기술 스택</p>
+        <div className='border border-solid border-inherit px-1 py-3 rounded'>
+          {languages.map((item, idx) => {
+            return (
+              <CategoryInput
+                key={idx}
+                language={item.name}
+                value={item.value}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
   // state = {
   //   email: "",
   //   password: "",
@@ -40,18 +77,18 @@ const Register = () => {
         ////<div className="modalContents" onClick={isOpen}> 로그인 화면은 버튼 클릭해서 들어오면
         /// true인 상태로 있어서 화면이 안꺼진다.
 
-        <ModalMain>
+        <S.ModalMain>
           <div
           // onClick={close}
           >
-            <RegisterModal>
-              <Close onClick={close}>&times;</Close>
-              <ModalContents
+            <S.ModalDiv>
+              <S.Close onClick={close}>&times;</S.Close>
+              <S.ModalContents
               // onClick={isOpen}
               >
-                <RegisterTitle>회원가입</RegisterTitle>
-                <TitleText id='IDtext'>ID</TitleText>
-                <Input
+                <S.ModalTitle>회원가입</S.ModalTitle>
+                <S.TitleText id='IDtext'>ID</S.TitleText>
+                <S.Input
                   name='ID'
                   className='input'
                   id='idInput'
@@ -60,8 +97,8 @@ const Register = () => {
                   // onChange={this.loginHandler}
                 />
 
-                <TitleText id='PWtext'>Password</TitleText>
-                <Input
+                <S.TitleText id='PWtext'>Password</S.TitleText>
+                <S.Input
                   name='password'
                   className='input'
                   id='passwordInput'
@@ -70,8 +107,8 @@ const Register = () => {
                   // onChange={this.loginHandler}
                 />
 
-                <TitleText id='PWChecktext'>Password Check</TitleText>
-                <Input
+                <S.TitleText id='PWChecktext'>Password Check</S.TitleText>
+                <S.Input
                   name='PWcheck'
                   className='input'
                   id='PWCheckInput'
@@ -80,8 +117,8 @@ const Register = () => {
                   // onChange={this.loginHandler}
                 />
 
-                <TitleText id='nicktext'>Nickname</TitleText>
-                <Input
+                <S.TitleText id='nicktext'>Nickname</S.TitleText>
+                <S.Input
                   name='nickname'
                   className='input'
                   id='nicknameInput'
@@ -90,8 +127,8 @@ const Register = () => {
                   // onChange={this.loginHandler}
                 />
 
-                <TitleText id='emailtext'>Email</TitleText>
-                <Input
+                <S.TitleText id='emailtext'>Email</S.TitleText>
+                <S.Input
                   name='email'
                   className='input'
                   id='emailInput'
@@ -100,170 +137,23 @@ const Register = () => {
                   // onChange={this.loginHandler}
                 />
 
-                <RegisterBtn
+                <div>
+                  <CategorySelect />
+                </div>
+
+                <S.ModalBtn
                 // onClick={this.loginClickHandler}
                 >
                   {' '}
                   회원가입{' '}
-                </RegisterBtn>
-              </ModalContents>
-            </RegisterModal>
+                </S.ModalBtn>
+              </S.ModalContents>
+            </S.ModalDiv>
           </div>
-        </ModalMain>
+        </S.ModalMain>
       }
     </>
   );
 };
 
-const ModalMain = tw.div`
-fixed top-0 left-0 right-0
-bg-gray-500/50
-h-full
-`;
-
-const RegisterModal = tw.div`
-w-2/5
-h-5/6
-bg-white
-relative
-box-border
-mt-20
-ml-auto
-mb-auto
-mr-auto
-p-2
-
-`;
-
-const RegisterTitle = tw.div`
-mt-1
-text-lg
-text-[#52b4d0]
-leading-loose
-text-center
-`;
-
-const Close = tw.span`
-float-right
-text-sm
-`;
-
-const ModalContents = tw.div`
-mt-10
-ml-auto
-mr-auto
-mb-auto
-relative
-pr-8
-pl-8
-pb-7
-box-border
-flex
-justify-center
-flex-col
-`;
-
-const Input = tw.input`
-placeholder-shown:bg-slate-50
-rounded-sm
-w-full
-h-3/5
-border-1
-border-[#e5e5e5]
-pt-1
-pb-1
-pl-1
-outline-0
-box-border
-`;
-
-const TitleText = tw.div`
-mt-2
-text-base
-text-black
-leading-loose
-`;
-
-const RegisterBtn = tw.button`
-h-3/7
-text-base
-pt-2
-pb-2
-cursor-pointer
-bg-[#52b4d0]
-text-white
-leading-loose
-mt-10
-mb-2
-rounded-sm
-border-none
-`;
-
-//비밀번호 찾기
-// .loginMid {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// }
-
-// 자동로그인
-// .autoLogin
-//   font-size: 12px;
-//   color: #8d8d8d;
-//   line-height: 3;
-// }
-
-//SNS 연동
-
-// .socialBox {
-//   margin-bottom: 30px;
-// }
-// .kakao {
-//   background-color: #feec34;
-//   border-color: #feec34;
-//   height: 40px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   box-sizing: border-box;
-//   margin-bottom: 10px;
-//   border-radius: 3px;
-// }
-
-// .kakaoLogo {
-//   width: 24px;
-//   height: 25px;
-// }
-// .kakaoText {
-//   width: 300px;
-//   font-size: 15px;
-//   text-align: center;
-//   display: inline-block;
-//   box-sizing: border-box;
-// }
-
-// .facebook {
-//   background-color: #21538a;
-//   border-color: #21538a;
-//   height: 40px;
-//   display: flex;
-//   justify-content: center;
-//   box-sizing: border-box;
-//   color: #fff;
-//   border-radius: 3px;
-// }
-// .facebookText {
-//   padding-top: 12px;
-//   width: 310px;
-//   color: #fff;
-//   font-size: 15px;
-//   text-align: center;
-//   box-sizing: border-box;
-// }
-
-// .facebookLogo {
-//   padding-top: 7px;
-//   width: 24px;
-//   height: 25px;
-// }
 export default Register;
