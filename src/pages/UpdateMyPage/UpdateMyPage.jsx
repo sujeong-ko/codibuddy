@@ -1,8 +1,45 @@
 import React from 'react';
 import userImage from '../../assets/userFlat.png';
 import * as S from './UpdateMyPage.style';
+import { useForm } from 'react-hook-form';
+import { languages } from '../../utils/languages.jsx';
 
 const UpdateMyPage = () => {
+  const { register } = useForm();
+
+  const CategorySelect = () => {
+    const CategoryInput = ({ language, value }) => (
+      <div className='inline-block mr-1'>
+        <label>
+          <input
+            className='m-2'
+            {...register('language')}
+            type='checkbox'
+            value={value}
+          />
+          {language}
+        </label>
+      </div>
+    );
+
+    return (
+      <>
+        <p className='my-2'>기술 스택</p>
+        <div className='border border-solid border-inherit px-1 py-3 rounded'>
+          {languages.map((item, idx) => {
+            return (
+              <CategoryInput
+                key={idx}
+                language={item.name}
+                value={item.value}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
   return (
     <S.UpdatePage>
       <S.ProfileHead>
@@ -50,15 +87,9 @@ const UpdateMyPage = () => {
           // onChange={this.loginHandler}
         />
 
-        <S.TitleText id='techStack'>기술스택</S.TitleText>
-        <S.Input
-          name='techStack'
-          className='input'
-          id='techStackInput'
-          type='text'
-          placeholder='기술을 선택해주세요'
-          // onChange={this.loginHandler}
-        />
+        <div>
+          <CategorySelect />
+        </div>
 
         <S.SaveBtn
         // onClick={this.loginClickHandler}
