@@ -9,12 +9,12 @@ z-50;
 
 const ModalDiv = tw.div`
 absolute
-w-1/2
+w-1/3
 h-5/6
 bg-white
 box-border
 mt-20
-ml-auto
+ml-20
 mb-20
 mr-auto
 p-2
@@ -31,7 +31,9 @@ text-center
 
 const Close = tw.span`
 float-right
-text-sm
+text-2xl
+cursor-pointer
+mr-2
 `;
 
 const ModalContents = tw.div`
