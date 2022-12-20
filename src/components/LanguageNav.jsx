@@ -19,19 +19,18 @@ export default LanguageNav;
 const Wrap = tw.div`
 sticky
 flex
+
 gap-5
 p-2
 items-center
 min-h-[33px]
 w-fit
-border-b-2
+flex-wrap
 `;
 const ImageWrap = tw.div`
-bg-red-400
-flex-1
+flex
 gap-2
 w-8
-
 `;
 const Image = tw.img`
 h-[2rem]
