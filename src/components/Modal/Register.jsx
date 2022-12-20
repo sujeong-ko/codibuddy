@@ -8,11 +8,11 @@ import modalSlice from '../../redux/modalSlice.jsx';
 
 const Register = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => {
-    return state.modal.isOpen;
+  const registerIsOpen = useSelector((state) => {
+    return state.modal.registerIsOpen;
   });
   const close = () => {
-    dispatch(modalSlice.actions.change(!isOpen));
+    dispatch(modalSlice.actions.registerToggle(!registerIsOpen));
   };
 
   const { register } = useForm();

@@ -13,7 +13,8 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const isOpen = useSelector((state) => state.modal.isOpen);
+  const loginIsOpen = useSelector((state) => state.modal.loginIsOpen);
+  const registerIsOpen = useSelector((state) => state.modal.registerIsOpen);
   return (
     <div className='App'>
       <Routes>
@@ -29,7 +30,8 @@ function App() {
           <Route path='update-mypage' element={<UpdateMyPage />} />
         </Route>
       </Routes>
-      {isOpen ? <Login /> : null}
+      {loginIsOpen ? <Login /> : null}
+      {registerIsOpen ? <Register /> : null}
     </div>
   );
 }

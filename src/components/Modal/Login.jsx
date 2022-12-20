@@ -6,11 +6,11 @@ import modalSlice from '../../redux/modalSlice.jsx';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => {
-    return state.modal.isOpen;
+  const loginIsOpen = useSelector((state) => {
+    return state.modal.loginIsOpen;
   });
   const close = () => {
-    dispatch(modalSlice.actions.change(!isOpen));
+    dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
   };
 
   return (
