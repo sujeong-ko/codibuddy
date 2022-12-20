@@ -28,7 +28,7 @@ const Header = () => {
   };
   return (
     <MyHeader>
-      <Logo src={logo} onClick={goToHome} />
+      <Logo src={logo} alt='코디버디 로고' onClick={goToHome} />
       <nav>
         <GuestNav />
         {/* <MemberNav /> */}
