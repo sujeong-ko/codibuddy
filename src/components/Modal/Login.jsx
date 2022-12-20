@@ -1,45 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
+// react responsive modal
 
 const Login = () => {
-  // state = {
-  //   email: '',
-  //   password: '',
-  // };
-
-  // const loginHandler = (e) => {
-  //   const { name, value } = e.target;
-  //   this.setState({ [name]: value });
-  // };
-
-  // ////계산된 속성명 사용
-
-  // const loginClickHandler = () => {
-  //   const { email, password } = this.state;
-  //   fetch('http://10.58.2.17:8000/auth/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       email,
-  //       password,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => console.log(res));
-  // };
-
   return (
     <>
-      {/* // isOpen ?
-    ////만약 isopen(this.state.isModalOpen)이 true일때 코드를 실행 false면  null
-    /// <div onClick={close}> 로그인창 말고 회색 바탕을 누를시 모달이 꺼지게 만듬
-    ///<span className="close" onClick={close}>&times;</span> x버튼 누를시 꺼짐
-    ////<div className="modalContents" onClick={isOpen}> 로그인 화면은 버튼 클릭해서 들어오면
-    /// true인 상태로 있어서 화면이 안꺼진다. */}
-
       <S.ModalMain>
         <div
         // onClick={close}
