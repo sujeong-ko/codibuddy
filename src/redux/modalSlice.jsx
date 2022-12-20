@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isOpen: false,
+  loginIsOpen: false,
+  registerIsOpen: false,
 };
 
 const slice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    change: (state, action) => {
-      state.isOpen = action.payload;
+    loginToggle: (state, action) => {
+      state.loginIsOpen = action.payload;
+    },
+    registerToggle: (state, action) => {
+      state.registerIsOpen = action.payload;
     },
   },
 });

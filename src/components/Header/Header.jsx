@@ -7,15 +7,30 @@ import modalSlice from '../../redux/modalSlice.jsx';
 
 const LoginButton = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => {
-    return state.modal.isOpen;
+  const loginIsOpen = useSelector((state) => {
+    return state.modal.loginIsOpen;
   });
   return (
     <button
       onClick={() => {
-        dispatch(modalSlice.actions.change(!isOpen));
+        dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
       }}>
       로그인
+    </button>
+  );
+};
+
+const RegisterButton = () => {
+  const dispatch = useDispatch();
+  const registerIsOpen = useSelector((state) => {
+    return state.modal.registerIsOpen;
+  });
+  return (
+    <button
+      onClick={() => {
+        dispatch(modalSlice.actions.registerToggle(!registerIsOpen));
+      }}>
+      회원가입
     </button>
   );
 };
@@ -30,7 +45,7 @@ const Header = () => {
     return (
       <>
         <LoginButton />
-        <NavButton>회원가입</NavButton>
+        <RegisterButton />
       </>
     );
   };

@@ -6,12 +6,15 @@ import modalSlice from '../../redux/modalSlice.jsx';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state) => {
-    return state.modal.isOpen;
+  const loginIsOpen = useSelector((state) => {
+    return state.modal.loginIsOpen;
   });
   const close = () => {
-    dispatch(modalSlice.actions.change(!isOpen));
+    dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
   };
+  const registerIsOpen = useSelector((state) => {
+    return state.modal.registerIsOpen;
+  });
 
   return (
     <>
@@ -74,7 +77,15 @@ const Login = () => {
               </div> */}
               <S.LoginEnd>
                 <S.LoginLine onClick={close}>
-                  회원이 아니신가요? <Link to='/register'>회원가입</Link>
+                  회원이 아니신가요?{' '}
+                  <span
+                    onClick={() =>
+                      dispatch(
+                        modalSlice.actions.registerToggle(!registerIsOpen),
+                      )
+                    }>
+                    회원가입
+                  </span>
                 </S.LoginLine>
               </S.LoginEnd>
             </S.ModalContents>
