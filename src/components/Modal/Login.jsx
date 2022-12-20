@@ -12,6 +12,9 @@ const Login = () => {
   const close = () => {
     dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
   };
+  const registerIsOpen = useSelector((state) => {
+    return state.modal.registerIsOpen;
+  });
 
   return (
     <>
@@ -74,7 +77,15 @@ const Login = () => {
               </div> */}
               <S.LoginEnd>
                 <S.LoginLine onClick={close}>
-                  회원이 아니신가요? <Link to='/register'>회원가입</Link>
+                  회원이 아니신가요?{' '}
+                  <span
+                    onClick={() =>
+                      dispatch(
+                        modalSlice.actions.registerToggle(!registerIsOpen),
+                      )
+                    }>
+                    회원가입
+                  </span>
                 </S.LoginLine>
               </S.LoginEnd>
             </S.ModalContents>
