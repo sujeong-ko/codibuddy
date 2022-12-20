@@ -1,12 +1,12 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
-import userImage from '../assets/user-flat.png';
+import userImage from '../assets/userFlat.png';
 
 const UpdateMyPage = () => {
   return (
     <UpdatePage>
       <ProfileHead>
-        <ProfileImage src={userImage}>이미지</ProfileImage>
+        <ProfileImage src={userImage} />
         <ProfileName> 이름 </ProfileName>
       </ProfileHead>
       <ProfileDetail>
@@ -88,12 +88,14 @@ gap-2
 pb-5
 `;
 
-const ProfileImage = tw.div`
-
+const ProfileImage = tw.img`
+w-10
+h-10
+mr-3
 `;
 
 const ProfileName = tw.div`
-
+mt-2
 `;
 
 const ProfileDetail = tw.div`
