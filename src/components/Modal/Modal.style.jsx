@@ -97,6 +97,7 @@ const LoginLine = tw.div`
 text-[#bcbcbc]
 text-base
 mb-10
+cursor-pointer
 `;
 
 const ContentInput = tw.textarea`
