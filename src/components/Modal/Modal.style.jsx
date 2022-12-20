@@ -10,11 +10,11 @@ z-50;
 const ModalDiv = tw.div`
 absolute
 w-1/3
-h-4/5
+h-5/6
 bg-white
 box-border
 mt-20
-ml-auto
+ml-20
 mb-20
 mr-auto
 p-2
