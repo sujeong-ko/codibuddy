@@ -71,7 +71,7 @@ const Login = () => {
                 </div>
               </div> */}
             <S.LoginEnd>
-              <S.LoginLine>
+              <S.LoginLine onClick={close}>
                 회원이 아니신가요? <Link to='/register'>회원가입</Link>
               </S.LoginLine>
             </S.LoginEnd>
