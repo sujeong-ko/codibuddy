@@ -1,7 +1,24 @@
 import React from 'react';
 import logo from '../../assets/codibuddy-resize.png';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { MyHeader, Logo, NavButton } from './Header.styles.jsx';
+import modalSlice from '../../redux/modalSlice.jsx';
+
+const LoginButton = () => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => {
+    return state.modal.isOpen;
+  });
+  return (
+    <button
+      onClick={() => {
+        dispatch(modalSlice.actions.change(!isOpen));
+      }}>
+      로그인
+    </button>
+  );
+};
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,7 +29,7 @@ const Header = () => {
   const GuestNav = () => {
     return (
       <>
-        <NavButton>로그인</NavButton>
+        <LoginButton />
         <NavButton>회원가입</NavButton>
       </>
     );

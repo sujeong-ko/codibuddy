@@ -10,8 +10,10 @@ import Register from './components/Modal/Register';
 import StudyDetail from './pages/StudyDetail/StudyDetail.jsx';
 import UpdateMyPage from './pages/UpdateMyPage/UpdateMyPage';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const isOpen = useSelector((state) => state.modal.isOpen);
   return (
     <div className='App'>
       <Routes>
@@ -21,11 +23,13 @@ function App() {
           <Route path='new' element={<NewStudy />} />
           <Route path='mypage' element={<MyPage />} />
           <Route path='payment' element={<Payment />} />
+          <Route path='payment/complete' element={<PaymentComplete />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='update-mypage' element={<UpdateMyPage />} />
         </Route>
       </Routes>
+      {isOpen ? <Login /> : null}
     </div>
   );
 }
