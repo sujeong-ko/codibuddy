@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
+import {
+  CommentAuthor,
+  CommentContent,
+  CommentButton,
+} from './Comment.styles.jsx';
 
 const Comment = ({ author, body }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -40,18 +43,3 @@ const Comment = ({ author, body }) => {
 };
 
 export default Comment;
-
-const CommentAuthor = tw.span`
-block
-my-4
-font-bold
-`;
-
-const CommentContent = tw(CommentAuthor)`
-font-normal
-`;
-
-const CommentButton = tw.button`
-text-sm
-text-gray-400
-`;
