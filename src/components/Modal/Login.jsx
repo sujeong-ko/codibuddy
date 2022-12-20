@@ -6,48 +6,53 @@ import { useSelector, useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => {
+    return state.modal.isOpen;
+  });
+  const close = () => {
+    dispatch(modalSlice.actions.change(!isOpen));
+  };
+
   return (
     <>
       <S.ModalMain>
-        <div
-        // onClick={close}
-        >
-          <S.ModalDiv>
-            <S.Close onClick={close}>&times;</S.Close>
-            <S.ModalContents
-            // onClick={isOpen}
-            >
-              <S.ModalTitle>로그인</S.ModalTitle>
-              <S.TitleText>ID</S.TitleText>
-              <S.Input
-                name='email'
-                className='loginId'
-                type='text'
-                placeholder='아이디'
-                // onChange={this.loginHandler}
-              />
-              <S.TitleText>Password</S.TitleText>
-              <S.Input
-                name='password'
-                className='loginPw'
-                type='password'
-                placeholder='비밀번호'
-                // onChange={this.loginHandler}
-              />
-              {/* <div className='loginMid'>
+        <S.ModalDiv>
+          <S.Close onClick={close}>&times;</S.Close>
+          <S.ModalContents
+          // onClick={isOpen}
+          >
+            <S.ModalTitle>로그인</S.ModalTitle>
+            <S.TitleText>ID</S.TitleText>
+            <S.Input
+              name='email'
+              className='loginId'
+              type='text'
+              placeholder='아이디'
+              // onChange={this.loginHandler}
+            />
+            <S.TitleText>Password</S.TitleText>
+            <S.Input
+              name='password'
+              className='loginPw'
+              type='password'
+              placeholder='비밀번호'
+              // onChange={this.loginHandler}
+            />
+            {/* <div className='loginMid'>
                 <label className='autoLogin' htmlFor='hint'>
                   {' '}
                   <input type='checkbox' id='hint' /> 로그인 유지하기
                 </label>
                 <div className='autoLogin'>아이디/비밀번호 찾기</div>
               </div> */}
-              <S.ModalBtn
-              // onClick={this.loginClickHandler}
-              >
-                {' '}
-                LOGIN{' '}
-              </S.ModalBtn>
-              {/* <div className='socialBox'>
+            <S.ModalBtn
+            // onClick={this.loginClickHandler}
+            >
+              {' '}
+              LOGIN{' '}
+            </S.ModalBtn>
+            {/* <div className='socialBox'>
                 <div className='kakao'>
                   <img
                     className='kakaoLogo'
@@ -65,14 +70,13 @@ const Login = () => {
                   </div>
                 </div>
               </div> */}
-              <S.LoginEnd>
-                <S.LoginLine>
-                  회원이 아니신가요? <Link to='/register'>회원가입</Link>
-                </S.LoginLine>
-              </S.LoginEnd>
-            </S.ModalContents>
-          </S.ModalDiv>
-        </div>
+            <S.LoginEnd>
+              <S.LoginLine>
+                회원이 아니신가요? <Link to='/register'>회원가입</Link>
+              </S.LoginLine>
+            </S.LoginEnd>
+          </S.ModalContents>
+        </S.ModalDiv>
       </S.ModalMain>
     </>
   );
