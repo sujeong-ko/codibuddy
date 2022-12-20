@@ -77,6 +77,7 @@ ml-auto
 mr-auto
 mb-auto
 w-2/3
+h
 `;
 
 const ProfileHead = tw.div`
@@ -129,6 +130,7 @@ leading-loose
 `;
 
 const SaveBtn = tw.button`
+block
 h-3/7
 w-2/5
 text-base
