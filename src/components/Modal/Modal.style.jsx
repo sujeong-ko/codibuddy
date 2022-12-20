@@ -1,8 +1,7 @@
 import tw from 'tailwind-styled-components';
 
 const ModalMain = tw.div`
-fixed
-top-0 left-0 right-0
+fixed top-0 left-0 right-0
 bg-gray-500/50
 h-full
 z-50;
