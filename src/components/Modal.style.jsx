@@ -96,6 +96,18 @@ text-base
 mb-10
 `;
 
+const ContentInput = tw.textarea`
+w-full
+h-80
+min-h-fit
+border
+border-solid
+border-inherit
+p-2
+rounded
+resize-none
+`;
+
 export {
   ModalMain,
   ModalDiv,
@@ -107,6 +119,7 @@ export {
   ModalBtn,
   LoginEnd,
   LoginLine,
+  ContentInput,
 };
 
 //비밀번호 찾기

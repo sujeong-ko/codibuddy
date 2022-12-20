@@ -1,8 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
+import { useForm } from 'react-hook-form';
+import { languages } from '../utils/languages.jsx';
 
 const Register = () => {
+  const { register, handleSubmit } = useForm();
+
+  const CategorySelect = () => {
+    const CategoryInput = ({ language, value }) => (
+      <div className='inline-block mr-1'>
+        <label>
+          <input
+            className='m-2'
+            {...register('language')}
+            type='checkbox'
+            value={value}
+          />
+          {language}
+        </label>
+      </div>
+    );
+
+    return (
+      <>
+        <p className='my-2'>기술 스택</p>
+        <div className='border border-solid border-inherit px-1 py-3 rounded'>
+          {languages.map((item, idx) => {
+            return (
+              <CategoryInput
+                key={idx}
+                language={item.name}
+                value={item.value}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
   // state = {
   //   email: "",
   //   password: "",
@@ -99,6 +136,10 @@ const Register = () => {
                   placeholder='123@xxxx.com'
                   // onChange={this.loginHandler}
                 />
+
+                <div>
+                  <CategorySelect />
+                </div>
 
                 <S.ModalBtn
                 // onClick={this.loginClickHandler}
