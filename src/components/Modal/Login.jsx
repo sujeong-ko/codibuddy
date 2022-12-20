@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 // react responsive modal
+import { useSelector, useDispatch } from 'react-redux';
+import modalSlice from '../../redux/modalSlice.jsx';
 
 const Login = () => {
   return (
@@ -11,11 +13,7 @@ const Login = () => {
         // onClick={close}
         >
           <S.ModalDiv>
-            <S.Close
-            // onClick={close}
-            >
-              &times;
-            </S.Close>
+            <S.Close onClick={close}>&times;</S.Close>
             <S.ModalContents
             // onClick={isOpen}
             >
