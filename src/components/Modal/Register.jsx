@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 import { useForm } from 'react-hook-form';
-import { languages } from '../utils/languages.jsx';
+import { languages } from '../../utils/languages.jsx';
 
 const Register = () => {
   const { register, handleSubmit } = useForm();

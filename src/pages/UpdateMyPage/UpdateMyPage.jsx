@@ -1,5 +1,5 @@
 import React from 'react';
-import userImage from '../assets/userFlat.png';
+import userImage from '../../assets/userFlat.png';
 import * as S from './UpdateMyPage.style';
 
 const UpdateMyPage = () => {

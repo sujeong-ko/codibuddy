@@ -4,10 +4,10 @@ import Home from './pages/Home';
 import MyPage from './pages/MyPage';
 import Payment from './pages/Payment';
 import NewStudy from './pages/NewStudy';
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './components/Modal/Login';
+import Register from './components/Modal/Register';
 import StudyDetail from './pages/StudyDetail';
-import UpdateMyPage from './pages/UpdateMyPage';
+import UpdateMyPage from './pages/UpdateMyPage/UpdateMyPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
