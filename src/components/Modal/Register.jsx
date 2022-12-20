@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
 
 const Register = () => {
-  const { register, handleSubmit } = useForm();
+  const { register } = useForm();
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -40,33 +40,6 @@ const Register = () => {
     );
   };
 
-  // state = {
-  //   email: "",
-  //   password: "",
-  // };
-
-  // loginHandler = (e) => {
-  //   const { name, value } = e.target;
-  //   this.setState({ [name]: value });
-  // };   ////계산된 속성명 사용
-
-  // loginClickHandler = () => {
-  //   const { email, password } = this.state;
-  //   fetch("http://10.58.2.17:8000/auth/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email,
-  //       password,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => console.log(res));
-  // };
-
-  // const { isOpen, close } = this.props;   //아까 버튼에서 props로 가져온것
   return (
     <>
       {
