@@ -1,7 +1,7 @@
 import React from 'react';
-import { PageTitle, FlexCenterWrap } from '../styles/CommonStyles';
-import logo from '../assets/codibuddy-resize.png';
-import { StyledLink } from '../styles/CommonStyles';
+import { PageTitle, FlexCenterWrap } from '../../styles/CommonStyles';
+import logo from '../../assets/codibuddy-resize.png';
+import { StyledLink } from '../../styles/CommonStyles';
 
 const PaymentComplete = () => {
   return (

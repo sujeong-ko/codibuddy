@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
 import { useForm } from 'react-hook-form';
-import Button from './../components/Button.jsx';
+import { languages } from '../../utils/languages.jsx';
+import Button from '../../components/Button/Button.jsx';
 import {
   DateSelect,
   DepositSelect,
@@ -11,8 +10,14 @@ import {
   HeadcountSelect,
   PositionSelect,
   PlaceSelect,
-} from './../components/StudyInfoInput';
-import { languages } from '../utils/languages.jsx';
+} from '../../components/StudyInfoInput/StudyInfoInput.jsx';
+import {
+  Description,
+  FormWrap,
+  InputWrap,
+  TitleInput,
+  ContentInput,
+} from './NewStudy.styles.jsx';
 
 const NewStudy = () => {
   const navigate = useNavigate();
@@ -58,7 +63,7 @@ const NewStudy = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Discription>1. 스터디 기본 정보를 입력해주세요.</Discription>
+        <Description>1. 스터디 기본 정보를 입력해주세요.</Description>
         <FormWrap>
           <InputWrap>
             <PositionSelect label='포지션' {...register('position')} />
@@ -76,7 +81,7 @@ const NewStudy = () => {
             <CategorySelect />
           </div>
         </FormWrap>
-        <Discription>2. 스터디에 대해 설명해주세요.</Discription>
+        <Description>2. 스터디에 대해 설명해주세요.</Description>
         <FormWrap>
           <TitleInput
             name='title'
@@ -101,41 +106,3 @@ const NewStudy = () => {
 };
 
 export default NewStudy;
-
-const Discription = tw.div`
-font-bold
-text-lg
-my-5
-`;
-
-const FormWrap = tw.div`
-flex-col
-w-full
-`;
-
-const InputWrap = tw.div`
-  flex
-  my-2
-`;
-
-const TitleInput = tw.input`
-w-full
-border
-border-solid
-border-inherit
-p-2
-rounded
-mb-4
-`;
-
-const ContentInput = tw.textarea`
-w-full
-h-80
-min-h-fit
-border
-border-solid
-border-inherit
-p-2
-rounded
-resize-none
-`;

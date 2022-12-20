@@ -1,5 +1,11 @@
 import React from 'react';
-import tw from 'tailwind-styled-components';
+import {
+  Label,
+  InlineBlockBox,
+  WidthHalfWrap,
+  Select,
+  DateInput,
+} from './StudyInfoInput.styles.jsx';
 
 export const PositionSelect = React.forwardRef(
   ({ onChange, name, label }, ref) => (
@@ -79,37 +85,6 @@ export const DepositSelect = React.forwardRef(
     </InlineBlockBox>
   ),
 );
-
-const Label = tw.label`
-mr-2
-`;
-
-const InlineBlockBox = tw.div`
-inline-block
-`;
-
-const WidthHalfWrap = tw(InlineBlockBox)`
-w-1/2 
-mr-5
-`;
-
-const Select = tw.select`
-w-60
-border
-border-solid
-border-inherit
-p-1
-rounded
-`;
-
-const DateInput = tw.input`
-w-60
-border
-border-solid
-border-inherit
-p-1
-rounded
-`;
 
 DateSelect.displayName = 'DateSelect';
 DepositSelect.displayName = 'DepositSelect';

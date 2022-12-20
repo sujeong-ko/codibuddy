@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import tw from 'tailwind-styled-components';
-import logo from '../assets/codibuddy-resize.png';
+import logo from '../../assets/codibuddy-resize.png';
 import { useNavigate } from 'react-router-dom';
+import { MyHeader, Logo, NavButton } from './Header.styles.jsx';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,25 +36,5 @@ const Header = () => {
     </MyHeader>
   );
 };
-
-const MyHeader = tw.header`
-w-screen
-h-16
-p-3
-border-b
-border-b-inherit
-flex
-justify-between
-items-center
-`;
-
-const Logo = styled.img`
-  height: 3rem;
-  cursor: pointer;
-`;
-
-const NavButton = tw.button`
-m-4
-`;
 
 export default Header;

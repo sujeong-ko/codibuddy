@@ -1,9 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
-import Button from '../components/Button.jsx';
-import CommentList from '../components/CommentList';
+import Button from '../../components/Button/Button.jsx';
+import CommentList from '../../components/Comment/CommentList';
+import {
+  PostButton,
+  StudyContentSection,
+  StudyTitleSection,
+  StudyInfoList,
+  StudyInfoSection,
+  DivisionLine,
+} from './StudyDetail.styles.jsx';
 
 const studyInfo = {
   title: '사이드 프로젝트 프론트 팀원 구합니다!',
@@ -97,39 +103,3 @@ const StudyDetail = () => {
 };
 
 export default StudyDetail;
-
-const PostButton = tw.button`
-mr-4`;
-
-const StudyTitleSection = styled.div`
-  > div {
-    margin: 40px 0;
-  }
-`;
-
-const StudyInfoSection = tw.ul`
-grid grid-cols-2 gap-y-4`;
-
-const StudyInfoList = styled.li`
-  span {
-    &: first-child {
-      margin-right: 40px;
-    }
-    &: last-child {
-      font-weight: bold;
-    }
-  }
-`;
-
-const StudyContentSection = styled.div`
-  > div {
-    margin: 20px 0;
-  }
-`;
-
-const DivisionLine = tw.div`
-mt-6
-mb-10
-border-b-2
-border-grey-200
-`;

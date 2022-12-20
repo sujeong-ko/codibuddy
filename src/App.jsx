@@ -2,12 +2,12 @@ import React from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage';
-import Payment from './pages/Payment';
-import NewStudy from './pages/NewStudy';
+import Payment from './pages/Payment/Payment';
+import PaymentComplete from './pages/Payment/PaymentComplete';
+import NewStudy from './pages/NewStudy/NewStudy.jsx';
 import Login from './components/Login';
 import Register from './components/Register';
-import StudyDetail from './pages/StudyDetail';
-import PaymentComplete from './pages/PaymentComplete';
+import StudyDetail from './pages/StudyDetail/StudyDetail.jsx';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {

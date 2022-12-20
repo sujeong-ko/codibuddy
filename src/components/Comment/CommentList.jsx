@@ -1,7 +1,7 @@
 import React from 'react';
-import tw from 'tailwind-styled-components';
-import Button from './Button.jsx';
+import Button from '../Button/Button.jsx';
 import Comment from './Comment';
+import { CommentWrap, CommentInput } from './Comment.styles.jsx';
 
 const comments = [
   { author: '죠리퐁', body: '저도 하고싶어여' },
@@ -25,18 +25,3 @@ const CommentList = () => {
 };
 
 export default CommentList;
-
-const CommentWrap = tw.section`
-my-10
-`;
-
-const CommentInput = tw.input`
-w-full
-border
-border-solid
-border-gray-500
-p-4
-rounded
-mr-4
-my-6
-`;
