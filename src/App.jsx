@@ -2,13 +2,14 @@ import React from 'react';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import MyPage from './pages/MyPage';
-import Payment from './pages/Payment';
-import NewStudy from './pages/NewStudy';
+import Payment from './pages/Payment/Payment';
+import PaymentComplete from './pages/Payment/PaymentComplete';
+import NewStudy from './pages/NewStudy/NewStudy.jsx';
 import Login from './components/Modal/Login';
 import Register from './components/Modal/Register';
-import StudyDetail from './pages/StudyDetail';
+import StudyDetail from './pages/StudyDetail/StudyDetail.jsx';
 import UpdateMyPage from './pages/UpdateMyPage/UpdateMyPage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
