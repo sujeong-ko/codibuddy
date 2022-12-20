@@ -11,12 +11,12 @@ const LoginButton = () => {
     return state.modal.loginIsOpen;
   });
   return (
-    <button
+    <NavButton
       onClick={() => {
         dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
       }}>
       로그인
-    </button>
+    </NavButton>
   );
 };
 
@@ -26,12 +26,12 @@ const RegisterButton = () => {
     return state.modal.registerIsOpen;
   });
   return (
-    <button
+    <NavButton
       onClick={() => {
         dispatch(modalSlice.actions.registerToggle(!registerIsOpen));
       }}>
       회원가입
-    </button>
+    </NavButton>
   );
 };
 
