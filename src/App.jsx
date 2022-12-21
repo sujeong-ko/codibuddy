@@ -1,16 +1,22 @@
 import React from 'react';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import MyPage from './pages/MyPage';
-import Payment from './pages/Payment';
-import NewStudy from './pages/NewStudy';
-import Login from './components/Login';
-import Register from './components/Register';
-import StudyDetail from './pages/StudyDetail';
-import PaymentComplete from './pages/PaymentComplete';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {
+  Home,
+  MyPage,
+  Payment,
+  PaymentComplete,
+  StudyDetail,
+  UpdateMyPage,
+  NewStudy,
+} from './pages';
+import Login from './components/Modal/Login';
+import Register from './components/Modal/Register';
+import Layout from './components/Layout';
 
 function App() {
+  const loginIsOpen = useSelector((state) => state.modal.loginIsOpen);
+  const registerIsOpen = useSelector((state) => state.modal.registerIsOpen);
   return (
     <div className='App'>
       <Routes>
@@ -21,12 +27,12 @@ function App() {
           <Route path='mypage' element={<MyPage />} />
           <Route path='payment' element={<Payment />} />
           <Route path='payment/complete' element={<PaymentComplete />} />
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
+          <Route path='update-mypage' element={<UpdateMyPage />} />
         </Route>
       </Routes>
+      {loginIsOpen ? <Login /> : null}
+      {registerIsOpen ? <Register /> : null}
     </div>
   );
 }
-
 export default App;
