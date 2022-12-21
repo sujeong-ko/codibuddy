@@ -27,8 +27,6 @@ function App() {
           <Route path='mypage' element={<MyPage />} />
           <Route path='payment' element={<Payment />} />
           <Route path='payment/complete' element={<PaymentComplete />} />
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
           <Route path='update-mypage' element={<UpdateMyPage />} />
         </Route>
       </Routes>
