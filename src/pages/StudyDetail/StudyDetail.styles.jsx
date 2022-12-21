@@ -15,6 +15,9 @@ grid grid-cols-2 gap-y-4`;
 
 const StudyInfoList = styled.li`
   span {
+    @media not all and (min-width: 768px) {
+      display: block;
+    }
     &: first-child {
       margin-right: 40px;
     }

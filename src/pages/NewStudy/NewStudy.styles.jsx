@@ -14,6 +14,7 @@ w-full
 const InputWrap = tw.div`
   flex
   my-2
+  max-md:flex-col
 `;
 
 const TitleInput = tw.input`
