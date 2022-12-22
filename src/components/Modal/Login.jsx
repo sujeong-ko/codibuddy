@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
+import axios from 'axios';
 
 const Login = () => {
+  const [loginInfo, setLoginInfo] = useState({
+    user_id: '',
+    pw: '',
+  });
   const dispatch = useDispatch();
   const close = () => {
     dispatch(modalSlice.actions.loginToggle());
   };
-
+  const userIdHandler = (e) =>
+    setLoginInfo({ ...loginInfo, user_id: e.target.value });
+  const pwHandler = (e) => setLoginInfo({ ...loginInfo, pw: e.target.value });
+  const submitHandler = async () => {
+    try {
+      const { data } = await axios.post('api/users/login', loginInfo);
+      localStorage.setItem('token', data.token);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(modalSlice.actions.loginToggle());
+  };
   return (
     <>
       <S.ModalMain>
@@ -25,7 +42,8 @@ const Login = () => {
               className='loginId'
               type='text'
               placeholder='아이디'
-              // onChange={this.loginHandler}
+              value={loginInfo.user_id}
+              onChange={userIdHandler}
             />
             <S.TitleText>Password</S.TitleText>
             <S.Input
@@ -33,39 +51,10 @@ const Login = () => {
               className='loginPw'
               type='password'
               placeholder='비밀번호'
-              // onChange={this.loginHandler}
+              value={loginInfo.pw}
+              onChange={pwHandler}
             />
-            {/* <div className='loginMid'>
-                <label className='autoLogin' htmlFor='hint'>
-                  {' '}
-                  <input type='checkbox' id='hint' /> 로그인 유지하기
-                </label>
-                <div className='autoLogin'>아이디/비밀번호 찾기</div>
-              </div> */}
-            <S.ModalBtn
-            // onClick={this.loginClickHandler}
-            >
-              {' '}
-              LOGIN{' '}
-            </S.ModalBtn>
-            {/* <div className='socialBox'>
-                <div className='kakao'>
-                  <img
-                    className='kakaoLogo'
-                    src='/Images/SignIn/kakao.png'
-                  />
-                  <div className='kakaoText'>카카오 계정으로 신규가입</div>
-                </div>
-                <div className='facebook'>
-                  <img
-                    className='facebookLogo'
-                    src='/Images/SignIn/facebook.png'
-                  />
-                  <div className='facebookText'>
-                    페이스북 계정으로 신규가입
-                  </div>
-                </div>
-              </div> */}
+            <S.ModalBtn onClick={submitHandler}> LOGIN </S.ModalBtn>
             <S.LoginEnd>
               <S.LoginLine
                 onClick={() => {
