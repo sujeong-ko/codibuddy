@@ -38,8 +38,6 @@ const Register = () => {
     setRegisterInfo({ ...registerInfo, email: e.target.value });
 
   const submitHandler = async () => {
-    const result = await axios.post('/users/register', registerInfo);
-
     const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
     const isPasswordValid = registerInfo.pw.length >= 4;
 
@@ -49,6 +47,19 @@ const Register = () => {
 
     if (!isPasswordSame) {
       return alert('비밀번호가 일치하지 않습니다.');
+    }
+
+    try {
+      const result = await axios.post('api/users/register', registerInfo);
+      alert(`정상적으로 회원가입되었습니다.`);
+
+      // 로그인 페이지 이동
+      // window.location.href = "/login";
+    } catch (err) {
+      console.error(err.stack);
+      alert(
+        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
+      );
     }
   };
 
@@ -95,7 +106,6 @@ const Register = () => {
               <S.ModalTitle>회원가입</S.ModalTitle>
               <S.TitleText id='IDtext'>ID</S.TitleText>
               <S.Input
-                name='ID'
                 className='input'
                 id='idInput'
                 type='text'
@@ -106,7 +116,6 @@ const Register = () => {
 
               <S.TitleText id='PWtext'>Password</S.TitleText>
               <S.Input
-                name='password'
                 className='input'
                 id='passwordInput'
                 type='password'
@@ -117,7 +126,6 @@ const Register = () => {
 
               <S.TitleText id='PWChecktext'>Password Check</S.TitleText>
               <S.Input
-                name='PWcheck'
                 className='input'
                 id='PWCheckInput'
                 type='password'
@@ -128,7 +136,6 @@ const Register = () => {
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>
               <S.Input
-                name='nickname'
                 className='input'
                 id='nicknameInput'
                 type='text'
@@ -139,7 +146,6 @@ const Register = () => {
 
               <S.TitleText id='emailtext'>Email</S.TitleText>
               <S.Input
-                name='email'
                 className='input'
                 id='emailInput'
                 type='email'
@@ -152,12 +158,7 @@ const Register = () => {
                 <CategorySelect />
               </div>
 
-              <S.ModalBtn
-              // onClick={submitHandler}
-              >
-                {' '}
-                회원가입{' '}
-              </S.ModalBtn>
+              <S.ModalBtn onClick={submitHandler}> 회원가입 </S.ModalBtn>
             </S.ModalContents>
           </S.ModalDiv>
         </S.ModalMain>
