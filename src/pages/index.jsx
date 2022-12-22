@@ -3,5 +3,5 @@ export { default as Payment } from './Payment/Payment';
 export { default as PaymentComplete } from './Payment/PaymentComplete';
 export { default as StudyDetail } from './StudyDetail/StudyDetail';
 export { default as UpdateMyPage } from './UpdateMyPage/UpdateMyPage';
-export { default as Home } from './Home';
-export { default as MyPage } from './MyPage';
+export { default as Home } from './Home/Home';
+export { default as MyPage } from './MyPage/MyPage';
