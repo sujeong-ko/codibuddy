@@ -11,7 +11,6 @@ const Register = () => {
   const [registerInfo, setRegisterInfo] = useState({
     user_id: '',
     pw: '',
-    confirmPw: '',
     nickname: '',
     email: '',
   });
