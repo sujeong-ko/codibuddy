@@ -1,20 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const loginIsOpen = useSelector((state) => {
-    return state.modal.loginIsOpen;
-  });
   const close = () => {
-    dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
+    dispatch(modalSlice.actions.loginToggle());
   };
-  const registerIsOpen = useSelector((state) => {
-    return state.modal.registerIsOpen;
-  });
 
   return (
     <>
@@ -76,16 +70,12 @@ const Login = () => {
                 </div>
               </div> */}
               <S.LoginEnd>
-                <S.LoginLine onClick={close}>
-                  회원이 아니신가요?{' '}
-                  <span
-                    onClick={() =>
-                      dispatch(
-                        modalSlice.actions.registerToggle(!registerIsOpen),
-                      )
-                    }>
-                    회원가입
-                  </span>
+                <S.LoginLine
+                  onClick={() => {
+                    dispatch(modalSlice.actions.loginToggle());
+                    dispatch(modalSlice.actions.registerToggle());
+                  }}>
+                  회원이 아니신가요? <span>회원가입</span>
                 </S.LoginLine>
               </S.LoginEnd>
             </S.ModalContents>

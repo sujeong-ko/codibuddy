@@ -1,35 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-const StudyCard = (data) => {
-  return (
-    <>
-      <Content>
-        {/* <PostType>
-          <div></div>
-        </PostType> */}
-        <ContentHeader>
-          <ContentDate>시작일{data.startDate}</ContentDate>
-          <span>인원수{data.people}</span>
-          <ContentTitle>알고리즘 스터디 구해요.{data.title}</ContentTitle>
-        </ContentHeader>
-        <ContentDetail>
-          <ContentTags>#온라인</ContentTags>
-          <Languages>
-            <Tags>javascript</Tags>
-            <Tags>java</Tags>
-          </Languages>
-        </ContentDetail>
-        <Bottom>
-          <div>방장이름</div>
-          <div>조회수</div>
-        </Bottom>
-      </Content>
-    </>
-  );
-};
-
-export default StudyCard;
 
 const Content = tw.div`
   flex
@@ -90,3 +60,15 @@ const Bottom = styled.div`
     font-weight: 400;
   }
 `;
+
+export {
+  Content,
+  ContentDate,
+  ContentDetail,
+  ContentHeader,
+  ContentTags,
+  ContentTitle,
+  Languages,
+  Tags,
+  Bottom,
+};

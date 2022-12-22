@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 
 const Register = () => {
   const dispatch = useDispatch();
-  const registerIsOpen = useSelector((state) => {
-    return state.modal.registerIsOpen;
-  });
   const close = () => {
-    dispatch(modalSlice.actions.registerToggle(!registerIsOpen));
+    dispatch(modalSlice.actions.registerToggle());
   };
 
   const { register } = useForm();
