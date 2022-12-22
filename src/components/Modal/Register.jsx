@@ -37,9 +37,9 @@ const Register = () => {
   const emailHandler = (e) =>
     setRegisterInfo({ ...registerInfo, email: e.target.value });
 
-  // const submitHandler = async () => {
-  //   const result = await axios.post('/users/register', registerInfo);
-  // };
+  const submitHandler = async () => {
+    const result = await axios.post('/users/register', registerInfo);
+  };
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -141,12 +141,7 @@ const Register = () => {
                 <CategorySelect />
               </div>
 
-              <S.ModalBtn
-              // onClick={submitHandler}
-              >
-                {' '}
-                회원가입{' '}
-              </S.ModalBtn>
+              <S.ModalBtn onClick={submitHandler}> 회원가입 </S.ModalBtn>
             </S.ModalContents>
           </S.ModalDiv>
         </S.ModalMain>
@@ -156,30 +151,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// const [user_id, setuserID] = useState('');
-// const [email, setEmail] = useState('');
-// const [password, setPassword] = useState('');
-// const [nickname, setNickname] = useState('');
-// const [confirmPasword, setConfirmPasword] = useState('');
-// const dispatch = useDispatch();
-
-// const onIDHandler = (e) => {
-//   setuserID(e.currentTarget.value);
-// };
-
-// const onEmailHandler = (e) => {
-//   setEmail(e.currentTarget.value);
-// };
-
-// const onNicknameHandler = (e) => {
-//   setNickname(e.currentTarget.value);
-// };
-
-// const onPasswordHanlder = (e) => {
-//   setPassword(e.currentTarget.value);
-// };
-
-// const onConfirmPasswordHandler = (e) => {
-//   setConfirmPasword(e.currentTarget.value);
-// };
