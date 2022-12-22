@@ -24,9 +24,11 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, registerInfo);
+      console.log(data);
       const result = await axios.post('api/users/register', registerInfo);
       console.log(result);
+      dispatch(modalSlice.actions.registerToggle());
+      dispatch(modalSlice.actions.loginToggle());
     } catch (err) {
       console.log(err);
     }
