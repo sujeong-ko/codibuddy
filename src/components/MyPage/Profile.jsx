@@ -11,7 +11,6 @@ const Profile = () => {
           }
         />
         <UserInfo>닉네임</UserInfo>
-        <Setting>⚙️</Setting>
         <Logout>🔓</Logout>
         <SelfText>&#39;안녕하세요! 프론트엔드 지망생입니당!&#39;</SelfText>
       </ProfileMain>
@@ -24,13 +23,15 @@ export default Profile;
 const Wrap = tw.div`
 flex
 flex-col
+justify-center
+items-center
 w-full
 h-50
 border-b
-border-[#667288]
 `;
 const ProfileMain = tw.div`
 flex
+space-x-4
 `;
 const UserInfo = tw.div`
 flex
@@ -46,12 +47,7 @@ p-0.5
 m-4
 bg-[#667288]
 `;
-const Setting = tw.button`
-flex
-items-center
-justify-center
-ml-3
-`;
+
 const Logout = tw.button`
 flex
 items-center

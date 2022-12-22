@@ -8,28 +8,27 @@ flex
 flex-col
 items-center
 w-1/4
-bg-slate-300
+h-[350px]
+border
 `;
-
-const Menu = styled.div`
-  margin-top: 30px;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
+const Title = tw.div`
+mt-3
+w-3/4
+flex
+justify-start
+font-bold
+cursor-pointer
 `;
-const SidebarItem = styled.div`
-  margin: 2px 10px;
-  font-weight: 400;
-  padding: 5px;
-  cursor: pointer;
-  :hover {
-    color: #187f7f;
-  }
+const Menu = tw.div`
+`;
+const SidebarItem = tw.div`
+p-1
+cursor-pointer
+hover:text-[#52b4d0]
 `;
 
 const Sidebar = ({ view }) => {
   const [menus, setMenu] = useState([
-    '스터디',
     '참가 중인 스터디',
     '완료한 스터디',
     '찜한 스터디',
@@ -37,6 +36,7 @@ const Sidebar = ({ view }) => {
   const navigate = useNavigate();
   return (
     <Side>
+      <Title>스터디</Title>
       <Menu>
         {menus.map((menu, index) => (
           <SidebarItem onClick={() => navigate(`/mypage/${menu}`)} key={index}>
@@ -44,6 +44,8 @@ const Sidebar = ({ view }) => {
           </SidebarItem>
         ))}
       </Menu>
+      <Title>알림</Title>
+      <Title onClick={() => navigate(`/update-mypage`)}>내 정보 수정</Title>
     </Side>
   );
 };
