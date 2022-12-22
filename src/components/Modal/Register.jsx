@@ -49,16 +49,16 @@ const Register = () => {
     setRegisterInfo({ ...registerInfo, email: e.target.value });
 
   const submitHandler = async () => {
-    const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
     const isPasswordValid = registerInfo.pw.length >= 4;
 
     if (!isPasswordValid) {
       return alert('비밀번호는 4글자 이상이어야 합니다.');
     }
 
-    if (!isPasswordSame) {
-      return alert('비밀번호가 일치하지 않습니다.');
-    }
+    // if (!isPasswordSame) {
+    //   return alert('비밀번호가 일치하지 않습니다.');
+    // }
 
     try {
       const result = await axios.post('api/users/register', registerInfo);
