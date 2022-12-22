@@ -19,12 +19,13 @@ const Login = () => {
   const pwHandler = (e) => setLoginInfo({ ...loginInfo, pw: e.target.value });
   const submitHandler = async () => {
     try {
-      console.log(loginInfo);
-      const result = await axios.post('api/users/login', loginInfo);
-      console.log(result);
+      const { data } = await axios.post('api/users/login', loginInfo);
+      localStorage.setItem('token', data.token);
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
+    dispatch(modalSlice.actions.loginToggle());
   };
   return (
     <>
