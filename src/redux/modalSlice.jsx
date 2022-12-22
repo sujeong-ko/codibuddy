@@ -10,10 +10,10 @@ const slice = createSlice({
   initialState,
   reducers: {
     loginToggle: (state, action) => {
-      state.loginIsOpen = action.payload;
+      state.loginIsOpen = !state.loginIsOpen;
     },
     registerToggle: (state, action) => {
-      state.registerIsOpen = action.payload;
+      state.registerIsOpen = !state.registerIsOpen;
     },
   },
 });

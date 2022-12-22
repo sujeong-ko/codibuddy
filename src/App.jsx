@@ -30,8 +30,8 @@ function App() {
           <Route path='update-mypage' element={<UpdateMyPage />} />
         </Route>
       </Routes>
-      {loginIsOpen ? <Login /> : null}
-      {registerIsOpen ? <Register /> : null}
+      {loginIsOpen && <Login />}
+      {registerIsOpen && <Register />}
     </div>
   );
 }
