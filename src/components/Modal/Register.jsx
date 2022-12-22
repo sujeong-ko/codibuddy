@@ -11,7 +11,6 @@ const Register = () => {
   const [registerInfo, setRegisterInfo] = useState({
     user_id: '',
     pw: '',
-    confirmPw: '',
     nickname: '',
     email: '',
   });
@@ -22,7 +21,19 @@ const Register = () => {
   };
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data, registerInfo);
+
+  const onSubmit = async ({ language }) => {
+    try {
+      const fullRegisterInfo = { ...registerInfo, language };
+      console.log(fullRegisterInfo);
+      const result = await axios.post('api/users/register', fullRegisterInfo);
+      console.log(result);
+      dispatch(modalSlice.actions.registerToggle());
+      dispatch(modalSlice.actions.loginToggle());
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   //회원가입 정보 보내기
 
@@ -131,7 +142,7 @@ const Register = () => {
                 type='password'
                 placeholder='비밀번호 확인'
                 value={registerInfo.confirmPw}
-                onChange={confirmPwHandler}
+                // onChange={confirmPwHandler}
               />
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>
