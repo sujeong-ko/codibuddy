@@ -1,25 +1,23 @@
 import React from 'react';
 import Sidebar from '../../components/MyPage/Sidebar';
 import Profile from '../../components/MyPage/Profile';
-import tw from 'tailwind-styled-components';
+import StudyCard from '../../components/StudyCard/StudyCard';
+import { Wrap, Box, Item } from './MyPage.styles';
 const MyPage = () => {
+  const dumyData = [1, 2, 3, 4, 5];
   return (
     <Wrap>
       <Profile />
       <Sidebar />
-      <Box>gg</Box>
+      <Box>
+        <Item>
+          {dumyData.map((i) => (
+            <StudyCard key={i} />
+          ))}
+        </Item>
+      </Box>
     </Wrap>
   );
 };
 
 export default MyPage;
-
-const Wrap = tw.div`
-flex
-flex-wrap
-`;
-const Box = tw.div`
-w-3/4
-h-fit
-bg-yellow-400
-`;

@@ -1,6 +1,12 @@
 import React from 'react';
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
+import {
+  Wrap,
+  ProfileMain,
+  ProfileImg,
+  UserInfo,
+  Logout,
+  SelfText,
+} from './Profile.styles';
 const Profile = () => {
   return (
     <Wrap>
@@ -19,46 +25,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-const Wrap = tw.div`
-flex
-flex-col
-justify-center
-items-center
-w-full
-h-50
-border-b
-`;
-const ProfileMain = tw.div`
-flex
-space-x-4
-`;
-const UserInfo = tw.div`
-flex
-items-center
-justify-center
-text-xl
-`;
-const ProfileImg = tw.img`
-w-[100px]
-h-[100px]
-rounded-xl
-p-0.5
-m-4
-bg-[#667288]
-`;
-
-const Logout = tw.button`
-flex
-items-center
-ml-2
-`;
-const SelfText = tw.div`
-text-l
-ml-3
-p-2
-flex
-items-center
-justify-center
-
-`;
