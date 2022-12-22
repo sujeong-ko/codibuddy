@@ -39,7 +39,7 @@ cursor-pointer
 mr-2
 `;
 
-const ModalContents = tw.div`
+const ModalContents = tw.form`
 mt-10
 ml-auto
 mr-auto

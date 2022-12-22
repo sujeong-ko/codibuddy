@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
 import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
+import axios from 'axios';
 
 const Register = () => {
+  const [registerInfo, setRegisterInfo] = useState({
+    user_id: '',
+    pw: '',
+    confirmPw: '',
+    nickname: '',
+    email: '',
+  });
+
   const dispatch = useDispatch();
   const close = () => {
     dispatch(modalSlice.actions.registerToggle());
   };
 
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data, registerInfo);
+
+  //회원가입 정보 보내기
+
+  const userIdHandler = (e) =>
+    setRegisterInfo({ ...registerInfo, user_id: e.target.value });
+  const pwHandler = (e) =>
+    setRegisterInfo({ ...registerInfo, pw: e.target.value });
+  const confirmPwHandler = (e) =>
+    setRegisterInfo({ ...registerInfo, confirmPw: e.target.value });
+  const nicknameHandler = (e) =>
+    setRegisterInfo({ ...registerInfo, nickname: e.target.value });
+  const emailHandler = (e) =>
+    setRegisterInfo({ ...registerInfo, email: e.target.value });
+
+  // const submitHandler = async () => {
+  //   const result = await axios.post('/users/register', registerInfo);
+  // };
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -53,9 +80,7 @@ const Register = () => {
         <S.ModalMain>
           <S.ModalDiv>
             <S.Close onClick={close}>&times;</S.Close>
-            <S.ModalContents
-            // onClick={isOpen}
-            >
+            <S.ModalContents onSubmit={handleSubmit(onSubmit)}>
               <S.ModalTitle>회원가입</S.ModalTitle>
               <S.TitleText id='IDtext'>ID</S.TitleText>
               <S.Input
@@ -64,7 +89,8 @@ const Register = () => {
                 id='idInput'
                 type='text'
                 placeholder='아이디'
-                // onChange={this.loginHandler}
+                value={registerInfo.user_id}
+                onChange={userIdHandler}
               />
 
               <S.TitleText id='PWtext'>Password</S.TitleText>
@@ -74,7 +100,8 @@ const Register = () => {
                 id='passwordInput'
                 type='password'
                 placeholder='비밀번호'
-                // onChange={this.loginHandler}
+                value={registerInfo.pw}
+                onChange={pwHandler}
               />
 
               <S.TitleText id='PWChecktext'>Password Check</S.TitleText>
@@ -84,7 +111,8 @@ const Register = () => {
                 id='PWCheckInput'
                 type='password'
                 placeholder='비밀번호 확인'
-                // onChange={this.loginHandler}
+                value={registerInfo.confirmPw}
+                onChange={confirmPwHandler}
               />
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>
@@ -94,7 +122,8 @@ const Register = () => {
                 id='nicknameInput'
                 type='text'
                 placeholder='닉네임'
-                // onChange={this.loginHandler}
+                value={registerInfo.nickname}
+                onChange={nicknameHandler}
               />
 
               <S.TitleText id='emailtext'>Email</S.TitleText>
@@ -104,7 +133,8 @@ const Register = () => {
                 id='emailInput'
                 type='email'
                 placeholder='123@xxxx.com'
-                // onChange={this.loginHandler}
+                value={registerInfo.email}
+                onChange={emailHandler}
               />
 
               <div>
@@ -112,7 +142,7 @@ const Register = () => {
               </div>
 
               <S.ModalBtn
-              // onClick={this.loginClickHandler}
+              // onClick={submitHandler}
               >
                 {' '}
                 회원가입{' '}
@@ -126,3 +156,30 @@ const Register = () => {
 };
 
 export default Register;
+
+// const [user_id, setuserID] = useState('');
+// const [email, setEmail] = useState('');
+// const [password, setPassword] = useState('');
+// const [nickname, setNickname] = useState('');
+// const [confirmPasword, setConfirmPasword] = useState('');
+// const dispatch = useDispatch();
+
+// const onIDHandler = (e) => {
+//   setuserID(e.currentTarget.value);
+// };
+
+// const onEmailHandler = (e) => {
+//   setEmail(e.currentTarget.value);
+// };
+
+// const onNicknameHandler = (e) => {
+//   setNickname(e.currentTarget.value);
+// };
+
+// const onPasswordHanlder = (e) => {
+//   setPassword(e.currentTarget.value);
+// };
+
+// const onConfirmPasswordHandler = (e) => {
+//   setConfirmPasword(e.currentTarget.value);
+// };
