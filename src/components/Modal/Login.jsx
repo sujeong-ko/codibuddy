@@ -32,13 +32,10 @@ const Login = () => {
       <S.ModalMain>
         <S.ModalDiv>
           <S.Close onClick={close}>&times;</S.Close>
-          <S.ModalContents
-          // onClick={isOpen}
-          >
+          <S.ModalContents>
             <S.ModalTitle>로그인</S.ModalTitle>
             <S.TitleText>ID</S.TitleText>
             <S.Input
-              name='email'
               className='loginId'
               type='text'
               placeholder='아이디'
@@ -47,7 +44,6 @@ const Login = () => {
             />
             <S.TitleText>Password</S.TitleText>
             <S.Input
-              name='password'
               className='loginPw'
               type='password'
               placeholder='비밀번호'
