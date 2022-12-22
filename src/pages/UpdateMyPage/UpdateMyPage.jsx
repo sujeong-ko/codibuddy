@@ -15,6 +15,13 @@ const UpdateMyPage = () => {
     introduce: '',
   });
   const { register, handleSubmit } = useForm();
+  // const onSubmit = (data) => console.log(data, updateMyInfo);
+
+  const pwHandler = (e) => setMyInfo({ ...updateMyInfo, pw: e.target.value });
+  const confirmPwHandler = (e) =>
+    setMyInfo({ ...updateMyInfo, confirmPw: e.target.value });
+  const introduceHandler = (e) =>
+    setMyInfo({ ...updateMyInfo, introduce: e.target.value });
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -56,7 +63,7 @@ const UpdateMyPage = () => {
         <S.ProfileName> 닉네임 </S.ProfileName>
       </S.ProfileHead>
       <S.ProfileDetail>
-        <S.TitleText id='nicktext'>이메일</S.TitleText>
+        <S.TitleText>이메일</S.TitleText>
         <S.Input
           className='input'
           id='emailInput'
@@ -65,31 +72,34 @@ const UpdateMyPage = () => {
           // onChange={this.loginHandler}
         />
 
-        <S.TitleText id='nicktext'>한 줄 소개</S.TitleText>
+        <S.TitleText>한 줄 소개</S.TitleText>
         <S.Input
           className='input'
           id='introduceInput'
           type='text'
           placeholder='내용을 입력해주세요'
-          // onChange={this.loginHandler}
+          value={updateMyInfo.introduce}
+          onChange={introduceHandler}
         />
 
-        <S.TitleText id='PWtext'>비밀번호</S.TitleText>
+        <S.TitleText>비밀번호</S.TitleText>
         <S.Input
           className='input'
           id='passwordInput'
           type='password'
           placeholder='비밀번호'
-          // onChange={this.loginHandler}
+          value={updateMyInfo.pw}
+          onChange={pwHandler}
         />
 
-        <S.TitleText id='PWChecktext'>비밀번호 확인</S.TitleText>
+        <S.TitleText>비밀번호 확인</S.TitleText>
         <S.Input
           className='input'
           id='PWCheckInput'
           type='password'
           placeholder='비밀번호 확인'
-          // onChange={this.loginHandler}
+          value={updateMyInfo.confirmPw}
+          onChange={confirmPwHandler}
         />
 
         <div>
