@@ -11,7 +11,6 @@ const Register = () => {
   const [registerInfo, setRegisterInfo] = useState({
     user_id: '',
     pw: '',
-    confirmPw: '',
     nickname: '',
     email: '',
   });
@@ -22,7 +21,19 @@ const Register = () => {
   };
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data, registerInfo);
+
+  const onSubmit = async ({ language }) => {
+    try {
+      const fullRegisterInfo = { ...registerInfo, language };
+      console.log(fullRegisterInfo);
+      const result = await axios.post('api/users/register', fullRegisterInfo);
+      console.log(result);
+      dispatch(modalSlice.actions.registerToggle());
+      dispatch(modalSlice.actions.loginToggle());
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   //회원가입 정보 보내기
 
@@ -37,9 +48,31 @@ const Register = () => {
   const emailHandler = (e) =>
     setRegisterInfo({ ...registerInfo, email: e.target.value });
 
-  // const submitHandler = async () => {
-  //   const result = await axios.post('/users/register', registerInfo);
-  // };
+  const submitHandler = async () => {
+    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+    const isPasswordValid = registerInfo.pw.length >= 4;
+
+    if (!isPasswordValid) {
+      return alert('비밀번호는 4글자 이상이어야 합니다.');
+    }
+
+    // if (!isPasswordSame) {
+    //   return alert('비밀번호가 일치하지 않습니다.');
+    // }
+
+    try {
+      const result = await axios.post('api/users/register', registerInfo);
+      alert(`정상적으로 회원가입되었습니다.`);
+
+      // 로그인 페이지 이동
+      // window.location.href = "/login";
+    } catch (err) {
+      console.error(err.stack);
+      alert(
+        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
+      );
+    }
+  };
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -84,7 +117,6 @@ const Register = () => {
               <S.ModalTitle>회원가입</S.ModalTitle>
               <S.TitleText id='IDtext'>ID</S.TitleText>
               <S.Input
-                name='ID'
                 className='input'
                 id='idInput'
                 type='text'
@@ -95,7 +127,6 @@ const Register = () => {
 
               <S.TitleText id='PWtext'>Password</S.TitleText>
               <S.Input
-                name='password'
                 className='input'
                 id='passwordInput'
                 type='password'
@@ -106,18 +137,16 @@ const Register = () => {
 
               <S.TitleText id='PWChecktext'>Password Check</S.TitleText>
               <S.Input
-                name='PWcheck'
                 className='input'
                 id='PWCheckInput'
                 type='password'
                 placeholder='비밀번호 확인'
                 value={registerInfo.confirmPw}
-                onChange={confirmPwHandler}
+                // onChange={confirmPwHandler}
               />
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>
               <S.Input
-                name='nickname'
                 className='input'
                 id='nicknameInput'
                 type='text'
@@ -128,7 +157,6 @@ const Register = () => {
 
               <S.TitleText id='emailtext'>Email</S.TitleText>
               <S.Input
-                name='email'
                 className='input'
                 id='emailInput'
                 type='email'
@@ -141,12 +169,7 @@ const Register = () => {
                 <CategorySelect />
               </div>
 
-              <S.ModalBtn
-              // onClick={submitHandler}
-              >
-                {' '}
-                회원가입{' '}
-              </S.ModalBtn>
+              <S.ModalBtn onClick={submitHandler}> 회원가입 </S.ModalBtn>
             </S.ModalContents>
           </S.ModalDiv>
         </S.ModalMain>
@@ -156,30 +179,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// const [user_id, setuserID] = useState('');
-// const [email, setEmail] = useState('');
-// const [password, setPassword] = useState('');
-// const [nickname, setNickname] = useState('');
-// const [confirmPasword, setConfirmPasword] = useState('');
-// const dispatch = useDispatch();
-
-// const onIDHandler = (e) => {
-//   setuserID(e.currentTarget.value);
-// };
-
-// const onEmailHandler = (e) => {
-//   setEmail(e.currentTarget.value);
-// };
-
-// const onNicknameHandler = (e) => {
-//   setNickname(e.currentTarget.value);
-// };
-
-// const onPasswordHanlder = (e) => {
-//   setPassword(e.currentTarget.value);
-// };
-
-// const onConfirmPasswordHandler = (e) => {
-//   setConfirmPasword(e.currentTarget.value);
-// };
