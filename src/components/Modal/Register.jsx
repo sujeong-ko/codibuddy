@@ -21,7 +21,16 @@ const Register = () => {
   };
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data, registerInfo);
+
+  const onSubmit = async (data) => {
+    try {
+      console.log(data, registerInfo);
+      const result = await axios.post('api/users/register', registerInfo);
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   //회원가입 정보 보내기
 
@@ -111,7 +120,7 @@ const Register = () => {
                 type='password'
                 placeholder='비밀번호 확인'
                 value={registerInfo.confirmPw}
-                onChange={confirmPwHandler}
+                // onChange={confirmPwHandler}
               />
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>
