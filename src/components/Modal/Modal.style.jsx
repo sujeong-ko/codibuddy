@@ -4,7 +4,10 @@ const ModalMain = tw.div`
 fixed top-0 left-0 right-0
 bg-gray-500/50
 h-full
+w-full
 z-50;
+flex
+justify-center
 `;
 
 const ModalDiv = tw.div`
@@ -14,7 +17,7 @@ h-5/6
 bg-white
 box-border
 mt-20
-ml-20
+ml-auto
 mb-20
 mr-auto
 p-2

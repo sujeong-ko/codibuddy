@@ -51,78 +51,74 @@ const Register = () => {
     <>
       {
         <S.ModalMain>
-          <div
-          // onClick={close}
-          >
-            <S.ModalDiv>
-              <S.Close onClick={close}>&times;</S.Close>
-              <S.ModalContents
-              // onClick={isOpen}
+          <S.ModalDiv>
+            <S.Close onClick={close}>&times;</S.Close>
+            <S.ModalContents
+            // onClick={isOpen}
+            >
+              <S.ModalTitle>회원가입</S.ModalTitle>
+              <S.TitleText id='IDtext'>ID</S.TitleText>
+              <S.Input
+                name='ID'
+                className='input'
+                id='idInput'
+                type='text'
+                placeholder='아이디'
+                // onChange={this.loginHandler}
+              />
+
+              <S.TitleText id='PWtext'>Password</S.TitleText>
+              <S.Input
+                name='password'
+                className='input'
+                id='passwordInput'
+                type='password'
+                placeholder='비밀번호'
+                // onChange={this.loginHandler}
+              />
+
+              <S.TitleText id='PWChecktext'>Password Check</S.TitleText>
+              <S.Input
+                name='PWcheck'
+                className='input'
+                id='PWCheckInput'
+                type='password'
+                placeholder='비밀번호 확인'
+                // onChange={this.loginHandler}
+              />
+
+              <S.TitleText id='nicktext'>Nickname</S.TitleText>
+              <S.Input
+                name='nickname'
+                className='input'
+                id='nicknameInput'
+                type='text'
+                placeholder='닉네임'
+                // onChange={this.loginHandler}
+              />
+
+              <S.TitleText id='emailtext'>Email</S.TitleText>
+              <S.Input
+                name='email'
+                className='input'
+                id='emailInput'
+                type='email'
+                placeholder='123@xxxx.com'
+                // onChange={this.loginHandler}
+              />
+
+              <div>
+                <CategorySelect />
+              </div>
+
+              <S.ModalBtn
+              // onClick={this.loginClickHandler}
               >
-                <S.ModalTitle>회원가입</S.ModalTitle>
-                <S.TitleText id='IDtext'>ID</S.TitleText>
-                <S.Input
-                  name='ID'
-                  className='input'
-                  id='idInput'
-                  type='text'
-                  placeholder='아이디'
-                  // onChange={this.loginHandler}
-                />
-
-                <S.TitleText id='PWtext'>Password</S.TitleText>
-                <S.Input
-                  name='password'
-                  className='input'
-                  id='passwordInput'
-                  type='password'
-                  placeholder='비밀번호'
-                  // onChange={this.loginHandler}
-                />
-
-                <S.TitleText id='PWChecktext'>Password Check</S.TitleText>
-                <S.Input
-                  name='PWcheck'
-                  className='input'
-                  id='PWCheckInput'
-                  type='password'
-                  placeholder='비밀번호 확인'
-                  // onChange={this.loginHandler}
-                />
-
-                <S.TitleText id='nicktext'>Nickname</S.TitleText>
-                <S.Input
-                  name='nickname'
-                  className='input'
-                  id='nicknameInput'
-                  type='text'
-                  placeholder='닉네임'
-                  // onChange={this.loginHandler}
-                />
-
-                <S.TitleText id='emailtext'>Email</S.TitleText>
-                <S.Input
-                  name='email'
-                  className='input'
-                  id='emailInput'
-                  type='email'
-                  placeholder='123@xxxx.com'
-                  // onChange={this.loginHandler}
-                />
-
-                <div>
-                  <CategorySelect />
-                </div>
-
-                <S.ModalBtn
-                // onClick={this.loginClickHandler}
-                >
-                  {' '}
-                  회원가입{' '}
-                </S.ModalBtn>
-              </S.ModalContents>
-            </S.ModalDiv>
-          </div>
+                {' '}
+                회원가입{' '}
+              </S.ModalBtn>
+            </S.ModalContents>
+          </S.ModalDiv>
         </S.ModalMain>
       }
     </>
