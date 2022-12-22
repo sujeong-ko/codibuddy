@@ -22,10 +22,11 @@ const Register = () => {
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({ language }) => {
     try {
-      console.log(data);
-      const result = await axios.post('api/users/register', registerInfo);
+      const fullRegisterInfo = { ...registerInfo, language };
+      console.log(fullRegisterInfo);
+      const result = await axios.post('api/users/register', fullRegisterInfo);
       console.log(result);
       dispatch(modalSlice.actions.registerToggle());
       dispatch(modalSlice.actions.loginToggle());
@@ -166,30 +167,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// const [user_id, setuserID] = useState('');
-// const [email, setEmail] = useState('');
-// const [password, setPassword] = useState('');
-// const [nickname, setNickname] = useState('');
-// const [confirmPasword, setConfirmPasword] = useState('');
-// const dispatch = useDispatch();
-
-// const onIDHandler = (e) => {
-//   setuserID(e.currentTarget.value);
-// };
-
-// const onEmailHandler = (e) => {
-//   setEmail(e.currentTarget.value);
-// };
-
-// const onNicknameHandler = (e) => {
-//   setNickname(e.currentTarget.value);
-// };
-
-// const onPasswordHanlder = (e) => {
-//   setPassword(e.currentTarget.value);
-// };
-
-// const onConfirmPasswordHandler = (e) => {
-//   setConfirmPasword(e.currentTarget.value);
-// };
