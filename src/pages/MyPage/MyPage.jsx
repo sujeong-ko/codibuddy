@@ -4,7 +4,7 @@ import Profile from '../../components/MyPage/Profile';
 import StudyCard from '../../components/StudyCard/StudyCard';
 import { Wrap, Box, Item } from './MyPage.styles';
 const MyPage = () => {
-  const dumyData = [1, 2, 3, 4, 5];
+  const dumyData = [1, 2, 3];
   return (
     <Wrap>
       <Profile />
