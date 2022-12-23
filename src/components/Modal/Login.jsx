@@ -20,6 +20,7 @@ const Login = () => {
   const pwHandler = (e) => setLoginInfo({ ...loginInfo, pw: e.target.value });
   const submitHandler = async () => {
     try {
+      console.log('test');
       const { data } = await axios.post('api/users/login', loginInfo);
       localStorage.setItem('token', data.token);
       console.log(data);
