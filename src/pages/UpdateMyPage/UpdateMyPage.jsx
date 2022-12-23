@@ -5,8 +5,16 @@ import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const UpdateMyPage = () => {
+  //리듀서 접근
+  //https://velog.io/@wlsthf398/%ED%9A%8C%EA%B3%A0-REACT-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84-Redux-toolkit
+  // const userId = useSelector((state) => state.user.id.id);
+  // const user = userData.find((user) => {
+  //   return user.id == userId;
+  // })
+
   const [updateMyInfo, setMyInfo] = useState({
     pw: '',
     confirmPw: '',
@@ -112,6 +120,7 @@ const UpdateMyPage = () => {
           {' '}
           저장하기{' '}
         </S.SaveBtn>
+        {/* 탈퇴하기 */}
       </S.ProfileDetail>
     </S.UpdatePage>
   );
