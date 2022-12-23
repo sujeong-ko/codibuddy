@@ -7,4 +7,5 @@ export const store = configureStore({
     [modalSlice.name]: modalSlice.reducer,
     user: userSlice,
   },
+  devTools: process.env.NODE_ENV !== 'production',
 });
