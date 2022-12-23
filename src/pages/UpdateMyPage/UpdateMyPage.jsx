@@ -120,6 +120,7 @@ const UpdateMyPage = () => {
           {' '}
           저장하기{' '}
         </S.SaveBtn>
+        {/* 탈퇴하기 */}
       </S.ProfileDetail>
     </S.UpdatePage>
   );
