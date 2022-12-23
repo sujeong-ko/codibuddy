@@ -23,7 +23,6 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      console.log('test');
       const result = await axios.post(
         'api/users/login',
         JSON.stringify(data),
@@ -37,8 +36,8 @@ const Login = () => {
       //userSlice
       dispatch(
         login({
-          id: loginInfo.id,
-          pw: loginInfo.pw,
+          user_id: data.user_id,
+          pw: data.pw,
         }),
       );
       console.log(login.id);
