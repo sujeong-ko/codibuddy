@@ -1,9 +1,11 @@
 import React from 'react';
 import logo from '../../assets/codibuddy-resize.png';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MyHeader, Logo, NavButton } from './Header.styles.jsx';
 import modalSlice from '../../redux/modalSlice.jsx';
+
+const token = localStorage.getItem('token');
 
 const LoginButton = () => {
   const dispatch = useDispatch();
@@ -53,18 +55,19 @@ const Header = () => {
   const MemberNav = () => {
     return (
       <>
-        <NavButton>새 글 쓰기</NavButton>
-        <NavButton>마이페이지</NavButton>
+        <NavButton>
+          <Link to='/new'>새 글 쓰기</Link>
+        </NavButton>
+        <NavButton>
+          <Link to='/mypage'>마이페이지</Link>
+        </NavButton>
       </>
     );
   };
   return (
     <MyHeader>
       <Logo src={logo} alt='코디버디 로고' onClick={goToHome} />
-      <nav>
-        <GuestNav />
-        {/* <MemberNav /> */}
-      </nav>
+      <nav>{token ? <MemberNav /> : <GuestNav />}</nav>
     </MyHeader>
   );
 };
