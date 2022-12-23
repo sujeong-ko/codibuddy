@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 const Content = tw.div`
   flex
   flex-col
-  w-[250px]
+  w-[310px]
   h-80
   p-3
   rounded-2xl
@@ -12,6 +12,7 @@ const Content = tw.div`
   border-2
   border-slate-200
   cursor-pointer
+  m-3
 `;
 const ContentHeader = tw.div`
 flex-[0_0_auto]
