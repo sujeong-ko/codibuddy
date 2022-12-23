@@ -23,6 +23,7 @@ const Login = () => {
       const { data } = await axios.post('api/users/login', loginInfo);
       localStorage.setItem('token', data.token);
       console.log(data);
+
       //userSlice
       dispatch(
         login({
@@ -30,7 +31,7 @@ const Login = () => {
           pw: loginInfo.pw,
         }),
       );
-      console.log(login);
+      console.log(login.id);
     } catch (err) {
       console.log(err);
     }
