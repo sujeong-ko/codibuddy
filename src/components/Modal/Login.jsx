@@ -4,6 +4,7 @@ import * as S from './Modal.style';
 import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 import axios from 'axios';
+import { login } from '../../redux/userSlice.jsx';
 import { useForm } from 'react-hook-form';
 
 const Login = () => {
@@ -22,6 +23,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
+      console.log('test');
       const result = await axios.post(
         'api/users/login',
         JSON.stringify(data),
@@ -31,6 +33,15 @@ const Login = () => {
       localStorage.setItem('token', result.data.token);
       console.log(localStorage.getItem('token'));
       dispatch(modalSlice.actions.loginToggle());
+
+      //userSlice
+      dispatch(
+        login({
+          id: loginInfo.id,
+          pw: loginInfo.pw,
+        }),
+      );
+      console.log(login.id);
     } catch (err) {
       console.log(err);
     }
