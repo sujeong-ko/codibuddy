@@ -28,7 +28,8 @@ const Login = () => {
         config,
       );
       console.log(result);
-      // localStorage.setItem('token', data.token);
+      localStorage.setItem('token', result.data.token);
+      console.log(localStorage.getItem('token'));
       dispatch(modalSlice.actions.loginToggle());
     } catch (err) {
       console.log(err);
