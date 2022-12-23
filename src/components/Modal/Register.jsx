@@ -64,8 +64,7 @@ const Register = () => {
       const result = await axios.post('api/users/register', registerInfo);
       alert(`정상적으로 회원가입되었습니다.`);
 
-      // 로그인 페이지 이동
-      // window.location.href = "/login";
+      dispatch(modalSlice.actions.registerToggle());
     } catch (err) {
       console.error(err.stack);
       alert(
