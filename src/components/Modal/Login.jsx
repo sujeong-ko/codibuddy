@@ -4,6 +4,7 @@ import * as S from './Modal.style';
 import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 import axios from 'axios';
+import { login } from '../../redux/userSlice.jsx';
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -22,6 +23,14 @@ const Login = () => {
       const { data } = await axios.post('api/users/login', loginInfo);
       localStorage.setItem('token', data.token);
       console.log(data);
+      //userSlice
+      dispatch(
+        login({
+          id: loginInfo.id,
+          pw: loginInfo.pw,
+        }),
+      );
+      console.log(login);
     } catch (err) {
       console.log(err);
     }
