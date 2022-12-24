@@ -1,6 +1,8 @@
-import React from 'react';
+/* eslint-disable */
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import { languages } from '../../utils/languages.jsx';
 import Button from '../../components/Button/Button.jsx';
 import {
@@ -17,12 +19,45 @@ import {
   InputWrap,
   TitleInput,
   ContentInput,
+  ErrorMessageSpan,
 } from './NewStudy.styles.jsx';
+import axios from 'axios';
+
+const token = localStorage.getItem('token');
 
 const NewStudy = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  // useEffect(() => {
+  //   if (!token) {
+  //     alert('로그인이 필요합니다.');
+  //     navigate('/');
+  //   }
+  // }, []);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ criteriaMode: 'all' });
+
+  const onSubmit = async (data) => {
+    if (!token) {
+      alert('로그인 한 사용자만 등록할 수 있습니다.');
+      return;
+    }
+    const { language: tag, ...study } = data;
+    const studyData = { study, tag };
+    console.log(studyData);
+    try {
+      const result = await axios.post('/api/study', studyData);
+      console.log(result);
+      navigate(`/payment/${result.data.study.id}`);
+    } catch (err) {
+      if (err.response.status === 500) {
+        alert('정확한 정보를 입력해주세요!');
+      }
+    }
+  };
+
   const CancleSubmit = () => {
     alert('작성을 취소하시겠습니까?');
     navigate('/');
@@ -70,12 +105,12 @@ const NewStudy = () => {
             <HeadcountSelect label='최대 인원' {...register('headcount')} />
           </InputWrap>
           <InputWrap>
-            <PlaceSelect label='진행 방식' {...register('place')} />
-            <DateSelect label='시작일' {...register('startDate')} />
+            <PlaceSelect label='진행 방식' {...register('is_online')} />
+            <DateSelect label='시작일' {...register('start_at')} />
           </InputWrap>
           <InputWrap>
-            <DurationSelect label='진행 기간' {...register('duration')} />
-            <DepositSelect label='예치금' {...register('deposit')} />
+            <DurationSelect label='진행 기간' {...register('end_at')} />
+            <DepositSelect label='예치금' {...register('price')} />
           </InputWrap>
           <div>
             <CategorySelect />
@@ -87,12 +122,46 @@ const NewStudy = () => {
             name='title'
             id='title'
             placeholder='제목을 적어주세요.'
-            {...register('title')}
+            {...register('title', {
+              required: '제목을 입력해주세요.',
+              minLength: {
+                value: 3,
+                message: '제목을 3글자 이상 입력해주세요.',
+              },
+            })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name='title'
+            render={({ messages }) => {
+              return messages
+                ? Object.entries(messages).map(([type, message]) => (
+                    <ErrorMessageSpan key={type}>{message}</ErrorMessageSpan>
+                  ))
+                : null;
+            }}
           />
           <div>
             <ContentInput
               placeholder='내용을 적어주세요.'
-              {...register('content')}
+              {...register('contents', {
+                required: '내용을 입력해주세요.',
+                minLength: {
+                  value: 5,
+                  message: '내용을 5글자 이상 입력해주세요.',
+                },
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name='contents'
+              render={({ messages }) => {
+                return messages
+                  ? Object.entries(messages).map(([type, message]) => (
+                      <ErrorMessageSpan key={type}>{message}</ErrorMessageSpan>
+                    ))
+                  : null;
+              }}
             />
           </div>
         </FormWrap>

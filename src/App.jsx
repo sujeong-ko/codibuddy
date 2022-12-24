@@ -25,7 +25,7 @@ function App() {
           <Route path='study' element={<StudyDetail />} />
           <Route path='new' element={<NewStudy />} />
           <Route path='mypage' element={<MyPage />} />
-          <Route path='payment' element={<Payment />} />
+          <Route path='payment/:id' element={<Payment />} />
           <Route path='payment/complete' element={<PaymentComplete />} />
           <Route path='update-mypage' element={<UpdateMyPage />} />
         </Route>
