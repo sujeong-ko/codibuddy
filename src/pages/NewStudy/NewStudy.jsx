@@ -50,11 +50,9 @@ const NewStudy = () => {
     try {
       const result = await axios.post('/api/study', studyData);
       console.log(result);
-      navigate(`/payment/${result.data.study.id}`);
+      navigate(`/payment/${result.data.studyId}`);
     } catch (err) {
-      if (err.response.status === 500) {
-        alert('정확한 정보를 입력해주세요!');
-      }
+      console.log(err);
     }
   };
 
