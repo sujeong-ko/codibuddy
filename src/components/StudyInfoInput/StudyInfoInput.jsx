@@ -12,8 +12,8 @@ export const PositionSelect = React.forwardRef(
     <WidthHalfWrap>
       <Label>{label}</Label>
       <Select name={name} ref={ref} onChange={onChange}>
-        <option value='frontend'>프론트엔드</option>
-        <option value='backend'>백엔드</option>
+        <option value='front-end'>프론트엔드</option>
+        <option value='back-end'>백엔드</option>
         <option value='fullstack'>풀스택</option>
       </Select>
     </WidthHalfWrap>
@@ -43,8 +43,8 @@ export const PlaceSelect = React.forwardRef(
     <WidthHalfWrap>
       <Label>{label}</Label>
       <Select name={name} ref={ref} onChange={onChange}>
-        <option value='online'>온라인</option>
-        <option value='offline'>오프라인</option>
+        <option value='true'>온라인</option>
+        <option value='false'>오프라인</option>
       </Select>
     </WidthHalfWrap>
   ),

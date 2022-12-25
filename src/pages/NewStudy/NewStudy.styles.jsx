@@ -24,7 +24,6 @@ border-solid
 border-inherit
 p-2
 rounded
-mb-4
 `;
 
 const ContentInput = tw.textarea`
@@ -35,8 +34,21 @@ border
 border-solid
 border-inherit
 p-2
+mt-4
 rounded
 resize-none
 `;
 
-export { Description, FormWrap, InputWrap, TitleInput, ContentInput };
+const ErrorMessageSpan = tw.span`
+text-sm
+text-red-500
+`;
+
+export {
+  Description,
+  FormWrap,
+  InputWrap,
+  TitleInput,
+  ContentInput,
+  ErrorMessageSpan,
+};
