@@ -11,7 +11,9 @@ import {
   DivisionLine,
 } from './StudyDetail.styles.jsx';
 import axios from 'axios';
+import { BsBookmarkHeart } from 'react-icons/bs';
 import { useGetOneStudyQuery } from '../../redux/api.jsx';
+import Payment from './../Payment/Payment';
 
 const StudyDetail = () => {
   const navigate = useNavigate();
@@ -73,7 +75,9 @@ const StudyDetail = () => {
             <span>{studyInfo.author} | </span>
             <span>{studyInfo.createdAt}</span>
           </div>
-          <PostButton className='mr-4'>찜하기</PostButton>
+          <PostButton className='mr-4'>
+            <BsBookmarkHeart size={30} color='#52B4D0' />
+          </PostButton>
         </div>
         {/* 유저 상태에 따라 다르게 렌더링 */}
         <div className='flex justify-end'>
@@ -123,7 +127,11 @@ const StudyDetail = () => {
         <h2 className='font-bold text-lg mb-10'>스터디 소개</h2>
         <div>{studyInfo.contents}</div>
         <div className='flex justify-end'>
-          <Button type='basic' text='참여하기' />
+          <Button
+            type='basic'
+            text='참여하기'
+            onClick={() => navigate(`/payment/${study_id}`)}
+          />
         </div>
       </StudyContentSection>
       <CommentList />
