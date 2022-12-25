@@ -24,7 +24,7 @@ const Login = () => {
     console.log(data);
     try {
       const result = await axios.post(
-        'api/users/login',
+        '/api/user/login',
         JSON.stringify(data),
         config,
       );
@@ -32,7 +32,6 @@ const Login = () => {
       localStorage.setItem('token', result.data.token);
       console.log(localStorage.getItem('token'));
       dispatch(modalSlice.actions.loginToggle());
-
       //userSlice
       dispatch(
         login({
@@ -41,6 +40,7 @@ const Login = () => {
         }),
       );
       console.log(login.id);
+      // 로그인 하고 헤더 리로드 필요?
     } catch (err) {
       console.log(err);
     }

@@ -5,17 +5,17 @@ import {
   CommentButton,
 } from './Comment.styles.jsx';
 
-const Comment = ({ author, body }) => {
+const Comment = ({ UserId, commentary }) => {
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = (e) => {
     e.preventDefault();
     setIsEdit(!isEdit);
   };
-  const [localContent, setLocalContent] = useState(body);
+  const [localContent, setLocalContent] = useState(commentary);
 
   return (
     <>
-      <CommentAuthor>{author}</CommentAuthor>
+      <CommentAuthor>{UserId}</CommentAuthor>
       {/* 유저가 댓글 작성자일 때만 isEdit 가능하게 해야함.. */}
       <CommentContent>
         {isEdit ? (
@@ -25,7 +25,7 @@ const Comment = ({ author, body }) => {
             onChange={(e) => setLocalContent(e.target.value)}
           />
         ) : (
-          body
+          commentary
         )}
       </CommentContent>
       {isEdit ? (
