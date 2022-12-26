@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import userImage from '../../assets/userFlat.png';
 import * as S from './UpdateMyPage.style';
 import { useForm } from 'react-hook-form';
@@ -6,6 +7,11 @@ import { languages } from '../../utils/languages.jsx';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+
+const token = localStorage.getItem('token');
+const config = {
+  Authorization: `Bearer ${token}`,
+};
 
 const UpdateMyPage = () => {
   //리듀서 접근
@@ -15,6 +21,20 @@ const UpdateMyPage = () => {
   //   return user.id == userId;
   // })
 
+  // }
+
+  // const getUserData = async () => {
+  //   await axios
+  //     .get(`/api/user/${user_id}`)
+  //     .then((response) => {
+  //       getUserData([...response.data]);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
+
   const [updateMyInfo, setMyInfo] = useState({
     pw: '',
     confirmPw: '',
@@ -22,6 +42,29 @@ const UpdateMyPage = () => {
     email: '',
     introduce: '',
   });
+
+  //데이터 받기
+  useEffect(() => {
+    const getUserData = async () => {
+      await axios
+        .get(`/api/user/`, null, {
+          headers: config,
+        })
+        .then((response) => {
+          const MyData = response.data;
+          console.log(MyData);
+          setMyInfo({
+            ...updateMyInfo,
+            nickname: MyData.nickname,
+            email: MyData.email,
+            introduce: MyData.email,
+          });
+        })
+        .catch((err) => console.log(err));
+    };
+    getUserData();
+  }, []);
+
   const { register, handleSubmit } = useForm();
   // const onSubmit = (data) => console.log(data, updateMyInfo);
 
@@ -68,7 +111,7 @@ const UpdateMyPage = () => {
     <S.UpdatePage>
       <S.ProfileHead>
         <S.ProfileImage src={userImage} />
-        <S.ProfileName> 닉네임 </S.ProfileName>
+        <S.ProfileName> {updateMyInfo.nickname} </S.ProfileName>
       </S.ProfileHead>
       <S.ProfileDetail>
         <S.TitleText>이메일</S.TitleText>
@@ -77,6 +120,7 @@ const UpdateMyPage = () => {
           id='emailInput'
           type='text'
           placeholder='이메일을 입력해주세요'
+          value={updateMyInfo.email}
           // onChange={this.loginHandler}
         />
 
@@ -87,7 +131,7 @@ const UpdateMyPage = () => {
           type='text'
           placeholder='내용을 입력해주세요'
           value={updateMyInfo.introduce}
-          onChange={introduceHandler}
+          // onChange={introduceHandler}
         />
 
         <S.TitleText>현재 비밀번호</S.TitleText>
@@ -96,7 +140,7 @@ const UpdateMyPage = () => {
           id='passwordInput'
           type='password'
           placeholder='현재 비밀번호를 입력해주세요'
-          value={updateMyInfo.pw}
+          // value={updateMyInfo.pw}
           onChange={pwHandler}
         />
 
@@ -106,7 +150,7 @@ const UpdateMyPage = () => {
           id='newPasswordInput'
           type='password'
           placeholder='변경할 비밀번호를 입력해주세요'
-          value={updateMyInfo.pw}
+          // value={updateMyInfo.pw}
           onChange={pwHandler}
         />
 
@@ -116,7 +160,7 @@ const UpdateMyPage = () => {
           id='PWCheckInput'
           type='password'
           placeholder='비밀번호 확인'
-          value={updateMyInfo.confirmPw}
+          // value={updateMyInfo.confirmPw}
           onChange={confirmPwHandler}
         />
 
