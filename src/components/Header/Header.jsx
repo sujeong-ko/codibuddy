@@ -62,14 +62,10 @@ const MemberNav = () => {
 const Header = () => {
   const navigate = useNavigate();
   const isLogged = useSelector((state) => state.user.isLogged);
-
+  console.log(isLogged);
   const goToHome = () => {
     navigate('/');
   };
-
-  useEffect(() => {
-    console.log(isLogged);
-  }, [isLogged]);
 
   return (
     <MyHeader>

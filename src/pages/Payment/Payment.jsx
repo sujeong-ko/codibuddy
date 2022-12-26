@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { languages } from '../../utils/languages';
 import Button from '../../components/Button/Button.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DevisionDescription, PageTitle } from '../../styles/CommonStyles.jsx';
@@ -29,7 +28,9 @@ const Payment = () => {
     price: 0,
     start_at: '',
     limit_head_count: '',
+    study_tags: [],
   });
+
   useEffect(() => {
     getOneStudy(study_id).then((studyData) => {
       console.log(studyData);
@@ -40,6 +41,7 @@ const Payment = () => {
         price: studyData.data.price,
         start_at: studyData.data.start_at,
         limit_head_count: studyData.data.limit_head_count,
+        study_tags: studyData.data.Study_tags,
       });
     });
   }, []);
@@ -90,9 +92,9 @@ const Payment = () => {
           <span>{studyInfo.is_online ? '온라인' : '오프라인'}</span>
         </StudyInfoDetail>
         <ul>
-          {languages.map((item, idx) => (
-            <li className='inline-block' key={idx}>
-              <img className='h-[2.5rem]' src={item.img} />
+          {studyInfo.study_tags.map((item) => (
+            <li className='inline-block' key={item.tag_id}>
+              <img className='h-[2.5rem] mr-2' src={item.Tag.tag_image} />
             </li>
           ))}
         </ul>
