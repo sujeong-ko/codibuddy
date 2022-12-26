@@ -16,7 +16,7 @@ export const userSlice = createSlice({
       state.pw = action.payload.pw;
     },
     logout: (state) => {
-      state.user = null;
+      state.user_id = null;
     },
 
     // 아이디, 비번 찾기
