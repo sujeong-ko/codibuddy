@@ -10,7 +10,8 @@ import {
   Tags,
   Bottom,
 } from './StudyCard.styles';
-const StudyCard = (data) => {
+const StudyCard = ({ startDate, people, title, positon, isOnline, tag }) => {
+  // const tags = [...tag];
   return (
     <>
       <Content>
@@ -18,15 +19,15 @@ const StudyCard = (data) => {
           <div></div>
         </PostType> */}
         <ContentHeader>
-          <ContentDate>시작일{data.startDate}</ContentDate>
-          <span>인원수{data.people}</span>
-          <ContentTitle>알고리즘 스터디 구해요.{data.title}</ContentTitle>
+          <ContentDate>시작일 {startDate}</ContentDate>
+          <span>인원수 {people}</span>
+          <ContentTitle>{title}</ContentTitle>
         </ContentHeader>
         <ContentDetail>
-          <ContentTags>#온라인</ContentTags>
+          <ContentTags>{isOnline}</ContentTags>
           <Languages>
-            <Tags>javascript</Tags>
-            <Tags>java</Tags>
+            <Tags>#{positon}</Tags>
+            {/* <Tags>java</Tags> */}
           </Languages>
         </ContentDetail>
         <Bottom>
