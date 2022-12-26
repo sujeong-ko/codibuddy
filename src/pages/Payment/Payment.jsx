@@ -10,8 +10,13 @@ import {
   PaymentDetailDescription,
 } from './Payment.styles.jsx';
 import getOneStudy from '../../utils/getOneStudy';
+import axios from 'axios';
 
 const userPoint = 5000;
+const token = localStorage.getItem('token');
+const config = {
+  Authorization: `Bearer ${token}`,
+};
 
 const Payment = () => {
   const { id: study_id } = useParams();
@@ -36,6 +41,17 @@ const Payment = () => {
       });
     });
   }, []);
+  const handlePayment = async () => {
+    if (!token) alert('로그인이 필요합니다.');
+    try {
+      await axios.post(`/api/recruit/${study_id}`, null, {
+        headers: config,
+      });
+      navigate('/payment/complete');
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <PageTitle>
@@ -85,10 +101,7 @@ const Payment = () => {
         <span>{(userPoint - studyInfo.price).toLocaleString()} 포인트</span>
       </PaymentAmountDetail>
       <Button
-        onClick={() => {
-          // order db에 post 요청?
-          navigate('/payment/complete');
-        }}
+        onClick={handlePayment}
         text={`${studyInfo.price.toLocaleString()}원 결제하기`}
       />
     </>
