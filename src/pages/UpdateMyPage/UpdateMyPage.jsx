@@ -90,17 +90,27 @@ const UpdateMyPage = () => {
           onChange={introduceHandler}
         />
 
-        <S.TitleText>비밀번호</S.TitleText>
+        <S.TitleText>현재 비밀번호</S.TitleText>
         <S.Input
           className='input'
           id='passwordInput'
           type='password'
-          placeholder='비밀번호'
+          placeholder='현재 비밀번호를 입력해주세요'
           value={updateMyInfo.pw}
           onChange={pwHandler}
         />
 
-        <S.TitleText>비밀번호 확인</S.TitleText>
+        <S.TitleText>새 비밀번호</S.TitleText>
+        <S.Input
+          className='input'
+          id='newPasswordInput'
+          type='password'
+          placeholder='변경할 비밀번호를 입력해주세요'
+          value={updateMyInfo.pw}
+          onChange={pwHandler}
+        />
+
+        <S.TitleText>새 비밀번호 확인</S.TitleText>
         <S.Input
           className='input'
           id='PWCheckInput'
