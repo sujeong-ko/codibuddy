@@ -11,14 +11,16 @@ import {
 } from './Payment.styles.jsx';
 import getOneStudy from '../../utils/getOneStudy';
 import axios from 'axios';
+import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
+import { useSelector } from 'react-redux';
 
-const userPoint = 5000;
 const token = localStorage.getItem('token');
 const config = {
   Authorization: `Bearer ${token}`,
 };
 
 const Payment = () => {
+  const [userPoint, setUserPoint] = useState(0);
   const { id: study_id } = useParams();
   const navigate = useNavigate();
   const [studyInfo, setStudyInfo] = useState({
@@ -41,6 +43,19 @@ const Payment = () => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    try {
+      getCurrentUserInfo(config).then((userInfo) => {
+        setUserPoint(userInfo.data[0].point);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  console.log(userPoint);
+
   const handlePayment = async () => {
     if (!token) alert('로그인이 필요합니다.');
     try {

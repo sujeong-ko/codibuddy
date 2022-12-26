@@ -12,8 +12,6 @@ import {
 } from './StudyDetail.styles.jsx';
 import axios from 'axios';
 import { BsBookmarkHeart } from 'react-icons/bs';
-import { useGetOneStudyQuery } from '../../redux/api.jsx';
-import Payment from './../Payment/Payment';
 
 const StudyDetail = () => {
   const navigate = useNavigate();
@@ -31,8 +29,6 @@ const StudyDetail = () => {
     price: '',
     study_tags: [],
   });
-
-  // const {data} = useGetOneStudyQuery();
 
   useEffect(() => {
     const getOneStudy = async () => {
