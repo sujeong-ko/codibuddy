@@ -30,6 +30,7 @@ const CommentList = () => {
 
   const onSubmit = async (data) => {
     try {
+      if (!token) alert('로그인한 사용자만 등록할 수 있습니다.');
       await axios
         .post(
           '/api/comment',
