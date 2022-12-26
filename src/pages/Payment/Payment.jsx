@@ -54,14 +54,21 @@ const Payment = () => {
     }
   }, []);
 
-  console.log(userPoint);
-
   const handlePayment = async () => {
     if (!token) alert('로그인이 필요합니다.');
     try {
       await axios.post(`/api/recruit/${study_id}`, null, {
         headers: config,
       });
+      await axios.patch(
+        '/api/user',
+        {
+          point: userPoint - studyInfo.price,
+        },
+        {
+          headers: config,
+        },
+      );
       navigate('/payment/complete');
     } catch (err) {
       console.log(err);

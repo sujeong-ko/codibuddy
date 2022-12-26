@@ -100,7 +100,7 @@ const StudyDetail = () => {
           <span>{studyInfo.start_at}</span>
         </StudyInfoList>
         <StudyInfoList>
-          <span>예상 기간</span>
+          <span>종료 예정</span>
           <span>{studyInfo.end_at}</span>
         </StudyInfoList>
         <StudyInfoList>
