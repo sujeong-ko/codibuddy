@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../assets/codibuddy-resize.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -37,37 +37,44 @@ const RegisterButton = () => {
   );
 };
 
+const GuestNav = () => {
+  return (
+    <>
+      <LoginButton />
+      <RegisterButton />
+    </>
+  );
+};
+
+const MemberNav = () => {
+  return (
+    <>
+      <NavButton>
+        <Link to='/new'>새 글 쓰기</Link>
+      </NavButton>
+      <NavButton>
+        <Link to='/mypage'>마이페이지</Link>
+      </NavButton>
+    </>
+  );
+};
+
 const Header = () => {
   const navigate = useNavigate();
+  const isLogged = useSelector((state) => state.user.isLogged);
+
   const goToHome = () => {
     navigate('/');
   };
 
-  const GuestNav = () => {
-    return (
-      <>
-        <LoginButton />
-        <RegisterButton />
-      </>
-    );
-  };
+  useEffect(() => {
+    console.log(isLogged);
+  }, [isLogged]);
 
-  const MemberNav = () => {
-    return (
-      <>
-        <NavButton>
-          <Link to='/new'>새 글 쓰기</Link>
-        </NavButton>
-        <NavButton>
-          <Link to='/mypage'>마이페이지</Link>
-        </NavButton>
-      </>
-    );
-  };
   return (
     <MyHeader>
       <Logo src={logo} alt='코디버디 로고' onClick={goToHome} />
-      <nav>{token ? <MemberNav /> : <GuestNav />}</nav>
+      <nav>{isLogged ? <MemberNav /> : <GuestNav />}</nav>
     </MyHeader>
   );
 };
