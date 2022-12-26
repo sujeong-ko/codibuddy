@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { languages } from '../../utils/languages';
 import Button from '../../components/Button/Button.jsx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DevisionDescription, PageTitle } from '../../styles/CommonStyles.jsx';
 import {
   StudyWrap,
@@ -9,22 +9,33 @@ import {
   PaymentAmountDetail,
   PaymentDetailDescription,
 } from './Payment.styles.jsx';
-
-//해당 스터디 정보에서 아래만 데이터만 받아오기
-const studyInfo = {
-  title: '사이드 프로젝트 프론트 팀원 구합니다!',
-  place: 'online',
-  startDate: '2022-12-20',
-  duration: 1,
-  deposit: 1000,
-  language: ['javascript', 'react', 'java'],
-  // 여기에 객체배열로 name이랑 img src도 함께 들어있는 걸로?
-};
+import getOneStudy from '../../utils/getOneStudy';
 
 const userPoint = 5000;
 
 const Payment = () => {
+  const { id: study_id } = useParams();
   const navigate = useNavigate();
+  const [studyInfo, setStudyInfo] = useState({
+    title: '',
+    is_online: true,
+    price: 0,
+    start_at: '',
+    limit_head_count: '',
+  });
+  useEffect(() => {
+    getOneStudy(study_id).then((studyData) => {
+      console.log(studyData);
+      setStudyInfo({
+        ...studyInfo,
+        title: studyData.data.title,
+        is_online: studyData.data.is_online,
+        price: studyData.data.price,
+        start_at: studyData.data.start_at,
+        limit_head_count: studyData.data.limit_head_count,
+      });
+    });
+  }, []);
   return (
     <>
       <PageTitle>
@@ -34,11 +45,11 @@ const Payment = () => {
       <StudyWrap>
         <div className='text-2xl font-bold'>{studyInfo.title}</div>
         <StudyInfoDetail>
-          <span>{studyInfo.startDate} 시작 예정</span>
+          <span>{studyInfo.start_at} 시작 예정</span>
           <span>|</span>
-          <span>{studyInfo.duration}개월</span>
+          <span>{studyInfo.limit_head_count}명</span>
           <span>|</span>
-          <span>{studyInfo.place}</span>
+          <span>{studyInfo.is_online ? '온라인' : '오프라인'}</span>
         </StudyInfoDetail>
         <ul>
           {languages.map((item, idx) => (
@@ -57,13 +68,13 @@ const Payment = () => {
       </PaymentDetailDescription>
       <div className='flex-col'>
         <span className='flex justify-center text-5xl my-12'>
-          {studyInfo.deposit.toLocaleString()}원
+          {studyInfo.price.toLocaleString()}원
         </span>
       </div>
       <DevisionDescription>3. 예치금 결제</DevisionDescription>
       <PaymentAmountDetail>
         <span>참가 예치금</span>
-        <span>{studyInfo.deposit.toLocaleString()}원</span>
+        <span>{studyInfo.price.toLocaleString()}원</span>
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>사용 가능한 포인트</span>
@@ -71,14 +82,14 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
-        <span>{(userPoint - studyInfo.deposit).toLocaleString()} 포인트</span>
+        <span>{(userPoint - studyInfo.price).toLocaleString()} 포인트</span>
       </PaymentAmountDetail>
       <Button
         onClick={() => {
           // order db에 post 요청?
           navigate('/payment/complete');
         }}
-        text={`${studyInfo.deposit.toLocaleString()}원 결제하기`}
+        text={`${studyInfo.price.toLocaleString()}원 결제하기`}
       />
     </>
   );
