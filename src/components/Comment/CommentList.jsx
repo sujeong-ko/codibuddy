@@ -6,33 +6,30 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-// const comments = [
-//   { author: '죠리퐁', body: '저도 하고싶어여' },
-//   { author: '버블티', body: '재밌겠다' },
-// ];
-
 const CommentList = () => {
   const [comments, setComments] = useState([]);
   const { id: study_id } = useParams();
   const { register, handleSubmit } = useForm();
+  const getComments = async () => {
+    await axios
+      .get(`/api/comment/${study_id}`)
+      .then((response) => {
+        setComments([...response.data]);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
-    const getComments = async () => {
-      await axios
-        .get(`/api/comment/${study_id}`)
-        .then((response) => {
-          setComments([...response.data]);
-        })
-        .catch((err) => console.log(err));
-    };
     getComments();
   }, []);
+
   const onSubmit = async (data) => {
     try {
-      const result = await axios.post('/api/comment', {
-        study_id,
-        commentary: data.commentary,
-      });
-      console.log(result);
+      await axios
+        .post('/api/comment', {
+          study_id,
+          commentary: data.commentary,
+        })
+        .then((result) => setComments([result.data, ...comments]));
     } catch (err) {
       console.log(err);
     }
