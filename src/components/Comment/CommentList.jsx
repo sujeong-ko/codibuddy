@@ -6,6 +6,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
+const token = localStorage.getItem('token');
+
+const config = {
+  Authorization: `Bearer ${token}`,
+};
+
 const CommentList = () => {
   const [comments, setComments] = useState([]);
   const { id: study_id } = useParams();
@@ -25,10 +31,14 @@ const CommentList = () => {
   const onSubmit = async (data) => {
     try {
       await axios
-        .post('/api/comment', {
-          study_id,
-          commentary: data.commentary,
-        })
+        .post(
+          '/api/comment',
+          {
+            study_id,
+            commentary: data.commentary,
+          },
+          { headers: config },
+        )
         .then((result) => setComments([result.data, ...comments]));
     } catch (err) {
       console.log(err);
