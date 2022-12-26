@@ -1,16 +1,5 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
-
-const Button = ({ text, type, onClick }) => {
-  const btnType = ['cancle', 'remove'].includes(type) ? type : 'basic';
-  return (
-    <MyButton type={btnType} onClick={onClick}>
-      {text}
-    </MyButton>
-  );
-};
-
-export default Button;
+import tw from 'tailwind-styled-components';
 
 const BasicButton = css`
   background-color: #52b4d0;
@@ -30,3 +19,5 @@ const MyButton = styled.button`
   ${({ type }) => type === 'cancle' && CancleButton}
   ${({ type }) => type === 'basic' && BasicButton}
 `;
+
+export { BasicButton, CancleButton, MyButton };

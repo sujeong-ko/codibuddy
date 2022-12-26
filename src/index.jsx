@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { BrowserRouter } from 'react-router-dom';
+import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import './index.css';
 
 const container = document.getElementById('root');

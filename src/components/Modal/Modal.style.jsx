@@ -4,20 +4,24 @@ const ModalMain = tw.div`
 fixed top-0 left-0 right-0
 bg-gray-500/50
 h-full
+w-full
+z-50;
+flex
+justify-center
 `;
 
 const ModalDiv = tw.div`
-w-2/6
+absolute
+w-1/3
 h-5/6
 bg-white
-relative
 box-border
 mt-20
 ml-auto
-mb-auto
+mb-20
 mr-auto
 p-2
-
+overflow-auto
 `;
 
 const ModalTitle = tw.div`
@@ -30,10 +34,12 @@ text-center
 
 const Close = tw.span`
 float-right
-text-sm
+text-2xl
+cursor-pointer
+mr-2
 `;
 
-const ModalContents = tw.div`
+const ModalContents = tw.form`
 mt-10
 ml-auto
 mr-auto
@@ -94,6 +100,19 @@ const LoginLine = tw.div`
 text-[#bcbcbc]
 text-base
 mb-10
+cursor-pointer
+`;
+
+const ContentInput = tw.textarea`
+w-full
+h-80
+min-h-fit
+border
+border-solid
+border-inherit
+p-2
+rounded
+resize-none
 `;
 
 export {
@@ -107,6 +126,7 @@ export {
   ModalBtn,
   LoginEnd,
   LoginLine,
+  ContentInput,
 };
 
 //비밀번호 찾기

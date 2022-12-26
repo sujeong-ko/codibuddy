@@ -1,10 +1,14 @@
 import React from 'react';
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
-import { languages } from '../utils/languages';
-import Button from '../components/Button.jsx';
+import { languages } from '../../utils/languages';
+import Button from '../../components/Button/Button.jsx';
 import { useNavigate } from 'react-router-dom';
-import { DevisionDescription, PageTitle } from '../styles/CommonStyles.jsx';
+import { DevisionDescription, PageTitle } from '../../styles/CommonStyles.jsx';
+import {
+  StudyWrap,
+  StudyInfoDetail,
+  PaymentAmountDetail,
+  PaymentDetailDescription,
+} from './Payment.styles.jsx';
 
 //해당 스터디 정보에서 아래만 데이터만 받아오기
 const studyInfo = {
@@ -81,33 +85,3 @@ const Payment = () => {
 };
 
 export default Payment;
-
-const StudyWrap = tw.div`
-border
-border-inherit
-rounded-lg
-p-5
-shadow-lg
-`;
-
-const StudyInfoDetail = styled.div`
-  > span {
-    display: inline-block;
-    margin: 8px 8px 8px 0;
-    color: grey;
-  }
-`;
-
-const PaymentDetailDescription = styled.div`
-  > span {
-    display: block;
-    color: red;
-  }
-`;
-
-const PaymentAmountDetail = tw.div`
-flex 
-justify-between 
-text-2xl
-mb-4
-`;

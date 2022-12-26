@@ -1,13 +1,19 @@
 import React from 'react';
-import tw from 'tailwind-styled-components';
+import {
+  Label,
+  InlineBlockBox,
+  WidthHalfWrap,
+  Select,
+  DateInput,
+} from './StudyInfoInput.styles.jsx';
 
 export const PositionSelect = React.forwardRef(
   ({ onChange, name, label }, ref) => (
     <WidthHalfWrap>
       <Label>{label}</Label>
       <Select name={name} ref={ref} onChange={onChange}>
-        <option value='frontend'>프론트엔드</option>
-        <option value='backend'>백엔드</option>
+        <option value='front-end'>프론트엔드</option>
+        <option value='back-end'>백엔드</option>
         <option value='fullstack'>풀스택</option>
       </Select>
     </WidthHalfWrap>
@@ -37,8 +43,8 @@ export const PlaceSelect = React.forwardRef(
     <WidthHalfWrap>
       <Label>{label}</Label>
       <Select name={name} ref={ref} onChange={onChange}>
-        <option value='online'>온라인</option>
-        <option value='offline'>오프라인</option>
+        <option value='true'>온라인</option>
+        <option value='false'>오프라인</option>
       </Select>
     </WidthHalfWrap>
   ),
@@ -79,37 +85,6 @@ export const DepositSelect = React.forwardRef(
     </InlineBlockBox>
   ),
 );
-
-const Label = tw.label`
-mr-2
-`;
-
-const InlineBlockBox = tw.div`
-inline-block
-`;
-
-const WidthHalfWrap = tw(InlineBlockBox)`
-w-1/2 
-mr-5
-`;
-
-const Select = tw.select`
-w-60
-border
-border-solid
-border-inherit
-p-1
-rounded
-`;
-
-const DateInput = tw.input`
-w-60
-border
-border-solid
-border-inherit
-p-1
-rounded
-`;
 
 DateSelect.displayName = 'DateSelect';
 DepositSelect.displayName = 'DepositSelect';
