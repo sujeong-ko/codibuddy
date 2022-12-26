@@ -26,7 +26,7 @@ const Register = () => {
     try {
       const fullRegisterInfo = { ...registerInfo, language };
       console.log(fullRegisterInfo);
-      const result = await axios.post('api/users/register', fullRegisterInfo);
+      const result = await axios.post('/api/user', fullRegisterInfo);
       console.log(result);
       dispatch(modalSlice.actions.registerToggle());
       dispatch(modalSlice.actions.loginToggle());
@@ -61,7 +61,7 @@ const Register = () => {
     // }
 
     try {
-      const result = await axios.post('api/users/register', registerInfo);
+      const result = await axios.post('/api/user', registerInfo);
       alert(`정상적으로 회원가입되었습니다.`);
 
       dispatch(modalSlice.actions.registerToggle());

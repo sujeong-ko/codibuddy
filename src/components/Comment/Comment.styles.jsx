@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components';
 
-const CommentWrap = tw.section`
+const CommentWrap = tw.form`
 my-10
 `;
 
