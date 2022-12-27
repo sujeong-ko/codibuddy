@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { languages } from '../../utils/languages';
 import Button from '../../components/Button/Button.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DevisionDescription, PageTitle } from '../../styles/CommonStyles.jsx';
@@ -11,14 +10,16 @@ import {
 } from './Payment.styles.jsx';
 import getOneStudy from '../../utils/getOneStudy';
 import axios from 'axios';
+import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
+import { useSelector } from 'react-redux';
 
-const userPoint = 5000;
 const token = localStorage.getItem('token');
 const config = {
   Authorization: `Bearer ${token}`,
 };
 
 const Payment = () => {
+  const [userPoint, setUserPoint] = useState(0);
   const { id: study_id } = useParams();
   const navigate = useNavigate();
   const [studyInfo, setStudyInfo] = useState({
@@ -27,7 +28,9 @@ const Payment = () => {
     price: 0,
     start_at: '',
     limit_head_count: '',
+    study_tags: [],
   });
+
   useEffect(() => {
     getOneStudy(study_id).then((studyData) => {
       console.log(studyData);
@@ -38,15 +41,36 @@ const Payment = () => {
         price: studyData.data.price,
         start_at: studyData.data.start_at,
         limit_head_count: studyData.data.limit_head_count,
+        study_tags: studyData.data.Study_tags,
       });
     });
   }, []);
+
+  useEffect(() => {
+    try {
+      getCurrentUserInfo(config).then((userInfo) => {
+        setUserPoint(userInfo.data[0].point);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   const handlePayment = async () => {
     if (!token) alert('로그인이 필요합니다.');
     try {
       await axios.post(`/api/recruit/${study_id}`, null, {
         headers: config,
       });
+      await axios.patch(
+        '/api/user',
+        {
+          point: userPoint - studyInfo.price,
+        },
+        {
+          headers: config,
+        },
+      );
       navigate('/payment/complete');
     } catch (err) {
       console.log(err);
@@ -68,9 +92,9 @@ const Payment = () => {
           <span>{studyInfo.is_online ? '온라인' : '오프라인'}</span>
         </StudyInfoDetail>
         <ul>
-          {languages.map((item, idx) => (
-            <li className='inline-block' key={idx}>
-              <img className='h-[2.5rem]' src={item.img} />
+          {studyInfo.study_tags.map((item) => (
+            <li className='inline-block' key={item.tag_id}>
+              <img className='h-[2.5rem] mr-2' src={item.Tag.tag_image} />
             </li>
           ))}
         </ul>
