@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button.jsx';
 import CommentList from '../../components/Comment/CommentList';
 import {
@@ -50,7 +51,7 @@ const StudyDetail = () => {
           start_at: studyData.start_at,
           end_at: studyData.end_at,
           price: studyData.price,
-          study_tags: studyData.Study_tags,
+          study_tags: studyData.StudyTags,
         });
       });
     } catch (err) {
