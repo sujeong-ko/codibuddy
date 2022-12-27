@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Wrap, Button } from './CategotyNav.styles';
 const CategoryNav = (props) => {
-  const [menu, setMenu] = useState('popular');
+  const [menu, setMenu] = useState('');
   const menuChangeHandler = (e) => {
     setMenu(e.target.type);
   };
@@ -13,7 +13,7 @@ const CategoryNav = (props) => {
       <Button onClick={menuChangeHandler} type='popular'>
         인기
       </Button>
-      <Button onClick={() => setMenu('front_end')} type='front_end'>
+      <Button onClick={menuChangeHandler} type='front_end'>
         프론트엔드
       </Button>
       <Button onClick={menuChangeHandler} type='back_end'>
