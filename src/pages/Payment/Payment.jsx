@@ -41,7 +41,7 @@ const Payment = () => {
         price: studyData.data.price,
         start_at: studyData.data.start_at,
         limit_head_count: studyData.data.limit_head_count,
-        study_tags: studyData.data.Study_tags,
+        study_tags: studyData.data.StudyTags,
       });
     });
   }, []);

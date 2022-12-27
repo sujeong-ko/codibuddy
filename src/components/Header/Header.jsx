@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import logo from '../../assets/codibuddy-resize.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MyHeader, Logo, NavButton } from './Header.styles.jsx';
 import modalSlice from '../../redux/modalSlice.jsx';
 
-const token = localStorage.getItem('token');
-
 const LoginButton = () => {
   const dispatch = useDispatch();
-  const loginIsOpen = useSelector((state) => {
-    return state.modal.loginIsOpen;
-  });
   return (
     <NavButton
       onClick={() => {
-        dispatch(modalSlice.actions.loginToggle(!loginIsOpen));
+        dispatch(modalSlice.actions.loginToggle());
       }}>
       로그인
     </NavButton>
@@ -24,13 +19,10 @@ const LoginButton = () => {
 
 const RegisterButton = () => {
   const dispatch = useDispatch();
-  const registerIsOpen = useSelector((state) => {
-    return state.modal.registerIsOpen;
-  });
   return (
     <NavButton
       onClick={() => {
-        dispatch(modalSlice.actions.registerToggle(!registerIsOpen));
+        dispatch(modalSlice.actions.registerToggle());
       }}>
       회원가입
     </NavButton>
@@ -62,7 +54,6 @@ const MemberNav = () => {
 const Header = () => {
   const navigate = useNavigate();
   const isLogged = useSelector((state) => state.user.isLogged);
-  console.log(isLogged);
   const goToHome = () => {
     navigate('/');
   };

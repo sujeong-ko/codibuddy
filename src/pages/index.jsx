@@ -5,3 +5,4 @@ export { default as StudyDetail } from './StudyDetail/StudyDetail';
 export { default as UpdateMyPage } from './UpdateMyPage/UpdateMyPage';
 export { default as Home } from './Home/Home';
 export { default as MyPage } from './MyPage/MyPage';
+export { default as NotFound } from './NotFound/NotFound';

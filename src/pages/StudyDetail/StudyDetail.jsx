@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button.jsx';
 import CommentList from '../../components/Comment/CommentList';
 import {
@@ -11,6 +12,7 @@ import {
   DivisionLine,
 } from './StudyDetail.styles.jsx';
 import axios from 'axios';
+import getOneStudy from '../../utils/getOneStudy.jsx';
 import { BsBookmarkHeart } from 'react-icons/bs';
 
 const StudyDetail = () => {
@@ -27,34 +29,34 @@ const StudyDetail = () => {
     start_at: '',
     end_at: '',
     price: '',
+    limit_head_count: 0,
     study_tags: [],
   });
 
   useEffect(() => {
-    const getOneStudy = async () => {
-      await axios
-        .get(`/api/study/${study_id}`)
-        .then((response) => {
-          const studyData = response.data;
-          setStudyInfo({
-            ...studyInfo,
-            title: studyData.title,
-            contents: studyData.contents,
-            author: studyData.author,
-            // createdAt 년월일만 나오게 하는 거 util로 분리 or 백에 요청
-            createdAt: studyData.createdAt.slice(0, 10),
-            position: studyData.position,
-            is_online: studyData.is_online,
-            headcount: 3,
-            start_at: studyData.start_at,
-            end_at: studyData.end_at,
-            price: studyData.price,
-            study_tags: studyData.Study_tags,
-          });
-        })
-        .catch((err) => err.data);
-    };
-    getOneStudy();
+    try {
+      getOneStudy(study_id).then((response) => {
+        const studyData = response.data;
+        setStudyInfo({
+          ...studyInfo,
+          title: studyData.title,
+          contents: studyData.contents,
+          author: studyData.author,
+          // createdAt 년월일만 나오게 하는 거 util로 분리 or 백에 요청
+          createdAt: studyData.createdAt.slice(0, 10),
+          position: studyData.position,
+          is_online: studyData.is_online,
+          headcount: studyData.head_count,
+          limit_head_count: studyData.limit_head_count,
+          start_at: studyData.start_at,
+          end_at: studyData.end_at,
+          price: studyData.price,
+          study_tags: studyData.StudyTags,
+        });
+      });
+    } catch (err) {
+      console.log(err.data);
+    }
   }, []);
   return (
     <>
@@ -92,7 +94,9 @@ const StudyDetail = () => {
         </StudyInfoList>
         <StudyInfoList>
           <span>모집 인원</span>
-          <span>{studyInfo.headcount}</span>
+          <span>
+            {studyInfo.headcount}명 신청중 | {studyInfo.limit_head_count}명
+          </span>
         </StudyInfoList>
         <StudyInfoList>
           <span>시작 예정</span>
@@ -104,7 +108,7 @@ const StudyDetail = () => {
         </StudyInfoList>
         <StudyInfoList>
           <span>예치금</span>
-          <span>{studyInfo.price}</span>
+          <span>{studyInfo.price}원</span>
         </StudyInfoList>
       </StudyInfoSection>
       <div className='my-4'>
