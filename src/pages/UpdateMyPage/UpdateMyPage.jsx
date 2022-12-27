@@ -47,11 +47,11 @@ const UpdateMyPage = () => {
   useEffect(() => {
     const getUserData = async () => {
       await axios
-        .get(`/api/user/`, null, {
+        .get(`/api/user/`, {
           headers: config,
         })
         .then((response) => {
-          const MyData = response.data;
+          const MyData = response.data[0];
           console.log(MyData);
           setMyInfo({
             ...updateMyInfo,
@@ -59,6 +59,7 @@ const UpdateMyPage = () => {
             email: MyData.email,
             introduce: MyData.email,
           });
+          console.log(MyData.nickname);
         })
         .catch((err) => console.log(err));
     };
