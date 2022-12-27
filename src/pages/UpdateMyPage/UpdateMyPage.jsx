@@ -48,7 +48,7 @@ const UpdateMyPage = () => {
   }, []);
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data, updateMyInfo);
+  // const onSubmit = (data) => console.log(data, updateMyInfo);
 
   //정보 수정
   const emailHandler = (e) =>

@@ -6,7 +6,7 @@ import { languages } from '../../utils/languages.jsx';
 import { useDispatch } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 import axios from 'axios';
-//https://velog.io/@niboo/React-%EC%B2%B4%ED%81%AC%EB%B0%95%EC%8A%A4-%EB%B0%8F-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EC%84%A0%ED%83%9D-%ED%95%B4%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
+
 const Register = () => {
   const [registerInfo, setRegisterInfo] = useState({
     user_id: '',
@@ -66,7 +66,7 @@ const Register = () => {
 
       dispatch(modalSlice.actions.registerToggle());
     } catch (err) {
-      console.error(err.stack);
+      console.error(err);
       alert(
         `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
       );
