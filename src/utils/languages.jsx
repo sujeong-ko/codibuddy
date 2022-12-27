@@ -2,36 +2,43 @@ export const languages = [
   {
     name: 'JavaScript',
     value: 'javascript',
+    type: ['frontend', 'popular'],
     img: 'https://holaworld.io/images/languages/javascript.svg',
   },
   {
     name: 'TypeScript',
     value: 'typeScript',
+    type: ['frontend', 'backend', 'popular'],
     img: 'https://holaworld.io/images/languages/typescript.svg',
   },
   {
     name: 'React',
     value: 'react',
+    type: ['frontend'],
     img: 'https://holaworld.io/images/languages/react.svg',
   },
   {
     name: 'Vue',
     value: 'vue',
+    type: ['frontend'],
     img: 'https://holaworld.io/images/languages/vue.svg',
   },
   {
     name: 'Svelt',
     value: 'svelt',
+    type: ['frontend'],
     img: 'https://holaworld.io/images/languages/svelte.svg',
   },
   {
     name: 'Nodejs',
     value: 'nodejs',
+    type: ['backend'],
     img: 'https://holaworld.io/images/languages/nodejs.svg',
   },
   {
     name: 'Nextjs',
     value: 'nextjs',
+    type: ['frontend'],
     img: 'https://holaworld.io/images/languages/nextjs.svg',
   },
   {
@@ -42,6 +49,7 @@ export const languages = [
   {
     name: 'Spring',
     value: 'spring',
+    type: ['backend'],
     img: 'https://holaworld.io/images/languages/spring.svg',
   },
   {
@@ -52,6 +60,7 @@ export const languages = [
   {
     name: 'Nestjs',
     value: 'nestjs',
+    type: ['backend'],
     img: 'https://holaworld.io/images/languages/nestjs.svg',
   },
   {

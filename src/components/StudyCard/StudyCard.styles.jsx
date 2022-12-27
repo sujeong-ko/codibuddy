@@ -32,6 +32,10 @@ const ContentDetail = tw.div`
 
   flex-col
 `;
+const ContentTagsWrap = tw.div`
+flex
+gap-1
+`;
 const ContentTags = tw.div`
   flex
 `;
@@ -39,11 +43,14 @@ const Languages = tw.div`
   flex
 `;
 const Tags = tw.div`
-  bg-gray-300
   text-xs
   rounded-xl
   p-1
   m-0.5
+`;
+const Image = tw.img`
+h-[2rem]
+cursor-pointer
 `;
 const Bottom = styled.div`
   display: flex;
@@ -59,6 +66,7 @@ const Bottom = styled.div`
   div:last-child {
     font-size: 13px;
     font-weight: 400;
+    margin-right: 8px;
   }
 `;
 
@@ -67,9 +75,11 @@ export {
   ContentDate,
   ContentDetail,
   ContentHeader,
+  ContentTagsWrap,
   ContentTags,
   ContentTitle,
   Languages,
   Tags,
   Bottom,
+  Image,
 };

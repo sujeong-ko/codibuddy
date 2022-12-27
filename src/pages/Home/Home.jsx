@@ -17,7 +17,6 @@ const Home = () => {
   useEffect(() => {
     StudyList();
   }, []);
-  console.log('데이터', datas);
   return (
     <Wrap>
       <CategoryNav />
@@ -28,11 +27,13 @@ const Home = () => {
             <StudyCard
               key={data.id}
               startDate={data.start_at}
-              people={data.author}
+              people={data.limit_head_count}
               title={data.title}
               isOnline={data.is_online}
-              // tag={data.Study_tags}
+              tag={data.StudyTags}
               positon={data.position}
+              writer={data.User.nickname}
+              visit={data.visit_count}
             />
           ))}
       </StudyWrap>
