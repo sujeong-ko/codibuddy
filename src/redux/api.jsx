@@ -7,7 +7,7 @@ export const studyApi = createApi({
   }),
   endpoints: (builder) => ({
     getOneStudy: builder.query({
-      query: (id) => `study/${id}`,
+      query: (id) => `/api/study/${id}`,
     }),
   }),
 });

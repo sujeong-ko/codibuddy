@@ -12,8 +12,6 @@ import {
 } from './StudyDetail.styles.jsx';
 import axios from 'axios';
 import { BsBookmarkHeart } from 'react-icons/bs';
-import { useGetOneStudyQuery } from '../../redux/api.jsx';
-import Payment from './../Payment/Payment';
 
 const StudyDetail = () => {
   const navigate = useNavigate();
@@ -21,18 +19,16 @@ const StudyDetail = () => {
   const [studyInfo, setStudyInfo] = useState({
     title: '',
     contents: '',
-    author: '리액트짱이될거야',
+    author: '',
     createdAt: '',
     position: '',
     is_online: true,
-    headcount: 3,
+    headcount: 0,
     start_at: '',
     end_at: '',
     price: '',
     study_tags: [],
   });
-
-  // const {data} = useGetOneStudyQuery();
 
   useEffect(() => {
     const getOneStudy = async () => {
@@ -40,12 +36,12 @@ const StudyDetail = () => {
         .get(`/api/study/${study_id}`)
         .then((response) => {
           const studyData = response.data;
-          console.log(studyData);
           setStudyInfo({
             ...studyInfo,
             title: studyData.title,
             contents: studyData.contents,
-            // util로 분리 or 백에 요청
+            author: studyData.author,
+            // createdAt 년월일만 나오게 하는 거 util로 분리 or 백에 요청
             createdAt: studyData.createdAt.slice(0, 10),
             position: studyData.position,
             is_online: studyData.is_online,
@@ -60,7 +56,6 @@ const StudyDetail = () => {
     };
     getOneStudy();
   }, []);
-
   return (
     <>
       <div className='mt-8 mb-4'>
@@ -104,24 +99,28 @@ const StudyDetail = () => {
           <span>{studyInfo.start_at}</span>
         </StudyInfoList>
         <StudyInfoList>
-          <span>예상 기간</span>
+          <span>종료 예정</span>
           <span>{studyInfo.end_at}</span>
         </StudyInfoList>
         <StudyInfoList>
           <span>예치금</span>
           <span>{studyInfo.price}</span>
         </StudyInfoList>
-        <li>
-          <span>사용 언어</span>
-          <ul className='my-4'>
-            {/* {studyInfo.study_tags.map((item, idx) => (
-              <span key={idx} className='mr-4'>
-                {item}
-              </span>
-            ))} */}
-          </ul>
-        </li>
       </StudyInfoSection>
+      <div className='my-4'>
+        <span>사용 언어</span>
+        <ul className='my-4'>
+          {studyInfo.study_tags.map((item) => (
+            <li key={item.tag_id} className='mr-4 inline'>
+              <img
+                src={item.Tag.tag_image}
+                className='inline h-[2.5rem] mr-2'
+              />
+              <span>{item.Tag.tag_name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
       <DivisionLine />
       <StudyContentSection>
         <h2 className='font-bold text-lg mb-10'>스터디 소개</h2>
