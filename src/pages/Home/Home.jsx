@@ -6,20 +6,34 @@ import { Wrap, StudyWrap } from './Home.styles.jsx';
 import axios from 'axios';
 
 const Home = () => {
+  const [category, setCategory] = useState('front_end');
+  const changeMenu = (menu) => {
+    // console.log(menu);
+    setCategory(menu);
+  };
   const [datas, setDatas] = useState();
   const StudyList = async () => {
-    await axios.get('/api/study').then((response) => {
-      console.log(response);
-      setDatas(response.data);
-    });
-    // .catch((err) => {});
+    if (category === 'all') {
+      await axios.get(`/api/study`).then((response) => {
+        console.log(response);
+        setDatas(response.data);
+      });
+    } else {
+      await axios.get(`/api/study/kind/${category}`).then((response) => {
+        console.log(response);
+        setDatas(response.data);
+      });
+    }
   };
   useEffect(() => {
     StudyList();
   }, []);
+  useEffect(() => {
+    StudyList();
+  }, [category]);
   return (
     <Wrap>
-      <CategoryNav />
+      <CategoryNav propFunction={changeMenu} />
       <LanguageNav />
       <StudyWrap>
         {datas &&
