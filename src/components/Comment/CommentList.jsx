@@ -14,8 +14,14 @@ const config = {
 
 const CommentList = () => {
   const [comments, setComments] = useState([]);
+  const [localContent, setLocalContent] = useState('');
   const { id: study_id } = useParams();
   const { register, handleSubmit } = useForm();
+
+  const handleChange = (e) => {
+    setLocalContent(e.target.value);
+  };
+
   const getComments = async () => {
     await axios
       .get(`/api/comment/${study_id}`)
@@ -24,6 +30,7 @@ const CommentList = () => {
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     getComments();
   }, []);
@@ -40,7 +47,8 @@ const CommentList = () => {
           },
           { headers: config },
         )
-        .then((result) => setComments([result.data, ...comments]));
+        .then(() => getComments());
+      setLocalContent('');
     } catch (err) {
       console.log(err);
     }
@@ -51,6 +59,8 @@ const CommentList = () => {
       <CommentInput
         {...register('commentary')}
         placeholder='댓글을 작성해주세요.'
+        value={localContent}
+        onChange={handleChange}
       />
       <div className='flex justify-end'>
         <Button type='basic' text='등록하기' />

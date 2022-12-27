@@ -41,7 +41,7 @@ const StudyDetail = () => {
           ...studyInfo,
           title: studyData.title,
           contents: studyData.contents,
-          author: studyData.author,
+          author: studyData.User.nickname,
           // createdAt 년월일만 나오게 하는 거 util로 분리 or 백에 요청
           createdAt: studyData.createdAt.slice(0, 10),
           position: studyData.position,
