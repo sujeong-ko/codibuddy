@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Content,
   ContentDate,
@@ -13,6 +14,7 @@ import {
   Image,
 } from './StudyCard.styles';
 const StudyCard = ({
+  id,
   startDate,
   people,
   title,
@@ -22,9 +24,10 @@ const StudyCard = ({
   writer,
   visit,
 }) => {
+  const navigate = useNavigate();
   return (
     <>
-      <Content>
+      <Content onClick={() => navigate(`study/${id}`)}>
         <ContentHeader>
           <ContentDate>시작일 {startDate}</ContentDate>
           <span>인원수 {people}</span>

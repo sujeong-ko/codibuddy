@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CategoryNav from '../../components/NavBar/CategoryNav';
 import LanguageNav from '../../components/NavBar/LanguageNav';
 import StudyCard from '../../components/StudyCard/StudyCard';
@@ -6,6 +7,7 @@ import { Wrap, StudyWrap } from './Home.styles.jsx';
 import axios from 'axios';
 
 const Home = () => {
+  const navigate = useNavigate();
   const [category, setCategory] = useState('front_end');
   const changeMenu = (menu) => {
     // console.log(menu);
@@ -20,7 +22,7 @@ const Home = () => {
       });
     } else {
       await axios.get(`/api/study/kind/${category}`).then((response) => {
-        console.log(response);
+        // console.log(response);
         setDatas(response.data);
       });
     }
@@ -40,6 +42,7 @@ const Home = () => {
           datas?.map((data) => (
             <StudyCard
               key={data.id}
+              id={data.id}
               startDate={data.start_at}
               people={data.limit_head_count}
               title={data.title}
