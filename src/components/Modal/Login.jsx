@@ -1,46 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 import axios from 'axios';
 import { login } from '../../redux/userSlice.jsx';
 import { useForm } from 'react-hook-form';
+import { store } from './../../redux/configureStore';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+  const { register, handleSubmit } = useForm();
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
 
   const close = () => {
     dispatch(modalSlice.actions.loginToggle());
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const result = await axios.post(
         '/api/user/login',
         JSON.stringify(data),
         config,
       );
-      console.log(result);
       localStorage.setItem('token', result.data.token);
-      console.log(localStorage.getItem('token'));
       dispatch(modalSlice.actions.loginToggle());
-      //userSlice
-      dispatch(
-        login({
-          user_id: data.user_id,
-          pw: data.pw,
-        }),
-      );
-      console.log(login.id);
-      // 로그인 하고 헤더 리로드 필요?
+
+      //store에 token 저장
+      dispatch(login(result.data.token));
     } catch (err) {
       console.log(err);
     }
