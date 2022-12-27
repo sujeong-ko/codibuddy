@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button.jsx';
 import CommentList from '../../components/Comment/CommentList';
+import LikeButton from '../../components/LikeButton/LikeButton.jsx';
 import {
   PostButton,
   StudyContentSection,
@@ -37,6 +38,11 @@ const StudyDetail = () => {
     try {
       getOneStudy(study_id).then((response) => {
         const studyData = response.data;
+
+        if (!studyData) {
+          navigate('*');
+        }
+
         setStudyInfo({
           ...studyInfo,
           title: studyData.title,
@@ -55,7 +61,7 @@ const StudyDetail = () => {
         });
       });
     } catch (err) {
-      console.log(err.data);
+      console.log(err);
     }
   }, []);
   return (
@@ -72,14 +78,14 @@ const StudyDetail = () => {
             <span>{studyInfo.author} | </span>
             <span>{studyInfo.createdAt}</span>
           </div>
-          <PostButton className='mr-4'>
-            <BsBookmarkHeart size={30} color='#52B4D0' />
+          <PostButton>
+            <LikeButton id={study_id} />
           </PostButton>
         </div>
         {/* 유저 상태에 따라 다르게 렌더링 */}
         <div className='flex justify-end'>
-          <PostButton>마감</PostButton>
           <PostButton>수정</PostButton>
+          <PostButton>삭제</PostButton>
         </div>
       </StudyTitleSection>
       <DivisionLine />
