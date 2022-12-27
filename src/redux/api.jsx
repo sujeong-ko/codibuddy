@@ -1,15 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const studyApi = createApi({
-  reducerPath: 'studyApi',
+export const likeApi = createApi({
+  reducerPath: 'likeApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
   }),
   endpoints: (builder) => ({
-    getOneStudy: builder.query({
-      query: (id) => `/api/study/${id}`,
+    postLike: builder.mutation({
+      query: (id) => ({
+        url: `/api/like/${id}`,
+        method: 'POST',
+      }),
     }),
   }),
 });
 
-export const { useGetOneStudyQuery } = studyApi;
+export const { usePostLikeMutation } = likeApi;
