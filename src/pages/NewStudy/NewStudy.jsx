@@ -22,17 +22,24 @@ import {
   ErrorMessageSpan,
 } from './NewStudy.styles.jsx';
 import axios from 'axios';
+import modalSlice from '../../redux/modalSlice.jsx';
+import { useDispatch } from 'react-redux';
 
 const token = localStorage.getItem('token');
 
 const NewStudy = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!token) {
-  //     alert('로그인이 필요합니다.');
-  //     navigate('/');
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    if (!token) {
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/');
+      dispatch(modalSlice.actions.loginToggle());
+      return;
+    }
+  }, [token]);
+
   const {
     register,
     formState: { errors },
