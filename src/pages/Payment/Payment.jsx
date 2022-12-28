@@ -12,63 +12,64 @@ import getOneStudy from '../../utils/getOneStudy';
 import axios from 'axios';
 import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
 import { useSelector } from 'react-redux';
-
-const token = localStorage.getItem('token');
-const config = {
-  Authorization: `Bearer ${token}`,
-};
+import { token, config } from '../../utils/configCreator.jsx';
 
 const Payment = () => {
-  const [userPoint, setUserPoint] = useState(0);
+  const currenteUserInfo = useSelector((state) => state.user.userInfo);
   const { id: study_id } = useParams();
   const navigate = useNavigate();
   const [studyInfo, setStudyInfo] = useState({
     title: '',
+    author: '',
     is_online: true,
     price: 0,
     start_at: '',
     limit_head_count: '',
     study_tags: [],
   });
+  const [isAuthor, setIsAuthor] = useState(false);
 
   useEffect(() => {
-    getOneStudy(study_id).then((studyData) => {
-      console.log(studyData);
+    getOneStudy(study_id).then((response) => {
+      const studyData = response.data;
       setStudyInfo({
         ...studyInfo,
-        title: studyData.data.title,
-        is_online: studyData.data.is_online,
-        price: studyData.data.price,
-        start_at: studyData.data.start_at,
-        limit_head_count: studyData.data.limit_head_count,
-        study_tags: studyData.data.StudyTags,
+        title: studyData.title,
+        is_online: studyData.is_online,
+        price: studyData.price,
+        start_at: studyData.start_at,
+        limit_head_count: studyData.limit_head_count,
+        study_tags: studyData.StudyTags,
+        author: studyData.User.nickname,
       });
     });
   }, []);
 
   useEffect(() => {
-    try {
-      getCurrentUserInfo(config).then((userInfo) => {
-        setUserPoint(userInfo.data[0].point);
-      });
-    } catch (err) {
-      console.log(err);
+    if (currenteUserInfo.nickname === studyInfo.author) {
+      setIsAuthor(true);
     }
   }, []);
 
+  console.log(isAuthor);
+
   const handlePayment = async () => {
     if (!token) alert('로그인이 필요합니다.');
+
+    // 작성자면 handlePayment에서 axios.post로 스터디 create 해야함
+    // 그러면 위에서 스터디 정보는 어떻게 가져와..
+    // store에 tempStudyInfo로 담아야되나..........
     try {
       await axios.post(`/api/recruit/${study_id}`, null, {
-        headers: config,
+        headers: config(token),
       });
       await axios.patch(
         '/api/user',
         {
-          point: userPoint - studyInfo.price,
+          point: currenteUserInfo.point - studyInfo.price,
         },
         {
-          headers: config,
+          headers: config(token),
         },
       );
       navigate('/payment/complete');
@@ -118,11 +119,13 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>사용 가능한 포인트</span>
-        <span>{userPoint.toLocaleString()} 포인트</span>
+        <span>{currenteUserInfo.point.toLocaleString()} 포인트</span>
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
-        <span>{(userPoint - studyInfo.price).toLocaleString()} 포인트</span>
+        <span>
+          {(currenteUserInfo.point - studyInfo.price).toLocaleString()} 포인트
+        </span>
       </PaymentAmountDetail>
       <Button
         onClick={handlePayment}

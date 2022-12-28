@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BsBookmarkHeart, BsBookmarkStarFill } from 'react-icons/bs';
-import { config } from '../../utils/configCreator';
+import { token, config } from '../../utils/configCreator';
 import { LikeHoverDescription } from './LikeButton.styles';
-
-const token = localStorage.getItem('token');
 
 const LikeButton = ({ id }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -20,10 +18,13 @@ const LikeButton = ({ id }) => {
         setIsLiked(true);
       }
     };
-    getLikedStudy();
-  }, []);
+    if (token) {
+      getLikedStudy();
+    }
+  }, [token]);
 
   const handleLikePost = async () => {
+    const token = localStorage.getItem('userToken');
     try {
       const result = await axios.post(`/api/like/${id}`, null, {
         headers: config(token),
@@ -31,6 +32,7 @@ const LikeButton = ({ id }) => {
       setIsLiked(true);
       console.log(result);
     } catch (err) {
+      console.log(err);
       if (err.response.status === 403) {
         alert('로그인이 필요한 서비스입니다.');
         return;
@@ -43,7 +45,6 @@ const LikeButton = ({ id }) => {
           });
           setIsLiked(false);
         }
-        return;
       }
     }
   };

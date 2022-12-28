@@ -5,12 +5,7 @@ import { CommentWrap, CommentInput } from './Comment.styles.jsx';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
-const token = localStorage.getItem('token');
-
-const config = {
-  Authorization: `Bearer ${token}`,
-};
+import { token, config } from '../../utils/configCreator.jsx';
 
 const CommentList = () => {
   const [comments, setComments] = useState([]);
@@ -45,7 +40,7 @@ const CommentList = () => {
             study_id,
             commentary: data.commentary,
           },
-          { headers: config },
+          { headers: config(token) },
         )
         .then(() => getComments());
       setLocalContent('');

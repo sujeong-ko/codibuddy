@@ -22,17 +22,24 @@ import {
   ErrorMessageSpan,
 } from './NewStudy.styles.jsx';
 import axios from 'axios';
-
-const token = localStorage.getItem('token');
+import modalSlice from '../../redux/modalSlice.jsx';
+import { tempSetStudy } from '../../redux/studySlice.jsx';
+import { useDispatch } from 'react-redux';
+import { token } from '../../utils/configCreator.jsx';
 
 const NewStudy = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   // useEffect(() => {
   //   if (!token) {
-  //     alert('로그인이 필요합니다.');
+  //     alert('로그인이 필요한 서비스입니다.');
   //     navigate('/');
+  //     dispatch(modalSlice.actions.loginToggle());
+  //     return;
   //   }
   // }, []);
+
   const {
     register,
     formState: { errors },
@@ -40,20 +47,25 @@ const NewStudy = () => {
   } = useForm({ criteriaMode: 'all' });
 
   const onSubmit = async (data) => {
-    if (!token) {
-      alert('로그인 한 사용자만 등록할 수 있습니다.');
-      return;
-    }
     const { language: tag, ...study } = data;
-    const studyData = { study, tag };
+    const studyData = { ...study, tag };
     console.log(studyData);
-    try {
-      const result = await axios.post('/api/study', studyData);
-      console.log(result);
-      navigate(`/payment/${result.data.studyId}`);
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(
+      tempSetStudy({
+        studyInfo: {
+          title: studyData.title,
+          start_at: studyData.start_at,
+          limit_head_count: studyData.limit_head_count,
+          is_online: studyData.is_online,
+          contents: studyData.contents,
+          end_at: studyData.end_at,
+          position: studyData.position,
+          price: studyData.price,
+        },
+        studyTag: [...tag],
+      }),
+    );
+    navigate('/payment');
   };
 
   const CancleSubmit = () => {
@@ -82,11 +94,7 @@ const NewStudy = () => {
         <div className='border border-solid border-inherit px-1 py-3 rounded'>
           {languages.map((item, idx) => {
             return (
-              <CategoryInput
-                key={idx}
-                language={item.name}
-                value={item.value}
-              />
+              <CategoryInput key={idx} language={item.name} value={item.name} />
             );
           })}
         </div>
@@ -100,7 +108,10 @@ const NewStudy = () => {
         <FormWrap>
           <InputWrap>
             <PositionSelect label='포지션' {...register('position')} />
-            <HeadcountSelect label='최대 인원' {...register('headcount')} />
+            <HeadcountSelect
+              label='최대 인원'
+              {...register('limit_head_count')}
+            />
           </InputWrap>
           <InputWrap>
             <PlaceSelect label='진행 방식' {...register('is_online')} />

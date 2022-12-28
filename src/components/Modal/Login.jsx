@@ -35,7 +35,7 @@ const Login = () => {
       dispatch(modalSlice.actions.loginToggle());
 
       //store에 token 저장
-      dispatch(login(result.data.token));
+      dispatch(login(result.data.userToken));
     } catch (err) {
       console.log(err);
     }
