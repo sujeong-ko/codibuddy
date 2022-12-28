@@ -23,6 +23,7 @@ import {
 } from './NewStudy.styles.jsx';
 import axios from 'axios';
 import modalSlice from '../../redux/modalSlice.jsx';
+import { tempSetStudy } from '../../redux/studySlice.jsx';
 import { useDispatch } from 'react-redux';
 import { token } from '../../utils/configCreator.jsx';
 
@@ -47,9 +48,24 @@ const NewStudy = () => {
 
   const onSubmit = async (data) => {
     const { language: tag, ...study } = data;
-    const studyData = { study, tag };
+    const studyData = { ...study, tag };
     console.log(studyData);
-    navigate(`/payment/${result.data.studyId}`);
+    dispatch(
+      tempSetStudy({
+        studyInfo: {
+          title: studyData.title,
+          start_at: studyData.start_at,
+          limit_head_count: studyData.limit_head_count,
+          is_online: studyData.is_online,
+          contents: studyData.contents,
+          end_at: studyData.end_at,
+          position: studyData.position,
+          price: studyData.price,
+        },
+        studyTag: [...tag],
+      }),
+    );
+    navigate('/payment');
   };
 
   const CancleSubmit = () => {
@@ -78,11 +94,7 @@ const NewStudy = () => {
         <div className='border border-solid border-inherit px-1 py-3 rounded'>
           {languages.map((item, idx) => {
             return (
-              <CategoryInput
-                key={idx}
-                language={item.name}
-                value={item.value}
-              />
+              <CategoryInput key={idx} language={item.name} value={item.name} />
             );
           })}
         </div>

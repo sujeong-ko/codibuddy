@@ -3,6 +3,7 @@ import {
   Home,
   MyPage,
   Payment,
+  FirstPayment,
   PaymentComplete,
   StudyDetail,
   UpdateMyPage,
@@ -40,6 +41,11 @@ export const ROUTE = {
     path: 'payment/:id',
     link: '/payment/:id',
     element: <Payment />,
+  },
+  FIRST_PAYMENT: {
+    path: 'payment',
+    link: '/payment',
+    element: <FirstPayment />,
   },
   PAYMENT_COMPLETE: {
     path: 'payment/complete',

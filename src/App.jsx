@@ -20,6 +20,7 @@ function App() {
   try {
     if (token) {
       getCurrentUserInfo(config).then((response) => {
+        console.log(response);
         const userInfo = response.data[0];
         dispatch(
           tempSetUser({

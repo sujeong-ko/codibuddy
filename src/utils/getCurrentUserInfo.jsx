@@ -7,7 +7,7 @@ const getCurrentUserInfo = async (config) => {
     });
     return result;
   } catch (err) {
-    console.log('유저 정보가 없습니다.');
+    console.log(err);
   }
 };
 
