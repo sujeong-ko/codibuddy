@@ -59,7 +59,7 @@ const Payment = () => {
     // store에 tempStudyInfo로 담아야되나..........
     try {
       await axios.patch(
-        '/api/user',
+        '/api/user/payment',
         {
           point: currentUserPoint - studyInfo.price,
         },
