@@ -40,7 +40,7 @@ const UpdateMyPage = () => {
             ...updateMyInfo,
             nickname: MyData.nickname,
             email: MyData.email,
-            introduce: MyData.email,
+            introduce: MyData.introduce,
           });
           console.log(MyData.nickname);
         })
@@ -50,11 +50,29 @@ const UpdateMyPage = () => {
   }, []);
 
   const { register, handleSubmit } = useForm();
+  //submit
   const onSubmit = async ({ language }) => {
+    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+    // const isPasswordValid = updateMyInfo.pw.length >= 4;
+
+    // if (!isPasswordValid) {
+    //   return alert('비밀번호는 4글자 이상이어야 합니다.');
+    // }
+
+    // if (!isPasswordSame) {
+    //   return alert('비밀번호가 일치하지 않습니다.');
+    // }
+    const token = localStorage.getItem('userToken');
+    const config = {
+      Authorization: `Bearer ${token}`,
+    };
     try {
-      const fullupdateMyInfo = { ...updateMyInfo, tag: [...language] };
+      const fullupdateMyInfo = { ...updateMyInfo, tag: language.toString() };
       console.log(fullupdateMyInfo);
-      const result = await axios.patch('/api/user', fullupdateMyInfo);
+      const result = await axios.patch('/api/user', fullupdateMyInfo, {
+        headers: config,
+      });
+      alert(`정상적으로 정보가 업데이트 되었습니다.`);
       console.log(result);
     } catch (err) {
       console.log(err);
@@ -70,35 +88,35 @@ const UpdateMyPage = () => {
   const introduceHandler = (e) =>
     setMyInfo({ ...updateMyInfo, introduce: e.target.value });
 
-  const submitHandler = async () => {
-    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
-    // const isPasswordValid = updateMyInfo.pw.length >= 4;
+  // const submitHandler = async () => {
+  //   // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+  //   // const isPasswordValid = updateMyInfo.pw.length >= 4;
 
-    // if (!isPasswordValid) {
-    //   return alert('비밀번호는 4글자 이상이어야 합니다.');
-    // }
+  //   // if (!isPasswordValid) {
+  //   //   return alert('비밀번호는 4글자 이상이어야 합니다.');
+  //   // }
 
-    // if (!isPasswordSame) {
-    //   return alert('비밀번호가 일치하지 않습니다.');
-    // }
-    const token = localStorage.getItem('userToken');
-    const config = {
-      Authorization: `Bearer ${token}`,
-    };
+  //   // if (!isPasswordSame) {
+  //   //   return alert('비밀번호가 일치하지 않습니다.');
+  //   // }
+  //   const token = localStorage.getItem('userToken');
+  //   const config = {
+  //     Authorization: `Bearer ${token}`,
+  //   };
 
-    try {
-      console.log(updateMyInfo);
-      const result = await axios.patch('/api/user', updateMyInfo, {
-        headers: config,
-      });
-      alert(`정상적으로 정보가 업데이트 되었습니다.`);
-    } catch (err) {
-      console.error(err);
-      alert(
-        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
-      );
-    }
-  };
+  //   try {
+  //     console.log(updateMyInfo);
+  //     const result = await axios.patch('/api/user', updateMyInfo, {
+  //       headers: config,
+  //     });
+  //     alert(`정상적으로 정보가 업데이트 되었습니다.`);
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert(
+  //       `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
+  //     );
+  //   }
+  // };
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -194,7 +212,7 @@ const UpdateMyPage = () => {
           <CategorySelect />
         </div>
 
-        <S.SaveBtn onClick={submitHandler}> 저장하기 </S.SaveBtn>
+        <S.SaveBtn> 저장하기 </S.SaveBtn>
         {/* 탈퇴하기 */}
       </S.ProfileDetail>
     </S.UpdatePage>
