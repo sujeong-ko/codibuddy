@@ -42,5 +42,12 @@ flex
 items-center
 justify-center
 `;
-
-export { Wrap, ProfileMain, ProfileImg, UserInfo, Logout, SelfText };
+const Point = tw.div`
+text-l
+ml-3
+p-2
+flex
+items-center
+justify-center
+`;
+export { Wrap, ProfileMain, ProfileImg, UserInfo, Logout, SelfText, Point };

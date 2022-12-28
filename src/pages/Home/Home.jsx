@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import CategoryNav from '../../components/NavBar/CategoryNav';
 import LanguageNav from '../../components/NavBar/LanguageNav';
 import StudyCard from '../../components/StudyCard/StudyCard';
@@ -7,7 +6,6 @@ import { Wrap, StudyWrap } from './Home.styles.jsx';
 import axios from 'axios';
 
 const Home = () => {
-  const navigate = useNavigate();
   const [category, setCategory] = useState('front_end');
   const changeMenu = (menu) => {
     // console.log(menu);
