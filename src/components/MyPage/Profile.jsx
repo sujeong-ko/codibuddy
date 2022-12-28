@@ -6,19 +6,17 @@ import {
   UserInfo,
   Logout,
   SelfText,
+  Point,
 } from './Profile.styles';
-const Profile = () => {
+const Profile = ({ image, nickname, introduce, point }) => {
   return (
     <Wrap>
       <ProfileMain>
-        <ProfileImg
-          src={
-            'https://user-images.githubusercontent.com/65716445/209169292-b33725cc-0362-4cb4-976a-2e525b6943c5.png'
-          }
-        />
-        <UserInfo>닉네임</UserInfo>
+        <ProfileImg src={image} />
+        <UserInfo>{nickname}</UserInfo>
         <Logout>🔓</Logout>
-        <SelfText>&#39;안녕하세요! 프론트엔드 지망생입니당!&#39;</SelfText>
+        <SelfText>{introduce}</SelfText>
+        <Point>{point}</Point>
       </ProfileMain>
     </Wrap>
   );
