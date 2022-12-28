@@ -53,8 +53,8 @@ export const ROUTE = {
     element: <PaymentComplete />,
   },
   NOT_FOUND: {
-    path: '*',
-    link: '/*',
+    path: 'notFound',
+    link: '/notFound',
     element: <NotFound />,
   },
 };
