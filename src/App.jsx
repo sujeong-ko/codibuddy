@@ -17,18 +17,22 @@ function App() {
   const dispatch = useDispatch();
 
   // App 실행과 동시에 token 확인 및 store에 유저 정보 전달
-  if (token) {
-    getCurrentUserInfo(config).then((response) => {
-      const userInfo = response.data[0];
-      dispatch(
-        tempSetUser({
-          user_id: userInfo.user_id,
-          nickname: userInfo.nickname,
-          email: userInfo.email,
-          point: userInfo.point,
-        }),
-      );
-    });
+  try {
+    if (token) {
+      getCurrentUserInfo(config).then((response) => {
+        const userInfo = response.data[0];
+        dispatch(
+          tempSetUser({
+            user_id: userInfo.user_id,
+            nickname: userInfo.nickname,
+            email: userInfo.email,
+            point: userInfo.point,
+          }),
+        );
+      });
+    } else return;
+  } catch (err) {
+    console.log('유저 정보가 없습니다.');
   }
 
   const loginIsOpen = useSelector((state) => state.modal.loginIsOpen);

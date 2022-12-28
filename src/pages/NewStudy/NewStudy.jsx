@@ -25,20 +25,20 @@ import axios from 'axios';
 import modalSlice from '../../redux/modalSlice.jsx';
 import { useDispatch } from 'react-redux';
 
-const token = localStorage.getItem('token');
-
 const NewStudy = () => {
+  let token;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
+    token = localStorage.getItem('token');
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/');
       dispatch(modalSlice.actions.loginToggle());
       return;
     }
-  }, [token]);
+  }, []);
 
   const {
     register,
@@ -47,20 +47,10 @@ const NewStudy = () => {
   } = useForm({ criteriaMode: 'all' });
 
   const onSubmit = async (data) => {
-    if (!token) {
-      alert('로그인 한 사용자만 등록할 수 있습니다.');
-      return;
-    }
     const { language: tag, ...study } = data;
     const studyData = { study, tag };
     console.log(studyData);
-    try {
-      const result = await axios.post('/api/study', studyData);
-      console.log(result);
-      navigate(`/payment/${result.data.studyId}`);
-    } catch (err) {
-      console.log(err);
-    }
+    navigate(`/payment/${result.data.studyId}`);
   };
 
   const CancleSubmit = () => {
@@ -107,7 +97,10 @@ const NewStudy = () => {
         <FormWrap>
           <InputWrap>
             <PositionSelect label='포지션' {...register('position')} />
-            <HeadcountSelect label='최대 인원' {...register('headcount')} />
+            <HeadcountSelect
+              label='최대 인원'
+              {...register('limit_head_count')}
+            />
           </InputWrap>
           <InputWrap>
             <PlaceSelect label='진행 방식' {...register('is_online')} />
