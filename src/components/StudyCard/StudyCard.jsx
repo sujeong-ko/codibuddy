@@ -27,7 +27,7 @@ const StudyCard = ({
   const navigate = useNavigate();
   return (
     <>
-      <Content onClick={() => navigate(`study/${id}`)}>
+      <Content onClick={() => navigate(`/study/${id}`)}>
         <ContentHeader>
           <ContentDate>시작일 {startDate}</ContentDate>
           <span>인원수 {people}</span>
