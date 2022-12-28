@@ -50,7 +50,16 @@ const UpdateMyPage = () => {
   }, []);
 
   const { register, handleSubmit } = useForm();
-  // const onSubmit = (data) => console.log(data, updateMyInfo);
+  const onSubmit = async ({ language }) => {
+    try {
+      const fullupdateMyInfo = { ...updateMyInfo, tag: [...language] };
+      console.log(fullupdateMyInfo);
+      const result = await axios.patch('/api/user', fullupdateMyInfo);
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   //정보 수정
   const emailHandler = (e) =>
@@ -130,7 +139,7 @@ const UpdateMyPage = () => {
         <S.ProfileImage src={userImage} />
         <S.ProfileName> {updateMyInfo.nickname} </S.ProfileName>
       </S.ProfileHead>
-      <S.ProfileDetail>
+      <S.ProfileDetail onSubmit={handleSubmit(onSubmit)}>
         <S.TitleText>이메일</S.TitleText>
         <S.Input
           className='input'

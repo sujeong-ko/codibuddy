@@ -28,7 +28,7 @@ const ProfileName = tw.div`
 mt-2
 `;
 
-const ProfileDetail = tw.div`
+const ProfileDetail = tw.form`
 w-5/6
 mt-5
 ml-auto
