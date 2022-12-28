@@ -8,10 +8,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const token = localStorage.getItem('userToken');
-const config = {
-  Authorization: `Bearer ${token}`,
-};
+// const token = localStorage.getItem('userToken');
 
 const UpdateMyPage = () => {
   //리듀서 접근
@@ -27,6 +24,10 @@ const UpdateMyPage = () => {
 
   //데이터 받기
   useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    const config = {
+      Authorization: `Bearer ${token}`,
+    };
     const getUserData = async () => {
       await axios
         .get(`/api/user/`, {
@@ -71,15 +72,19 @@ const UpdateMyPage = () => {
     // if (!isPasswordSame) {
     //   return alert('비밀번호가 일치하지 않습니다.');
     // }
+    const token = localStorage.getItem('userToken');
+    const config = {
+      Authorization: `Bearer ${token}`,
+    };
 
     try {
+      console.log(updateMyInfo);
       const result = await axios.patch('/api/user', updateMyInfo, {
         headers: config,
       });
       alert(`정상적으로 정보가 업데이트 되었습니다.`);
-      console.log(updateMyInfo);
     } catch (err) {
-      console.error(err.stack);
+      console.error(err);
       alert(
         `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
       );
