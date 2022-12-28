@@ -18,8 +18,10 @@ const LikeButton = ({ id }) => {
         setIsLiked(true);
       }
     };
-    getLikedStudy();
-  }, []);
+    if (token) {
+      getLikedStudy();
+    }
+  }, [token]);
 
   const handleLikePost = async () => {
     try {

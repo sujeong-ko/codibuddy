@@ -31,7 +31,9 @@ function App() {
           }),
         );
       });
-    } else return;
+    } else {
+      console.log('토큰 없음');
+    }
   } catch (err) {
     console.log('유저 정보가 없습니다.');
   }
