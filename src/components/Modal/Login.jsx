@@ -30,7 +30,9 @@ const Login = () => {
         JSON.stringify(data),
         config,
       );
-      localStorage.setItem('token', result.data.token);
+      console.log(result);
+      localStorage.setItem('userToken', result.data.userToken);
+      localStorage.setItem('refreshToken', result.data.refresh_token);
       dispatch(modalSlice.actions.loginToggle());
 
       //store에 token 저장
