@@ -51,16 +51,16 @@ const UpdateMyPage = () => {
   const { register, handleSubmit } = useForm();
   //submit
   const onSubmit = async ({ language }) => {
-    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+    const isPasswordSame = updateMyInfo.pw === updateMyInfo.confirmPw;
     // const isPasswordValid = updateMyInfo.pw.length >= 4;
 
     // if (!isPasswordValid) {
     //   return alert('비밀번호는 4글자 이상이어야 합니다.');
     // }
 
-    // if (!isPasswordSame) {
-    //   return alert('비밀번호가 일치하지 않습니다.');
-    // }
+    if (!isPasswordSame) {
+      return alert('비밀번호가 일치하지 않습니다.');
+    }
     const token = localStorage.getItem('userToken');
     const config = {
       Authorization: `Bearer ${token}`,
@@ -129,15 +129,21 @@ const UpdateMyPage = () => {
   };
 
   // const passwordOpen = () => {
-  //   const [isOpen, setBtn] = useState(false); // 메뉴의 초기값을 false로 설정
+  //   const [isOpen, setBtn] = useState({ display: 'none' }); // 메뉴의 초기값을 false로 설정
 
-  //   const BtnMenu = () => {
-  //     setBtn((isOpen) => !isOpen); // on,off 개념 boolean
-  //   };
+  //   // const BtnMenu = () => {
+  //   //   setBtn((isOpen) => !isOpen); // on,off 개념 boolean
+  //   // };
 
   //   return (
   //     <>
-  //       <S.passwordBtn onClick={() => BtnMenu()}> 비밀번호 변경 </S.passwordBtn>
+  //       <S.passwordBtn
+  //         onClick={(e) => {
+  //           setBtn({ display: 'block' });
+  //         }}>
+  //         {' '}
+  //         비밀번호 변경{' '}
+  //       </S.passwordBtn>
   //       <passwordDiv className={isOpen ? 'show-menu' : 'hide-menu'}>
   //         <S.TitleText>새 비밀번호</S.TitleText>
   //         <S.Input
@@ -193,8 +199,20 @@ const UpdateMyPage = () => {
         <div>
           <CategorySelect />
         </div>
-        {/* 
-        <S.passwordBtn> 비밀번호 변경 </S.passwordBtn> */}
+        <S.TitleText>현재 비밀번호</S.TitleText>
+        <S.Input
+          className='input'
+          id='newPasswordInput'
+          type='password'
+          placeholder='변경할 비밀번호를 입력해주세요'
+          // value={updateMyInfo.pw}
+          // onChange={pwHandler}
+        />
+
+        <S.passwordBtn type='button'> 비밀번호 변경 </S.passwordBtn>
+        {/* <div>
+          <passwordOpen />
+        </div> */}
         <passwordDiv>
           <S.TitleText>새 비밀번호</S.TitleText>
           <S.Input
