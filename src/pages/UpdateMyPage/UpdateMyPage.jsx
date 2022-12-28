@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('userToken');
 const config = {
   Authorization: `Bearer ${token}`,
 };
@@ -22,6 +22,7 @@ const UpdateMyPage = () => {
     nickname: '',
     email: '',
     introduce: '',
+    tag: [],
   });
 
   //데이터 받기
