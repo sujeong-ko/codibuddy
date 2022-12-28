@@ -40,6 +40,7 @@ const UpdateMyPage = () => {
             nickname: MyData.nickname,
             email: MyData.email,
             introduce: MyData.introduce,
+            UserTags: MyData.UserTags || [],
           });
           console.log(MyData.nickname);
         })
@@ -88,7 +89,7 @@ const UpdateMyPage = () => {
     setMyInfo({ ...updateMyInfo, introduce: e.target.value });
 
   const CategorySelect = () => {
-    const CategoryInput = ({ language, value }) => (
+    const CategoryInput = ({ language, value, checked }) => (
       <div className='inline-block mr-1'>
         <label>
           <input
@@ -96,6 +97,7 @@ const UpdateMyPage = () => {
             {...register('language')}
             type='checkbox'
             value={value}
+            checked={checked}
           />
           {language}
         </label>
@@ -106,15 +108,21 @@ const UpdateMyPage = () => {
       <>
         <p className='my-2'>기술 스택</p>
         <div className='border border-solid border-inherit px-1 py-3 rounded'>
-          {languages.map((item, idx) => {
-            return (
-              <CategoryInput
-                key={idx}
-                language={item.name}
-                value={item.value}
-              />
-            );
-          })}
+          {updateMyInfo.UserTags &&
+            languages.map((item, idx) => {
+              const checked = !!updateMyInfo.UserTags.find(
+                (el) =>
+                  el?.Tag?.tag_name.toLowerCase() === item.value.toLowerCase(),
+              );
+              return (
+                <CategoryInput
+                  key={idx}
+                  language={item.name}
+                  value={item.value}
+                  checked={checked}
+                />
+              );
+            })}
           {/* {languages.map((item, idx) => {
             return (
               <label htmlFor={item.name} key={idx} value={updateMyInfo.tag}>

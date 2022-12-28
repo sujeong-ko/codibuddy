@@ -1,7 +1,7 @@
 export const languages = [
   {
     name: 'JavaScript',
-    value: 'javascript',
+    value: 'javaScript',
     type: ['frontend', 'popular'],
     img: 'https://holaworld.io/images/languages/javascript.svg',
   },
@@ -25,7 +25,7 @@ export const languages = [
   },
   {
     name: 'Svelt',
-    value: 'svelt',
+    value: 'Svelt',
     type: ['frontend'],
     img: 'https://holaworld.io/images/languages/svelte.svg',
   },
