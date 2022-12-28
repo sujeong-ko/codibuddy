@@ -12,11 +12,7 @@ import getOneStudy from '../../utils/getOneStudy';
 import axios from 'axios';
 import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
 import { useSelector } from 'react-redux';
-
-const token = localStorage.getItem('token');
-const config = {
-  Authorization: `Bearer ${token}`,
-};
+import { token, config } from '../../utils/configCreator.jsx';
 
 const Payment = () => {
   const currenteUserInfo = useSelector((state) => state.user.userInfo);
@@ -66,7 +62,7 @@ const Payment = () => {
     if (isAuthor) {
       try {
         await axios.post(`/api/recruit/${study_id}`, null, {
-          headers: config,
+          headers: config(token),
         });
         await axios.patch(
           '/api/user',
@@ -74,7 +70,7 @@ const Payment = () => {
             point: currenteUserInfo.point - studyInfo.price,
           },
           {
-            headers: config,
+            headers: config(token),
           },
         );
         navigate('/payment/complete');

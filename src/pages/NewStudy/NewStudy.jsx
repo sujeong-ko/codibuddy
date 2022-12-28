@@ -24,14 +24,13 @@ import {
 import axios from 'axios';
 import modalSlice from '../../redux/modalSlice.jsx';
 import { useDispatch } from 'react-redux';
+import { token } from '../../utils/configCreator.jsx';
 
 const NewStudy = () => {
-  let token;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    token = localStorage.getItem('token');
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/');

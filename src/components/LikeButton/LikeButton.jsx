@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BsBookmarkHeart, BsBookmarkStarFill } from 'react-icons/bs';
-import { config } from '../../utils/configCreator';
+import { token, config } from '../../utils/configCreator';
 import { LikeHoverDescription } from './LikeButton.styles';
-
-const token = localStorage.getItem('token');
 
 const LikeButton = ({ id }) => {
   const [isLiked, setIsLiked] = useState(false);
