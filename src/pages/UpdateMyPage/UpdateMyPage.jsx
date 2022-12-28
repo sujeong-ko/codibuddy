@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import userImage from '../../assets/userFlat.png';
 import * as S from './UpdateMyPage.style';
 import { useForm } from 'react-hook-form';
@@ -19,7 +18,7 @@ const UpdateMyPage = () => {
     nickname: '',
     email: '',
     introduce: '',
-    tag: [],
+    tag: '',
   });
 
   //데이터 받기
@@ -88,36 +87,6 @@ const UpdateMyPage = () => {
   const introduceHandler = (e) =>
     setMyInfo({ ...updateMyInfo, introduce: e.target.value });
 
-  // const submitHandler = async () => {
-  //   // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
-  //   // const isPasswordValid = updateMyInfo.pw.length >= 4;
-
-  //   // if (!isPasswordValid) {
-  //   //   return alert('비밀번호는 4글자 이상이어야 합니다.');
-  //   // }
-
-  //   // if (!isPasswordSame) {
-  //   //   return alert('비밀번호가 일치하지 않습니다.');
-  //   // }
-  //   const token = localStorage.getItem('userToken');
-  //   const config = {
-  //     Authorization: `Bearer ${token}`,
-  //   };
-
-  //   try {
-  //     console.log(updateMyInfo);
-  //     const result = await axios.patch('/api/user', updateMyInfo, {
-  //       headers: config,
-  //     });
-  //     alert(`정상적으로 정보가 업데이트 되었습니다.`);
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert(
-  //       `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
-  //     );
-  //   }
-  // };
-
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
       <div className='inline-block mr-1'>
@@ -146,10 +115,53 @@ const UpdateMyPage = () => {
               />
             );
           })}
+          {/* {languages.map((item, idx) => {
+            return (
+              <label htmlFor={item.name} key={idx} value={updateMyInfo.tag}>
+                <span></span>
+                {updateMyInfo.tag}
+              </label>
+            );
+          })} */}
         </div>
       </>
     );
   };
+
+  // const passwordOpen = () => {
+  //   const [isOpen, setBtn] = useState(false); // 메뉴의 초기값을 false로 설정
+
+  //   const BtnMenu = () => {
+  //     setBtn((isOpen) => !isOpen); // on,off 개념 boolean
+  //   };
+
+  //   return (
+  //     <>
+  //       <S.passwordBtn onClick={() => BtnMenu()}> 비밀번호 변경 </S.passwordBtn>
+  //       <passwordDiv className={isOpen ? 'show-menu' : 'hide-menu'}>
+  //         <S.TitleText>새 비밀번호</S.TitleText>
+  //         <S.Input
+  //           className='input'
+  //           id='newPasswordInput'
+  //           type='password'
+  //           placeholder='변경할 비밀번호를 입력해주세요'
+  //           // value={updateMyInfo.pw}
+  //           onChange={pwHandler}
+  //         />
+
+  //         <S.TitleText>새 비밀번호 확인</S.TitleText>
+  //         <S.Input
+  //           className='input'
+  //           id='PWCheckInput'
+  //           type='password'
+  //           placeholder='비밀번호 확인'
+  //           // value={updateMyInfo.confirmPw}
+  //           onChange={confirmPwHandler}
+  //         />
+  //       </passwordDiv>
+  //     </>
+  //   );
+  // };
 
   return (
     <S.UpdatePage>
@@ -178,39 +190,32 @@ const UpdateMyPage = () => {
           onChange={introduceHandler}
         />
 
-        <S.TitleText>현재 비밀번호</S.TitleText>
-        <S.Input
-          className='input'
-          id='passwordInput'
-          type='password'
-          placeholder='현재 비밀번호를 입력해주세요'
-          // value={updateMyInfo.pw}
-          // onChange={pwHandler}
-        />
-
-        <S.TitleText>새 비밀번호</S.TitleText>
-        <S.Input
-          className='input'
-          id='newPasswordInput'
-          type='password'
-          placeholder='변경할 비밀번호를 입력해주세요'
-          // value={updateMyInfo.pw}
-          onChange={pwHandler}
-        />
-
-        <S.TitleText>새 비밀번호 확인</S.TitleText>
-        <S.Input
-          className='input'
-          id='PWCheckInput'
-          type='password'
-          placeholder='비밀번호 확인'
-          // value={updateMyInfo.confirmPw}
-          onChange={confirmPwHandler}
-        />
-
         <div>
           <CategorySelect />
         </div>
+        {/* 
+        <S.passwordBtn> 비밀번호 변경 </S.passwordBtn> */}
+        <passwordDiv>
+          <S.TitleText>새 비밀번호</S.TitleText>
+          <S.Input
+            className='input'
+            id='newPasswordInput'
+            type='password'
+            placeholder='변경할 비밀번호를 입력해주세요'
+            value={updateMyInfo.pw}
+            onChange={pwHandler}
+          />
+
+          <S.TitleText>새 비밀번호 확인</S.TitleText>
+          <S.Input
+            className='input'
+            id='PWCheckInput'
+            type='password'
+            placeholder='비밀번호 확인'
+            value={updateMyInfo.confirmPw}
+            onChange={confirmPwHandler}
+          />
+        </passwordDiv>
 
         <S.SaveBtn> 저장하기 </S.SaveBtn>
         {/* 탈퇴하기 */}

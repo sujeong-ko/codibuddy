@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import * as S from './Modal.style';
 import { useDispatch, useSelector } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';

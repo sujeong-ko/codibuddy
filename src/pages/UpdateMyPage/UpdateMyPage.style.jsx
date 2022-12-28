@@ -36,6 +36,25 @@ mr-auto
 mb-auto
 `;
 
+const passwordBtn = tw.button`
+block
+h-3/7
+w-2/5
+text-base
+pt-2
+pb-2
+cursor-pointer
+bg-[#52b4d0]
+text-white
+leading-loose
+mt-5
+ml-auto
+mr-auto
+mb-auto
+rounded-sm
+border-none
+`;
+
 const Input = tw.input`
 placeholder-shown:bg-slate-50
 rounded-sm
@@ -86,4 +105,5 @@ export {
   Input,
   TitleText,
   SaveBtn,
+  passwordBtn,
 };
