@@ -1,9 +1,8 @@
 /* eslint-disable */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { languages } from '../../utils/languages.jsx';
 import Button from '../../components/Button/Button.jsx';
 import {
   DateSelect,
@@ -24,12 +23,17 @@ import {
 import axios from 'axios';
 import { tempSetStudy } from '../../redux/studySlice.jsx';
 import { useDispatch } from 'react-redux';
-import { token } from '../../utils/configCreator.jsx';
 
 const NewStudy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ criteriaMode: 'all' });
 
+  const [languages, setLanguages] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem('userToken');
 
@@ -40,11 +44,17 @@ const NewStudy = () => {
     }
   }, []);
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({ criteriaMode: 'all' });
+  // 기술스택 GET
+  const LanguageList = async () => {
+    await axios.get(`api/tag/all`).then((response) => {
+      const tags = response.data.map((item) => item.tag_name);
+      setLanguages([...tags]);
+    });
+  };
+
+  useEffect(() => {
+    LanguageList();
+  }, []);
 
   const onSubmit = async (data) => {
     const { language: tag, ...study } = data;
@@ -93,9 +103,7 @@ const NewStudy = () => {
         <p className='my-2'>기술 스택</p>
         <div className='border border-solid border-inherit px-1 py-3 rounded'>
           {languages.map((item, idx) => {
-            return (
-              <CategoryInput key={idx} language={item.name} value={item.name} />
-            );
+            return <CategoryInput key={idx} language={item} value={item} />;
           })}
         </div>
       </>
