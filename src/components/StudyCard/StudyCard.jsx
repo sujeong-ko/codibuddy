@@ -47,7 +47,6 @@ const StudyCard = ({
               tag?.map((item, index) => (
                 <Tags key={index}>
                   <Image src={item.Tag.tag_image}></Image>
-                  {/* {item.Tag.tag_name} */}
                 </Tags>
               ))}
           </Languages>

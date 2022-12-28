@@ -5,6 +5,7 @@ const CategoryNav = (props) => {
   const [check, setCheck] = useState(false);
   const menuChangeHandler = (e) => {
     setMenu(e.target.type);
+    console.log(menu);
     setCheck(true);
   };
   useEffect(() => {

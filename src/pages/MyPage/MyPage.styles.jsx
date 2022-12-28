@@ -5,7 +5,6 @@ flex-wrap
 gap-4
 `;
 const Box = tw.div`
-w-4/5
 `;
 const Item = tw.div`
 flex
