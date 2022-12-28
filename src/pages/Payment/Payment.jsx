@@ -15,9 +15,16 @@ import { useSelector } from 'react-redux';
 import { token, config } from '../../utils/configCreator.jsx';
 
 const Payment = () => {
-  const currenteUserInfo = useSelector((state) => state.user.userInfo);
+  const [currentUserPoint, setCurrentUserPoint] = useState(0);
+  // const currenteUserInfo = useSelector((state) => state.user.userInfo);
   const { id: study_id } = useParams();
   const navigate = useNavigate();
+  useEffect(() => {
+    getCurrentUserInfo(token).then((response) => {
+      const currentUserInfo = response.data[0];
+      setCurrentUserPoint(currentUserInfo.point);
+    });
+  });
   const [studyInfo, setStudyInfo] = useState({
     title: '',
     author: '',
@@ -27,7 +34,6 @@ const Payment = () => {
     limit_head_count: '',
     study_tags: [],
   });
-  const [isAuthor, setIsAuthor] = useState(false);
 
   useEffect(() => {
     getOneStudy(study_id).then((response) => {
@@ -45,14 +51,6 @@ const Payment = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (currenteUserInfo.nickname === studyInfo.author) {
-      setIsAuthor(true);
-    }
-  }, []);
-
-  console.log(isAuthor);
-
   const handlePayment = async () => {
     if (!token) alert('로그인이 필요합니다.');
 
@@ -60,18 +58,19 @@ const Payment = () => {
     // 그러면 위에서 스터디 정보는 어떻게 가져와..
     // store에 tempStudyInfo로 담아야되나..........
     try {
-      await axios.post(`/api/recruit/${study_id}`, null, {
-        headers: config(token),
-      });
       await axios.patch(
         '/api/user',
         {
-          point: currenteUserInfo.point - studyInfo.price,
+          point: currentUserPoint - studyInfo.price,
         },
         {
           headers: config(token),
         },
       );
+      await axios.post(`/api/recruit/${study_id}`, null, {
+        headers: config(token),
+      });
+
       navigate('/payment/complete');
     } catch (err) {
       console.log(err);
@@ -119,12 +118,12 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>사용 가능한 포인트</span>
-        <span>{currenteUserInfo.point.toLocaleString()} 포인트</span>
+        <span>{currentUserPoint.toLocaleString()} 포인트</span>
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
         <span>
-          {(currenteUserInfo.point - studyInfo.price).toLocaleString()} 포인트
+          {(currentUserPoint - studyInfo.price).toLocaleString()} 포인트
         </span>
       </PaymentAmountDetail>
       <Button

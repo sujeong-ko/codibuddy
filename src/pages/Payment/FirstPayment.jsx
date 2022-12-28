@@ -19,6 +19,7 @@ const Payment = () => {
   const [currentUserPoint, setCurrentUserPoint] = useState(0);
   //   const currenteUserInfo = useSelector((state) => state.user.userInfo);
   useEffect(() => {
+    const token = localStorage.getItem('userToken');
     getCurrentUserInfo(token).then((response) => {
       const currentUserInfo = response.data[0];
       setCurrentUserPoint(currentUserInfo.point);

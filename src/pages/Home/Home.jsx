@@ -4,8 +4,19 @@ import LanguageNav from '../../components/NavBar/LanguageNav';
 import StudyCard from '../../components/StudyCard/StudyCard';
 import { Wrap, StudyWrap } from './Home.styles.jsx';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import modalSlice from '../../redux/modalSlice';
 
 const Home = () => {
+  // const dispatch = useDispatch();
+
+  // const searchParams = new URLSearchParams(window.location.search);
+  // const loginModalOpen = searchParams.get('loginModal');
+
+  // useEffect(() => {
+  //   if (loginModalOpen === '1') dispatch(modalSlice.actions.loginOpen());
+  // }, []);
+
   const [category, setCategory] = useState('front_end');
   const changeMenu = (menu) => {
     // console.log(menu);
