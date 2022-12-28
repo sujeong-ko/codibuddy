@@ -6,6 +6,7 @@ import {
   Select,
   DateInput,
 } from './StudyInfoInput.styles.jsx';
+import { formatDate } from '../../utils/formatDate.jsx';
 
 export const PositionSelect = React.forwardRef(
   ({ onChange, name, label }, ref) => (
@@ -53,7 +54,13 @@ export const PlaceSelect = React.forwardRef(
 export const DateSelect = React.forwardRef(({ onChange, name, label }, ref) => (
   <InlineBlockBox>
     <Label>{label}</Label>
-    <DateInput type='date' name={name} ref={ref} onChange={onChange} />
+    <DateInput
+      defaultValue={formatDate()}
+      type='date'
+      name={name}
+      ref={ref}
+      onChange={onChange}
+    />
   </InlineBlockBox>
 ));
 

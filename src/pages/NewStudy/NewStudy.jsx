@@ -23,7 +23,6 @@ import {
 import axios from 'axios';
 import { tempSetStudy } from '../../redux/studySlice.jsx';
 import { useDispatch } from 'react-redux';
-import { formatDate } from './../../utils/formatDate';
 
 const NewStudy = () => {
   const dispatch = useDispatch();
@@ -61,9 +60,6 @@ const NewStudy = () => {
     const { language: tag, ...study } = data;
     const studyData = { ...study, tag };
     console.log(studyData);
-    if (!studyData.start_at) {
-      studyData.start_at = formatDate();
-    }
     dispatch(
       tempSetStudy({
         studyInfo: {
