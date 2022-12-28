@@ -10,11 +10,14 @@ import {
   SelfText,
   Point,
 } from './Profile.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/userSlice';
 
 const Profile = ({ image, nickname, introduce, point }) => {
   const refreshToken = localStorage.getItem('refreshToken');
   const token = localStorage.getItem('userToken');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const LogOut = () => {
     console.log('로그아웃');
     axios
@@ -32,6 +35,7 @@ const Profile = ({ image, nickname, introduce, point }) => {
         console.log(res);
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('userToken');
+        dispatch(logout());
         alert('로그아웃되셨습니다.');
         navigate(`/`);
       })

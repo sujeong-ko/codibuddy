@@ -11,6 +11,9 @@ const LanguageNav = ({ tagType }) => {
     });
   };
   useEffect(() => {
+    LanguageList();
+  }, []);
+  useEffect(() => {
     setTag(tagType);
     LanguageList();
   }, [tagType]);

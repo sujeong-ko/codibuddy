@@ -13,7 +13,8 @@ const Button = tw.li`
 list-none
 text-xl
 font-bold
-text-slate-800
+${(props) => (props.checked ? 'text-[#667288]' : 'text-slate-800')}
+;
 cursor-pointer
 `;
 
