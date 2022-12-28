@@ -13,6 +13,8 @@ const Register = () => {
     pw: '',
     nickname: '',
     email: '',
+    introduce: '',
+    tag: [],
   });
 
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Register = () => {
 
   const onSubmit = async ({ language }) => {
     try {
-      const fullRegisterInfo = { ...registerInfo, language };
+      const fullRegisterInfo = { ...registerInfo, tag: [...language] };
       console.log(fullRegisterInfo);
       const result = await axios.post('/api/user', fullRegisterInfo);
       console.log(result);
