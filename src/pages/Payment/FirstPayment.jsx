@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button/Button.jsx';
 import { useNavigate } from 'react-router-dom';
 import { DevisionDescription, PageTitle } from '../../styles/CommonStyles.jsx';
@@ -11,48 +11,48 @@ import {
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { config } from '../../utils/configCreator.jsx';
+import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
 
-export const token = localStorage.getItem('userToken');
+const token = localStorage.getItem('userToken');
 
 const Payment = () => {
-  const currenteUserInfo = useSelector((state) => state.user.userInfo);
+  const [currentUserPoint, setCurrentUserPoint] = useState(0);
+  //   const currenteUserInfo = useSelector((state) => state.user.userInfo);
+  useEffect(() => {
+    getCurrentUserInfo(token).then((response) => {
+      const currentUserInfo = response.data[0];
+      setCurrentUserPoint(currentUserInfo.point);
+    });
+  });
 
   // store에서 new에서 넘어온 스터디 정보 가져오기
   const tempStudyInfo = useSelector((state) => state.study.tempStudyInfo);
   const tempStudyTag = useSelector((state) => state.study.tempStudyTag);
 
-  console.log(tempStudyInfo);
+  //   console.log(tempStudyInfo);
 
   const navigate = useNavigate();
-  const [studyInfo, setStudyInfo] = useState({
-    title: '',
-    author: '',
-    is_online: true,
-    price: 0,
-    start_at: '',
-    limit_head_count: '',
-    study_tags: [],
-  });
 
   const handlePayment = async () => {
     if (!token) alert('로그인이 필요합니다.');
 
     // 스터디를 처음 생성할 때 방장이 결제까지 완료해야 스터디 생성됨
     try {
-      await axios.patch(
+      const userPatchResult = await axios.patch(
         '/api/user/payment',
         {
-          point: currenteUserInfo.point - tempStudyInfo.price,
+          point: currentUserPoint - tempStudyInfo.price,
         },
         {
           headers: config(token),
         },
       );
+      console.log(userPatchResult);
     } catch (err) {
       console.log(err);
     }
 
-    const result = await axios.post(
+    const studyPostResult = await axios.post(
       `api/study`,
       {
         study: { ...tempStudyInfo },
@@ -63,13 +63,11 @@ const Payment = () => {
       },
     );
 
-    console.log(result);
-
-    await axios.post(`/api/recruit/${result.data.studyId}`, null, {
+    await axios.post(`/api/recruit/${studyPostResult.data.studyId}`, null, {
       headers: config(token),
     });
 
-    // navigate('/payment/complete');
+    navigate('/payment/complete');
   };
 
   return (
@@ -115,13 +113,12 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>사용 가능한 포인트</span>
-        <span>{currenteUserInfo.point.toLocaleString()} 포인트</span>
+        <span>{currentUserPoint.toLocaleString()} 포인트</span>
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
         <span>
-          {(currenteUserInfo.point - tempStudyInfo.price).toLocaleString()}{' '}
-          포인트
+          {(currentUserPoint - tempStudyInfo.price).toLocaleString()} 포인트
         </span>
       </PaymentAmountDetail>
       <Button

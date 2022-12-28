@@ -19,7 +19,7 @@ function App() {
   // App 실행과 동시에 token 확인 및 store에 유저 정보 전달
   useEffect(() => {
     if (token) {
-      getCurrentUserInfo(config)
+      getCurrentUserInfo(token)
         .then((response) => {
           const userInfo = response.data[0];
           dispatch(

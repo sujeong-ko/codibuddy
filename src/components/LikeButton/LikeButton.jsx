@@ -24,6 +24,7 @@ const LikeButton = ({ id }) => {
   }, [token]);
 
   const handleLikePost = async () => {
+    const token = localStorage.getItem('userToken');
     try {
       const result = await axios.post(`/api/like/${id}`, null, {
         headers: config(token),
@@ -31,6 +32,7 @@ const LikeButton = ({ id }) => {
       setIsLiked(true);
       console.log(result);
     } catch (err) {
+      console.log(err);
       if (err.response.status === 403) {
         alert('로그인이 필요한 서비스입니다.');
         return;
@@ -43,7 +45,6 @@ const LikeButton = ({ id }) => {
           });
           setIsLiked(false);
         }
-        return;
       }
     }
   };
