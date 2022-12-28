@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Login from './components/Modal/Login';
@@ -17,7 +17,7 @@ function App() {
   const dispatch = useDispatch();
 
   // App 실행과 동시에 token 확인 및 store에 유저 정보 전달
-  try {
+  useEffect(() => {
     if (token) {
       getCurrentUserInfo(config).then((response) => {
         console.log(response);
@@ -34,9 +34,7 @@ function App() {
     } else {
       console.log('토큰 없음');
     }
-  } catch (err) {
-    console.log('유저 정보가 없습니다.');
-  }
+  }, [token]);
 
   const loginIsOpen = useSelector((state) => state.modal.loginIsOpen);
   const registerIsOpen = useSelector((state) => state.modal.registerIsOpen);
