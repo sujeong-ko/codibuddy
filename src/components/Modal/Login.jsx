@@ -3,13 +3,13 @@ import * as S from './Modal.style';
 import { useDispatch, useSelector } from 'react-redux';
 import modalSlice from '../../redux/modalSlice.jsx';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import { login } from '../../redux/userSlice.jsx';
 import { useForm } from 'react-hook-form';
 import { store } from './../../redux/configureStore';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
   const { register, handleSubmit } = useForm();
 
   const config = {
@@ -29,18 +29,72 @@ const Login = () => {
         JSON.stringify(data),
         config,
       );
-      console.log(result);
-      localStorage.setItem('userToken', result.data.userToken);
-      localStorage.setItem('refreshToken', result.data.refresh_token);
-      dispatch(modalSlice.actions.loginToggle());
-
-      //store에 token 저장
-      dispatch(login(result.data.userToken));
+      // console.log(result);
+      loginSuccess(result);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const loginSuccess = async (res) => {
+    console.log('로그인 성공');
+    //이전에 남아있는 토큰이 있을 경우 지우기
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('refreshToken');
+    //localStorage에 토큰 저장
+    localStorage.setItem('userToken', res.data.userToken);
+    localStorage.setItem('refreshToken', res.data.refresh_token);
+    //store에 token 저장
+    dispatch(modalSlice.actions.loginToggle());
+    dispatch(login(res.data.userToken));
+    console.log(res);
+    jwtDecode(res.data.userToken);
+  };
+  //jwt 받아오는 decode
+  const jwtDecode = async (token) => {
+    const decoded = jwt_decode(token);
+    // console.log(decoded?.exp);
+    var reTime = decoded.exp;
+    console.log('1.만료:', reTime);
+
+    async function getTime() {
+      return new Promise(function (resolve, reject) {
+        const date = Date.now();
+        const nowTime = Math.floor(date / 1000);
+        // console.log("현재시간:", nowTime);
+        while (nowTime <= reTime) {
+          setTimeout(getTime, 1000);
+          return nowTime;
+        }
+        console.log('2.빠져나옴');
+        resolve(nowTime);
+        isAccessTokenEnd(nowTime);
+      });
+    }
+    function isAccessTokenEnd(t) {
+      console.log('3.비교');
+      if (t >= reTime) {
+        onSilentRefresh();
+      }
+    }
+    await getTime();
+  };
+  const onSilentRefresh = () => {
+    console.log('엑세스 토큰 시간 만료');
+    const data = localStorage.getItem('refreshToken');
+    console.log('리프레쉬:' + data);
+    axios
+      .post('/api/user/confirm_jwt', {
+        refresh_token: data,
+      })
+      .then((res) => {
+        localStorage.setItem('userToken', res.data.userToken);
+        jwtDecode(res.data.userToken);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <S.ModalMain>
