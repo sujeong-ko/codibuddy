@@ -5,9 +5,6 @@ import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-
-// const token = localStorage.getItem('userToken');
 
 const UpdateMyPage = () => {
   //리듀서 접근
@@ -123,59 +120,10 @@ const UpdateMyPage = () => {
                 />
               );
             })}
-          {/* {languages.map((item, idx) => {
-            return (
-              <label htmlFor={item.name} key={idx} value={updateMyInfo.tag}>
-                <span></span>
-                {updateMyInfo.tag}
-              </label>
-            );
-          })} */}
         </div>
       </>
     );
   };
-
-  // const passwordOpen = () => {
-  //   const [isOpen, setBtn] = useState({ display: 'none' }); // 메뉴의 초기값을 false로 설정
-
-  //   // const BtnMenu = () => {
-  //   //   setBtn((isOpen) => !isOpen); // on,off 개념 boolean
-  //   // };
-
-  //   return (
-  //     <>
-  //       <S.passwordBtn
-  //         onClick={(e) => {
-  //           setBtn({ display: 'block' });
-  //         }}>
-  //         {' '}
-  //         비밀번호 변경{' '}
-  //       </S.passwordBtn>
-  //       <passwordDiv className={isOpen ? 'show-menu' : 'hide-menu'}>
-  //         <S.TitleText>새 비밀번호</S.TitleText>
-  //         <S.Input
-  //           className='input'
-  //           id='newPasswordInput'
-  //           type='password'
-  //           placeholder='변경할 비밀번호를 입력해주세요'
-  //           // value={updateMyInfo.pw}
-  //           onChange={pwHandler}
-  //         />
-
-  //         <S.TitleText>새 비밀번호 확인</S.TitleText>
-  //         <S.Input
-  //           className='input'
-  //           id='PWCheckInput'
-  //           type='password'
-  //           placeholder='비밀번호 확인'
-  //           // value={updateMyInfo.confirmPw}
-  //           onChange={confirmPwHandler}
-  //         />
-  //       </passwordDiv>
-  //     </>
-  //   );
-  // };
 
   return (
     <S.UpdatePage>
@@ -207,7 +155,7 @@ const UpdateMyPage = () => {
         <div>
           <CategorySelect />
         </div>
-        <S.TitleText>현재 비밀번호</S.TitleText>
+        {/* <S.TitleText>현재 비밀번호</S.TitleText>
         <S.Input
           className='input'
           id='newPasswordInput'
@@ -215,9 +163,9 @@ const UpdateMyPage = () => {
           placeholder='변경할 비밀번호를 입력해주세요'
           // value={updateMyInfo.pw}
           // onChange={pwHandler}
-        />
-
-        <S.passwordBtn type='button'> 비밀번호 변경 </S.passwordBtn>
+        /> */}
+        {/* 
+        <S.passwordBtn type='button'> 비밀번호 변경 </S.passwordBtn> */}
         {/* <div>
           <passwordOpen />
         </div> */}
