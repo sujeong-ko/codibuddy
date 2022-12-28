@@ -20,21 +20,20 @@ const Home = () => {
       });
     } else {
       await axios.get(`/api/study/kind/${category}`).then((response) => {
-        // console.log(response);
         setDatas(response.data);
       });
     }
   };
-  useEffect(() => {
-    StudyList();
-  }, []);
+  // useEffect(() => {
+  //   StudyList();
+  // }, []);
   useEffect(() => {
     StudyList();
   }, [category]);
   return (
     <Wrap>
       <CategoryNav propFunction={changeMenu} />
-      <LanguageNav />
+      <LanguageNav tagType={category} />
       <StudyWrap>
         {datas &&
           datas?.map((data) => (
