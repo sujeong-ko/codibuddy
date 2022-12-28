@@ -28,7 +28,7 @@ const CommentList = () => {
 
   useEffect(() => {
     getComments();
-    console.log(comments);
+    console.log('로드');
   }, []);
 
   const onSubmit = async (data) => {

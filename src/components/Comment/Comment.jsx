@@ -7,7 +7,7 @@ import {
 } from './Comment.styles.jsx';
 import axios from 'axios';
 
-const Comment = ({ User, commentary }) => {
+const Comment = ({ User, commentary, id: commentId }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [localContent, setLocalContent] = useState(commentary);
   const [isAuthor, setIsAuthor] = useState(false);
@@ -24,7 +24,12 @@ const Comment = ({ User, commentary }) => {
     verifyAuthor();
   }, [token]);
 
-  console.log(isAuthor);
+  const handleDelete = async () => {
+    const token = localStorage.getItem('userToken');
+    axios.delete(`/api/comment/${commentId}`, {
+      headers: config(token),
+    });
+  };
 
   const toggleIsEdit = (e) => {
     e.preventDefault();
@@ -36,7 +41,7 @@ const Comment = ({ User, commentary }) => {
       <CommentAuthor>{User.nickname}</CommentAuthor>
       {/* 유저가 댓글 작성자일 때만 isEdit 가능하게 해야함.. */}
       <CommentContent>
-        {isEdit ? (
+        {/* {isEdit ? (
           <input
             className='w-full p-3 border border-gray-500 rounded-lg'
             value={localContent}
@@ -44,9 +49,14 @@ const Comment = ({ User, commentary }) => {
           />
         ) : (
           commentary
-        )}
+        )} */}
+        {commentary}
       </CommentContent>
-      {isAuthor && <CommentButton>삭제하기</CommentButton>}
+      {isAuthor && (
+        <CommentButton type='button' onClick={handleDelete}>
+          삭제하기
+        </CommentButton>
+      )}
     </>
   );
 };
