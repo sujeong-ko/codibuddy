@@ -42,6 +42,7 @@ flex
 items-center
 justify-center
 `;
+
 const Point = tw.div`
 text-l
 ml-3

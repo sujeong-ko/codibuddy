@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Wrap,
   ProfileMain,
@@ -10,7 +10,7 @@ import {
   SelfText,
   Point,
 } from './Profile.styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/userSlice';
 
 const Profile = ({ image, nickname, introduce, point }) => {
@@ -46,9 +46,10 @@ const Profile = ({ image, nickname, introduce, point }) => {
       <ProfileMain>
         <ProfileImg src={image} />
         <UserInfo>{nickname}</UserInfo>
-        <Logout onClick={LogOut}>🔓</Logout>
+        <Logout onClick={LogOut}>로그아웃</Logout>
+        <Link to='/update-mypage'>내 정보수정</Link>
         <SelfText>{introduce}</SelfText>
-        <Point>{point}</Point>
+        <Point>{point} 포인트</Point>
       </ProfileMain>
     </Wrap>
   );
