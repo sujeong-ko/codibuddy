@@ -13,6 +13,8 @@ const Register = () => {
     pw: '',
     nickname: '',
     email: '',
+    introduce: '',
+    tag: [],
   });
 
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Register = () => {
 
   const onSubmit = async ({ language }) => {
     try {
-      const fullRegisterInfo = { ...registerInfo, language };
+      const fullRegisterInfo = { ...registerInfo, tag: [...language] };
       console.log(fullRegisterInfo);
       const result = await axios.post('/api/user', fullRegisterInfo);
       console.log(result);
@@ -66,7 +68,7 @@ const Register = () => {
 
       dispatch(modalSlice.actions.registerToggle());
     } catch (err) {
-      console.error(err.stack);
+      console.error(err);
       alert(
         `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
       );
