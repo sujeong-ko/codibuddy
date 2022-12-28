@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { token, config } from '../../utils/configCreator.jsx';
 import {
   CommentAuthor,
   CommentContent,
   CommentButton,
 } from './Comment.styles.jsx';
+import axios from 'axios';
 
 const Comment = ({ User, commentary }) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [localContent, setLocalContent] = useState(commentary);
+  const [isAuthor, setIsAuthor] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    const verifyAuthor = async () => {
+      const user = await axios.get('/api/user', {
+        headers: config(token),
+      });
+      const currentUserNickname = user.data[0].nickname;
+      if (User.nickname === currentUserNickname) setIsAuthor(true);
+    };
+    verifyAuthor();
+  }, [token]);
+
+  console.log(isAuthor);
+
   const toggleIsEdit = (e) => {
     e.preventDefault();
     setIsEdit(!isEdit);
   };
-  const [localContent, setLocalContent] = useState(commentary);
 
   return (
     <>
@@ -28,16 +46,7 @@ const Comment = ({ User, commentary }) => {
           commentary
         )}
       </CommentContent>
-      {isEdit ? (
-        <CommentButton onClick={toggleIsEdit}>수정 완료</CommentButton>
-      ) : null
-      //   <div>
-      //     <CommentButton className='mr-3' onClick={toggleIsEdit}>
-      //       수정하기
-      //     </CommentButton>
-      //     <CommentButton>삭제하기</CommentButton>
-      //   </div>
-      }
+      {isAuthor && <CommentButton>삭제하기</CommentButton>}
     </>
   );
 };

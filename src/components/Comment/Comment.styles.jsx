@@ -26,7 +26,7 @@ font-normal
 `;
 
 const CommentButton = tw.button`
-text-sm
+text-xs
 text-gray-400
 `;
 
