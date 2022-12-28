@@ -6,10 +6,18 @@ const LanguageNav = () => {
   const [languages, setLanguages] = useState();
   const LanguageList = async () => {
     await axios.get('api/tag').then((response) => {
-      // console.log(response.data[0].TagKinds);
+      // console.log(response.data[0]);
+      // console.log(response.data[0].TagKinds)
       setLanguages(response.data);
     });
   };
+  // const navHandler = () => {
+  //   languages.map((data) => {
+  //     data.TagKinds.map((item, index) => {
+  //       console.log(item, index);
+  //     });
+  //   });
+  // };
   useEffect(() => {
     LanguageList();
   }, []);
