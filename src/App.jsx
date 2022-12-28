@@ -8,7 +8,7 @@ import getCurrentUserInfo from './utils/getCurrentUserInfo';
 import { tempSetUser } from './redux/userSlice';
 import { ROUTE_ARR } from './utils/route';
 
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('userToken');
 const config = {
   Authorization: `Bearer ${token}`,
 };
