@@ -30,14 +30,14 @@ const Comment = ({ User, commentary }) => {
       </CommentContent>
       {isEdit ? (
         <CommentButton onClick={toggleIsEdit}>수정 완료</CommentButton>
-      ) : (
-        <div>
-          <CommentButton className='mr-3' onClick={toggleIsEdit}>
-            수정하기
-          </CommentButton>
-          <CommentButton>삭제하기</CommentButton>
-        </div>
-      )}
+      ) : null
+      //   <div>
+      //     <CommentButton className='mr-3' onClick={toggleIsEdit}>
+      //       수정하기
+      //     </CommentButton>
+      //     <CommentButton>삭제하기</CommentButton>
+      //   </div>
+      }
     </>
   );
 };

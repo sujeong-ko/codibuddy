@@ -5,7 +5,7 @@ import Login from './components/Modal/Login';
 import Register from './components/Modal/Register';
 import Layout from './components/Layout';
 import getCurrentUserInfo from './utils/getCurrentUserInfo';
-import { tempSetUser } from './redux/userSlice';
+import { tempSetUser, logout } from './redux/userSlice';
 import { ROUTE_ARR } from './utils/route';
 
 const token = localStorage.getItem('userToken');
@@ -18,6 +18,7 @@ function App() {
 
   // App 실행과 동시에 token 확인 및 store에 유저 정보 전달
   useEffect(() => {
+    const token = localStorage.getItem('userToken');
     if (token) {
       getCurrentUserInfo(token)
         .then((response) => {
@@ -34,6 +35,8 @@ function App() {
         .catch((err) => {
           console.log('토큰 없음');
         });
+    } else {
+      dispatch(logout());
     }
   }, [token]);
 
