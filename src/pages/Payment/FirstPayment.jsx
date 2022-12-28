@@ -10,7 +10,9 @@ import {
 } from './Payment.styles.jsx';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { token, config } from '../../utils/configCreator.jsx';
+import { config } from '../../utils/configCreator.jsx';
+
+export const token = localStorage.getItem('userToken');
 
 const Payment = () => {
   const currenteUserInfo = useSelector((state) => state.user.userInfo);
@@ -63,9 +65,9 @@ const Payment = () => {
 
     console.log(result);
 
-    // await axios.post(`/api/recruit/${study_id}`, null, {
-    //   headers: config(token),
-    // });
+    await axios.post(`/api/recruit/${result.data.studyId}`, null, {
+      headers: config(token),
+    });
 
     // navigate('/payment/complete');
   };

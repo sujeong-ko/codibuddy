@@ -19,20 +19,21 @@ function App() {
   // App 실행과 동시에 token 확인 및 store에 유저 정보 전달
   useEffect(() => {
     if (token) {
-      getCurrentUserInfo(config).then((response) => {
-        console.log(response);
-        const userInfo = response.data[0];
-        dispatch(
-          tempSetUser({
-            user_id: userInfo.user_id,
-            nickname: userInfo.nickname,
-            email: userInfo.email,
-            point: userInfo.point,
-          }),
-        );
-      });
-    } else {
-      console.log('토큰 없음');
+      getCurrentUserInfo(config)
+        .then((response) => {
+          const userInfo = response.data[0];
+          dispatch(
+            tempSetUser({
+              user_id: userInfo.user_id,
+              nickname: userInfo.nickname,
+              email: userInfo.email,
+              point: userInfo.point,
+            }),
+          );
+        })
+        .catch((err) => {
+          console.log('토큰 없음');
+        });
     }
   }, [token]);
 

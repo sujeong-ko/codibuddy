@@ -31,14 +31,14 @@ const NewStudy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
-      navigate('/');
-      dispatch(modalSlice.actions.loginToggle());
-      return;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!token) {
+  //     alert('로그인이 필요한 서비스입니다.');
+  //     navigate('/');
+  //     dispatch(modalSlice.actions.loginToggle());
+  //     return;
+  //   }
+  // }, []);
 
   const {
     register,
