@@ -20,7 +20,7 @@ const Payment = () => {
   const { id: study_id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    getCurrentUserInfo(token).then((response) => {
+    getCurrentUserInfo().then((response) => {
       const currentUserInfo = response.data[0];
       setCurrentUserPoint(currentUserInfo.point);
     });
@@ -52,12 +52,14 @@ const Payment = () => {
   }, []);
 
   const handlePayment = async () => {
+    const token = localStorage.getItem('userToken');
     if (!token) alert('로그인이 필요합니다.');
 
-    // 작성자면 handlePayment에서 axios.post로 스터디 create 해야함
-    // 그러면 위에서 스터디 정보는 어떻게 가져와..
-    // store에 tempStudyInfo로 담아야되나..........
     try {
+      await axios.post(`/api/recruit/${study_id}`, null, {
+        headers: config(token),
+      });
+
       await axios.patch(
         '/api/user/payment',
         {
@@ -67,12 +69,13 @@ const Payment = () => {
           headers: config(token),
         },
       );
-      await axios.post(`/api/recruit/${study_id}`, null, {
-        headers: config(token),
-      });
 
       navigate('/payment/complete');
     } catch (err) {
+      if (err.response.status === 405) {
+        alert('이미 신청한 모임입니다.');
+        navigate(`/study/${study_id}`);
+      }
       console.log(err);
     }
   };
