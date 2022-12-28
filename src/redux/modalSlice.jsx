@@ -15,6 +15,9 @@ const slice = createSlice({
     registerToggle: (state, action) => {
       state.registerIsOpen = !state.registerIsOpen;
     },
+    loginOpen: (state, action) => {
+      state.loginIsOpen = true;
+    },
   },
 });
 

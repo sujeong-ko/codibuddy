@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '../../components/MyPage/Sidebar';
+import Menubar from '../../components/MyPage/Menubar';
 import Profile from '../../components/MyPage/Profile';
 import StudyCard from '../../components/StudyCard/StudyCard';
 import { Wrap, Box, Item } from './MyPage.styles';
@@ -12,20 +12,23 @@ const MyPage = () => {
       Authorization: `Bearer ${token}`,
     },
   };
+  const [category, setCategory] = useState('attend');
+  const changeMenu = (menu) => {
+    setCategory(menu);
+  };
   const [userDatas, setUserDatas] = useState();
   const [likes, setLikes] = useState();
   const userInfo = async () => {
     await axios
       .get(`/api/user`, config)
       .then((response) => {
-        // console.log(response.data);
         setUserDatas(response.data[0]);
       })
       .catch((err) => console.log(err));
   };
   const likeList = async () => {
     await axios
-      .get('/api/study/mystudy/like', config)
+      .get(`/api/study/mystudy/${category}`, config)
       .then((response) => {
         // console.log(response.data);
         setLikes(response.data);
@@ -35,7 +38,7 @@ const MyPage = () => {
   useEffect(() => {
     userInfo();
     likeList();
-  }, []);
+  }, [category]);
   return (
     <Wrap>
       <Profile
@@ -44,23 +47,24 @@ const MyPage = () => {
         introduce={userDatas?.introduce}
         point={userDatas?.point}
       />
-      <Sidebar />
+      <Menubar propFunction={changeMenu} />
       <Box>
         <Item>
-          {likes?.map((data) => (
-            <StudyCard
-              key={data.id}
-              id={data.id}
-              startDate={data.start_at}
-              people={data.limit_head_count}
-              title={data.title}
-              isOnline={data.is_online}
-              tag={data.StudyTags}
-              positon={data.position}
-              writer={data.User.nickname}
-              visit={data.visit_count}
-            />
-          ))}
+          {likes &&
+            likes?.map((data) => (
+              <StudyCard
+                key={data.id}
+                id={data.id}
+                startDate={data.start_at}
+                people={data.limit_head_count}
+                title={data.title}
+                isOnline={data.is_online}
+                tag={data.StudyTags}
+                positon={data.position}
+                writer={data.User.nickname}
+                visit={data.visit_count}
+              />
+            ))}
         </Item>
       </Box>
     </Wrap>

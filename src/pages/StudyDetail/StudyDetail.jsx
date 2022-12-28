@@ -40,7 +40,7 @@ const StudyDetail = () => {
         const studyData = response.data;
 
         if (!studyData) {
-          navigate('*');
+          navigate('/notFound');
         }
 
         setStudyInfo({
@@ -84,8 +84,8 @@ const StudyDetail = () => {
         </div>
         {/* 유저 상태에 따라 다르게 렌더링 */}
         <div className='flex justify-end'>
-          <PostButton>수정</PostButton>
-          <PostButton>삭제</PostButton>
+          {/* <PostButton>수정</PostButton>
+          <PostButton>삭제</PostButton> */}
         </div>
       </StudyTitleSection>
       <DivisionLine />

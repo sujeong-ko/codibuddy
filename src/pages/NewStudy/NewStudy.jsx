@@ -22,7 +22,6 @@ import {
   ErrorMessageSpan,
 } from './NewStudy.styles.jsx';
 import axios from 'axios';
-import modalSlice from '../../redux/modalSlice.jsx';
 import { tempSetStudy } from '../../redux/studySlice.jsx';
 import { useDispatch } from 'react-redux';
 import { token } from '../../utils/configCreator.jsx';
@@ -31,14 +30,15 @@ const NewStudy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     alert('로그인이 필요한 서비스입니다.');
-  //     navigate('/');
-  //     dispatch(modalSlice.actions.loginToggle());
-  //     return;
-  //   }
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+
+    if (!token) {
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/');
+      return;
+    }
+  }, []);
 
   const {
     register,
