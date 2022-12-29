@@ -6,22 +6,35 @@ import { LikeHoverDescription } from './LikeButton.styles';
 
 const LikeButton = ({ id }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [likedStudy, setLikedStudy] = useState([]);
+
+  const getLikedStudy = async () => {
+    const result = await axios.get('/api/study/mystudy/like', {
+      headers: config(token),
+    });
+    return result;
+  };
+
+  useEffect(() => {
+    try {
+      getLikedStudy().then((result) => {
+        const tempLikedStudy = [...result.data];
+        setLikedStudy(tempLikedStudy);
+      });
+    } catch (err) {
+      if (err.response.status === 403) {
+        console.log('왜 토큰 없냐구 있는데');
+      }
+      console.log(err);
+    }
+  }, []);
 
   // 이미 찜한 스터디라면 isLiked 값 true로 설정
   useEffect(() => {
-    const getLikedStudy = async () => {
-      const result = await axios.get('/api/study/mystudy/like', {
-        headers: config(token),
-      });
-      const likedStudy = result.data;
-      if (likedStudy.some((item) => item.id == id)) {
-        setIsLiked(true);
-      }
-    };
-    if (token) {
-      getLikedStudy();
+    if (likedStudy.find((item) => item.id == id)) {
+      setIsLiked(true);
     }
-  }, [token]);
+  }, [likedStudy]);
 
   const handleLikePost = async () => {
     const token = localStorage.getItem('userToken');
@@ -30,7 +43,8 @@ const LikeButton = ({ id }) => {
         headers: config(token),
       });
       setIsLiked(true);
-      console.log(result);
+      getLikedStudy();
+      console.log('찜하기 클릭했을 때', likedStudy);
     } catch (err) {
       console.log(err);
       if (err.response.status === 403) {

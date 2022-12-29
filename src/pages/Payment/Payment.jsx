@@ -74,6 +74,12 @@ const Payment = () => {
     } catch (err) {
       if (err.response.status === 405) {
         alert('이미 신청한 모임입니다.');
+        console.log(err);
+        navigate(`/study/${study_id}`);
+      }
+      if (err.response.status === 406) {
+        alert('모집인원이 마감된 스터디입니다.');
+        console.log(err);
         navigate(`/study/${study_id}`);
       }
       console.log(err);
@@ -125,9 +131,13 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
-        <span>
-          {(currentUserPoint - studyInfo.price).toLocaleString()} 포인트
-        </span>
+        {currentUserPoint - studyInfo.price < 0 ? (
+          <span className='text-red-500 font-bold'>포인트가 부족해요!</span>
+        ) : (
+          <span>
+            {(currentUserPoint - studyInfo.price).toLocaleString()} 포인트
+          </span>
+        )}
       </PaymentAmountDetail>
       <Button
         onClick={handlePayment}

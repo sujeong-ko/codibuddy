@@ -7,7 +7,7 @@ import {
 } from './Comment.styles.jsx';
 import axios from 'axios';
 
-const Comment = ({ User, commentary, id: commentId }) => {
+const Comment = ({ User, commentary, id: commentId, getComments }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [localContent, setLocalContent] = useState(commentary);
   const [isAuthor, setIsAuthor] = useState(false);
@@ -29,6 +29,7 @@ const Comment = ({ User, commentary, id: commentId }) => {
     axios.delete(`/api/comment/${commentId}`, {
       headers: config(token),
     });
+    getComments();
   };
 
   const toggleIsEdit = (e) => {
