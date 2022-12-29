@@ -56,7 +56,7 @@ const Login = () => {
     // console.log(decoded?.exp);
     const reTime = decoded.exp;
     const userId = decoded.userId;
-    console.log('1.만료:', reTime);
+    // console.log('1.만료:', reTime);
 
     async function getTime() {
       return new Promise(function (resolve, reject) {
@@ -67,13 +67,13 @@ const Login = () => {
           setTimeout(getTime, 1000);
           return nowTime;
         }
-        console.log('2.빠져나옴');
+        // console.log('2.빠져나옴');
         resolve(nowTime);
         isAccessTokenEnd(nowTime);
       });
     }
     function isAccessTokenEnd(t) {
-      console.log('3.비교');
+      // console.log('3.비교');
       if (t >= reTime) {
         onSilentRefresh(userId);
       }
@@ -84,7 +84,7 @@ const Login = () => {
     console.log('엑세스 토큰 시간 만료');
     const data = localStorage.getItem('refreshToken');
     const userToken = localStorage.getItem('userToken');
-    console.log(data);
+    // console.log(data);
     // (axios.defaults.headers.common[
     //   "Authorization"
     // ] = `Bearer ${userToken}`)
