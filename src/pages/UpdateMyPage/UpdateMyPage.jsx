@@ -3,13 +3,13 @@ import userImage from '../../assets/userFlat.png';
 import * as S from './UpdateMyPage.style';
 import { useForm } from 'react-hook-form';
 import { languages } from '../../utils/languages.jsx';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const UpdateMyPage = () => {
   //리듀서 접근
 
   const [updateMyInfo, setMyInfo] = useState({
+    // checkPassword: '',
     pw: '',
     confirmPw: '',
     nickname: '',
@@ -50,11 +50,11 @@ const UpdateMyPage = () => {
   //submit
   const onSubmit = async ({ language }) => {
     const isPasswordSame = updateMyInfo.pw === updateMyInfo.confirmPw;
-    // const isPasswordValid = updateMyInfo.pw.length >= 4;
+    const isPasswordValid = updateMyInfo.pw.length >= 4;
 
-    // if (!isPasswordValid) {
-    //   return alert('비밀번호는 4글자 이상이어야 합니다.');
-    // }
+    if (!isPasswordValid) {
+      return alert('비밀번호는 4글자 이상이어야 합니다.');
+    }
 
     if (!isPasswordSame) {
       return alert('비밀번호가 일치하지 않습니다.');
@@ -155,20 +155,6 @@ const UpdateMyPage = () => {
         <div>
           <CategorySelect />
         </div>
-        {/* <S.TitleText>현재 비밀번호</S.TitleText>
-        <S.Input
-          className='input'
-          id='newPasswordInput'
-          type='password'
-          placeholder='변경할 비밀번호를 입력해주세요'
-          // value={updateMyInfo.pw}
-          // onChange={pwHandler}
-        /> */}
-        {/* 
-        <S.passwordBtn type='button'> 비밀번호 변경 </S.passwordBtn> */}
-        {/* <div>
-          <passwordOpen />
-        </div> */}
         <passwordDiv>
           <S.TitleText>새 비밀번호</S.TitleText>
           <S.Input
