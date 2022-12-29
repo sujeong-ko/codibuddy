@@ -54,7 +54,8 @@ const Login = () => {
   const jwtDecode = async (token) => {
     const decoded = jwt_decode(token);
     // console.log(decoded?.exp);
-    var reTime = decoded.exp;
+    const reTime = decoded.exp;
+    const userId = decoded.userId;
     console.log('1.만료:', reTime);
 
     async function getTime() {
@@ -74,22 +75,33 @@ const Login = () => {
     function isAccessTokenEnd(t) {
       console.log('3.비교');
       if (t >= reTime) {
-        onSilentRefresh();
+        onSilentRefresh(userId);
       }
     }
     await getTime();
   };
-  const onSilentRefresh = () => {
+  const onSilentRefresh = (id) => {
     console.log('엑세스 토큰 시간 만료');
     const data = localStorage.getItem('refreshToken');
-    console.log('리프레쉬:' + data);
+    const userToken = localStorage.getItem('userToken');
+    console.log(data);
+    // (axios.defaults.headers.common[
+    //   "Authorization"
+    // ] = `Bearer ${userToken}`)
+
     axios
-      .post('/api/user/confirm_jwt', {
-        refresh_token: data,
-      })
+      .post(
+        '/api/user/confirm_jwt',
+        {
+          user_id: id,
+          refresh_token: data,
+        },
+        { headers: { Authorization: `Bearer ${userToken}` } },
+      )
       .then((res) => {
-        localStorage.setItem('userToken', res.data.userToken);
-        jwtDecode(res.data.userToken);
+        console.log(res);
+        localStorage.setItem('userToken', res.data.newJwt);
+        jwtDecode(res.data.newJwt);
       })
       .catch((err) => {
         console.log(err);
