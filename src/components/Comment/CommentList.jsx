@@ -62,7 +62,7 @@ const CommentList = () => {
         <Button type='basic' text='등록하기' />
       </div>
       {comments.map((item, idx) => {
-        return <Comment key={idx} {...item} />;
+        return <Comment key={idx} {...item} getComments={getComments} />;
       })}
       {/* item에는 id, study_id, User 객체, studyId, createdAt 들어있음 */}
     </CommentWrap>
