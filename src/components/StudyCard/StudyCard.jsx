@@ -1,38 +1,59 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Content,
   ContentDate,
   ContentDetail,
   ContentHeader,
+  ContentTagsWrap,
   ContentTags,
   ContentTitle,
   Languages,
   Tags,
   Bottom,
+  Image,
 } from './StudyCard.styles';
-const StudyCard = ({ startDate, people, title, positon, isOnline, tag }) => {
-  // const tags = [...tag];
+const StudyCard = ({
+  id,
+  startDate,
+  people,
+  title,
+  positon,
+  isOnline,
+  tag,
+  writer,
+  visit,
+}) => {
+  const navigate = useNavigate();
   return (
     <>
-      <Content>
-        {/* <PostType>
-          <div></div>
-        </PostType> */}
+      <Content onClick={() => navigate(`/study/${id}`)}>
         <ContentHeader>
           <ContentDate>시작일 {startDate}</ContentDate>
           <span>인원수 {people}</span>
           <ContentTitle>{title}</ContentTitle>
         </ContentHeader>
         <ContentDetail>
-          <ContentTags>{isOnline}</ContentTags>
+          <ContentTagsWrap>
+            {isOnline ? (
+              <ContentTags>#온라인</ContentTags>
+            ) : (
+              <ContentTags>#오프라인</ContentTags>
+            )}
+            <ContentTags>#{positon}</ContentTags>
+          </ContentTagsWrap>
           <Languages>
-            <Tags>#{positon}</Tags>
-            {/* <Tags>java</Tags> */}
+            {tag &&
+              tag?.map((item, index) => (
+                <Tags key={index}>
+                  <Image src={item.Tag.tag_image}></Image>
+                </Tags>
+              ))}
           </Languages>
         </ContentDetail>
         <Bottom>
-          <div>방장이름</div>
-          <div>조회수</div>
+          <div>{writer}</div>
+          <div>👀 {visit}</div>
         </Bottom>
       </Content>
     </>

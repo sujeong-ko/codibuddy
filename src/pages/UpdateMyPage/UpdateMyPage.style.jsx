@@ -28,12 +28,31 @@ const ProfileName = tw.div`
 mt-2
 `;
 
-const ProfileDetail = tw.div`
+const ProfileDetail = tw.form`
 w-5/6
 mt-5
 ml-auto
 mr-auto
+mb-10
+`;
+
+const passwordBtn = tw.button`
+block
+h-3/7
+w-2/5
+text-base
+pt-2
+pb-2
+cursor-pointer
+bg-[#52b4d0]
+text-white
+leading-loose
+mt-5
+ml-auto
+mr-auto
 mb-auto
+rounded-sm
+border-none
 `;
 
 const Input = tw.input`
@@ -86,4 +105,5 @@ export {
   Input,
   TitleText,
   SaveBtn,
+  passwordBtn,
 };

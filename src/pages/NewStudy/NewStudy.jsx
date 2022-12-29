@@ -1,9 +1,8 @@
 /* eslint-disable */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { languages } from '../../utils/languages.jsx';
 import Button from '../../components/Button/Button.jsx';
 import {
   DateSelect,
@@ -22,38 +21,61 @@ import {
   ErrorMessageSpan,
 } from './NewStudy.styles.jsx';
 import axios from 'axios';
-
-const token = localStorage.getItem('token');
+import { tempSetStudy } from '../../redux/studySlice.jsx';
+import { useDispatch } from 'react-redux';
 
 const NewStudy = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!token) {
-  //     alert('로그인이 필요합니다.');
-  //     navigate('/');
-  //   }
-  // }, []);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ criteriaMode: 'all' });
 
-  const onSubmit = async (data) => {
+  const [languages, setLanguages] = useState([]);
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+
     if (!token) {
-      alert('로그인 한 사용자만 등록할 수 있습니다.');
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/');
       return;
     }
+  }, []);
+
+  // 기술스택 GET
+  const LanguageList = async () => {
+    await axios.get(`api/tag/all`).then((response) => {
+      const tags = response.data.map((item) => item.tag_name);
+      setLanguages([...tags]);
+    });
+  };
+
+  useEffect(() => {
+    LanguageList();
+  }, []);
+
+  const onSubmit = async (data) => {
     const { language: tag, ...study } = data;
-    const studyData = { study, tag };
+    const studyData = { ...study, tag };
     console.log(studyData);
-    try {
-      const result = await axios.post('/api/study', studyData);
-      console.log(result);
-      navigate(`/payment/${result.data.studyId}`);
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(
+      tempSetStudy({
+        studyInfo: {
+          title: studyData.title,
+          start_at: studyData.start_at,
+          limit_head_count: studyData.limit_head_count,
+          is_online: studyData.is_online,
+          contents: studyData.contents,
+          end_at: studyData.end_at,
+          position: studyData.position,
+          price: studyData.price,
+        },
+        studyTag: [...tag],
+      }),
+    );
+    navigate('/payment');
   };
 
   const CancleSubmit = () => {
@@ -81,13 +103,7 @@ const NewStudy = () => {
         <p className='my-2'>기술 스택</p>
         <div className='border border-solid border-inherit px-1 py-3 rounded'>
           {languages.map((item, idx) => {
-            return (
-              <CategoryInput
-                key={idx}
-                language={item.name}
-                value={item.value}
-              />
-            );
+            return <CategoryInput key={idx} language={item} value={item} />;
           })}
         </div>
       </>
@@ -100,7 +116,10 @@ const NewStudy = () => {
         <FormWrap>
           <InputWrap>
             <PositionSelect label='포지션' {...register('position')} />
-            <HeadcountSelect label='최대 인원' {...register('headcount')} />
+            <HeadcountSelect
+              label='최대 인원'
+              {...register('limit_head_count')}
+            />
           </InputWrap>
           <InputWrap>
             <PlaceSelect label='진행 방식' {...register('is_online')} />

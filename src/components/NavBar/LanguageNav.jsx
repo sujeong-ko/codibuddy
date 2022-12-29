@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Wrap, ImageWrap, Image } from './LanguageNav.styles';
-import { languages } from '../../utils/languages';
-const LanguageNav = () => {
+import axios from 'axios';
+const LanguageNav = ({ tagType }) => {
+  const [languages, setLanguages] = useState();
+  const LanguageList = async () => {
+    await axios.get(`api/tag/${tagType}`).then((response) => {
+      setLanguages(response.data);
+    });
+  };
+  useEffect(() => {
+    LanguageList();
+  }, []);
+  useEffect(() => {
+    LanguageList();
+  }, [tagType]);
+
   return (
     <Wrap>
-      {languages?.map((data) => (
-        <ImageWrap key={data.name}>
-          <Image src={data.img}></Image>
-        </ImageWrap>
-      ))}
+      {languages &&
+        languages.map((data, index) => (
+          <ImageWrap key={index}>
+            <Image src={data.tag_image}></Image>
+          </ImageWrap>
+        ))}
     </Wrap>
   );
 };

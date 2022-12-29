@@ -4,19 +4,22 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     isLogged: false,
-    user_id: '',
-    pw: '',
-    nickname: '',
-    email: '',
+    token: '',
+    userInfo: { user_id: '', nickname: '', email: '', point: 0 },
   },
   reducers: {
     login: (state, action) => {
       state.isLogged = true;
-      state.user_id = action.payload.user_id;
-      state.pw = action.payload.pw;
+      state.token = action.payload;
     },
     logout: (state) => {
-      state.user = null;
+      state.isLogged = false;
+      state.userInfo = null;
+    },
+
+    tempSetUser: (state, action) => {
+      state.isLogged = true;
+      state.userInfo = { ...action.payload };
     },
 
     // 아이디, 비번 찾기
@@ -28,4 +31,4 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { login, logout } = userSlice.actions;
+export const { login, logout, tempSetUser } = userSlice.actions;

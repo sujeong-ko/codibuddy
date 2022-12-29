@@ -9,14 +9,17 @@ items-center
 min-h-[33px]
 border-b-2
 `;
+
+const Menu = tw.div`
+flex
+gap-4
+`;
 const Button = tw.li`
 list-none
 text-xl
 font-bold
-${(props) => (props.checked ? 'text-[#667288]' : 'text-slate-800')}
-;
 cursor-pointer
 hover:text-[#52b4d0]
 `;
 
-export { Wrap, Button };
+export { Wrap, Menu, Button };

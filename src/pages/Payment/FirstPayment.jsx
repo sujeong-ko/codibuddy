@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button/Button.jsx';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DevisionDescription, PageTitle } from '../../styles/CommonStyles.jsx';
 import {
   StudyWrap,
@@ -8,83 +8,66 @@ import {
   PaymentAmountDetail,
   PaymentDetailDescription,
 } from './Payment.styles.jsx';
-import getOneStudy from '../../utils/getOneStudy';
 import axios from 'axios';
-import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
 import { useSelector } from 'react-redux';
-import { token, config } from '../../utils/configCreator.jsx';
+import { config } from '../../utils/configCreator.jsx';
+import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
 
 const Payment = () => {
   const [currentUserPoint, setCurrentUserPoint] = useState(0);
-  // const currenteUserInfo = useSelector((state) => state.user.userInfo);
-  const { id: study_id } = useParams();
-  const navigate = useNavigate();
+  //   const currenteUserInfo = useSelector((state) => state.user.userInfo);
   useEffect(() => {
     getCurrentUserInfo().then((response) => {
       const currentUserInfo = response.data[0];
       setCurrentUserPoint(currentUserInfo.point);
     });
   });
-  const [studyInfo, setStudyInfo] = useState({
-    title: '',
-    author: '',
-    is_online: true,
-    price: 0,
-    start_at: '',
-    limit_head_count: '',
-    study_tags: [],
-  });
 
-  useEffect(() => {
-    getOneStudy(study_id).then((response) => {
-      const studyData = response.data;
-      setStudyInfo({
-        ...studyInfo,
-        title: studyData.title,
-        is_online: studyData.is_online,
-        price: studyData.price,
-        start_at: studyData.start_at,
-        limit_head_count: studyData.limit_head_count,
-        study_tags: studyData.StudyTags,
-        author: studyData.User.nickname,
-      });
-    });
-  }, []);
+  // store에서 new에서 넘어온 스터디 정보 가져오기
+  const tempStudyInfo = useSelector((state) => state.study.tempStudyInfo);
+  const tempStudyTag = useSelector((state) => state.study.tempStudyTag);
+
+  const navigate = useNavigate();
 
   const handlePayment = async () => {
     const token = localStorage.getItem('userToken');
+
     if (!token) alert('로그인이 필요합니다.');
 
+    // 스터디를 처음 생성할 때 방장이 결제까지 완료해야 스터디 생성됨
     try {
-      await axios.post(`/api/recruit/${study_id}`, null, {
-        headers: config(token),
-      });
-
-      await axios.patch(
+      const userPatchResult = await axios.patch(
         '/api/user/payment',
         {
-          point: currentUserPoint - studyInfo.price,
+          point: currentUserPoint - tempStudyInfo.price,
         },
         {
           headers: config(token),
         },
       );
-
-      navigate('/payment/complete');
+      console.log(userPatchResult);
     } catch (err) {
-      if (err.response.status === 405) {
-        alert('이미 신청한 모임입니다.');
-        console.log(err);
-        navigate(`/study/${study_id}`);
-      }
-      if (err.response.status === 406) {
-        alert('모집인원이 마감된 스터디입니다.');
-        console.log(err);
-        navigate(`/study/${study_id}`);
-      }
       console.log(err);
     }
+
+    const studyPostResult = await axios.post(
+      `api/study`,
+      {
+        study: { ...tempStudyInfo },
+        tag: [...tempStudyTag],
+      },
+      {
+        headers: config(token),
+      },
+    );
+
+    await axios.post(`/api/recruit/${studyPostResult.data.studyId}`, null, {
+      headers: config(token),
+    });
+
+    navigate('/payment/complete');
   };
+
   return (
     <>
       <PageTitle>
@@ -92,18 +75,19 @@ const Payment = () => {
       </PageTitle>
       <DevisionDescription>1. 참여할 스터디</DevisionDescription>
       <StudyWrap>
-        <div className='text-2xl font-bold'>{studyInfo.title}</div>
+        <div className='text-2xl font-bold'>{tempStudyInfo.title}</div>
         <StudyInfoDetail>
-          <span>{studyInfo.start_at} 시작 예정</span>
+          <span>{tempStudyInfo.start_at} 시작 예정</span>
           <span>|</span>
-          <span>{studyInfo.limit_head_count}명</span>
+          <span>{tempStudyInfo.limit_head_count}명</span>
           <span>|</span>
-          <span>{studyInfo.is_online ? '온라인' : '오프라인'}</span>
+          <span>{tempStudyInfo.is_online ? '온라인' : '오프라인'}</span>
         </StudyInfoDetail>
         <ul>
-          {studyInfo.study_tags.map((item) => (
-            <li className='inline-block' key={item.tag_id}>
-              <img className='h-[2.5rem] mr-2' src={item.Tag.tag_image} />
+          {tempStudyTag.map((item, index) => (
+            <li className='inline-block' key={index}>
+              {/* <img className='h-[2.5rem] mr-2' src={item.Tag.tag_image} /> */}
+              <span className='mr-2 text-sm text-[#52b4d0]'>{item}</span>
             </li>
           ))}
         </ul>
@@ -117,13 +101,13 @@ const Payment = () => {
       </PaymentDetailDescription>
       <div className='flex-col'>
         <span className='flex justify-center text-5xl my-12'>
-          {studyInfo.price.toLocaleString()}원
+          {Number(tempStudyInfo.price).toLocaleString()}원
         </span>
       </div>
       <DevisionDescription>3. 예치금 결제</DevisionDescription>
       <PaymentAmountDetail>
         <span>참가 예치금</span>
-        <span>{studyInfo.price.toLocaleString()}원</span>
+        <span>{Number(tempStudyInfo.price).toLocaleString()}원</span>
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>사용 가능한 포인트</span>
@@ -131,17 +115,17 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
-        {currentUserPoint - studyInfo.price < 0 ? (
+        {currentUserPoint - tempStudyInfo.price < 0 ? (
           <span className='text-red-500 font-bold'>포인트가 부족해요!</span>
         ) : (
           <span>
-            {(currentUserPoint - studyInfo.price).toLocaleString()} 포인트
+            {(currentUserPoint - tempStudyInfo.price).toLocaleString()} 포인트
           </span>
         )}
       </PaymentAmountDetail>
       <Button
         onClick={handlePayment}
-        text={`${studyInfo.price.toLocaleString()}원 결제하기`}
+        text={`${tempStudyInfo.price.toLocaleString()}원 결제하기`}
       />
     </>
   );

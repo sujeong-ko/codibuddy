@@ -13,6 +13,8 @@ const Register = () => {
     pw: '',
     nickname: '',
     email: '',
+    introduce: '',
+    tag: [],
   });
 
   const dispatch = useDispatch();
@@ -23,15 +25,29 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async ({ language }) => {
+    const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+    const isPasswordValid = registerInfo.pw.length >= 4;
+
+    if (!isPasswordValid) {
+      return alert('비밀번호는 4글자 이상이어야 합니다.');
+    }
+
+    if (!isPasswordSame) {
+      return alert('비밀번호가 일치하지 않습니다.');
+    }
+
     try {
-      const fullRegisterInfo = { ...registerInfo, language };
+      const fullRegisterInfo = { ...registerInfo, tag: [...language] };
       console.log(fullRegisterInfo);
       const result = await axios.post('/api/user', fullRegisterInfo);
       console.log(result);
+      alert(`정상적으로 회원가입되었습니다.`);
       dispatch(modalSlice.actions.registerToggle());
       dispatch(modalSlice.actions.loginToggle());
     } catch (err) {
-      console.log(err);
+      alert(
+        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
+      );
     }
   };
 
@@ -47,31 +63,6 @@ const Register = () => {
     setRegisterInfo({ ...registerInfo, nickname: e.target.value });
   const emailHandler = (e) =>
     setRegisterInfo({ ...registerInfo, email: e.target.value });
-
-  const submitHandler = async () => {
-    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
-    const isPasswordValid = registerInfo.pw.length >= 4;
-
-    if (!isPasswordValid) {
-      return alert('비밀번호는 4글자 이상이어야 합니다.');
-    }
-
-    // if (!isPasswordSame) {
-    //   return alert('비밀번호가 일치하지 않습니다.');
-    // }
-
-    try {
-      const result = await axios.post('/api/user', registerInfo);
-      alert(`정상적으로 회원가입되었습니다.`);
-
-      dispatch(modalSlice.actions.registerToggle());
-    } catch (err) {
-      console.error(err.stack);
-      alert(
-        `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
-      );
-    }
-  };
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value }) => (
@@ -141,7 +132,7 @@ const Register = () => {
                 type='password'
                 placeholder='비밀번호 확인'
                 value={registerInfo.confirmPw}
-                // onChange={confirmPwHandler}
+                onChange={confirmPwHandler}
               />
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>
@@ -168,7 +159,7 @@ const Register = () => {
                 <CategorySelect />
               </div>
 
-              <S.ModalBtn onClick={submitHandler}> 회원가입 </S.ModalBtn>
+              <S.ModalBtn> 회원가입 </S.ModalBtn>
             </S.ModalContents>
           </S.ModalDiv>
         </S.ModalMain>

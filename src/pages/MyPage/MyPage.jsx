@@ -1,19 +1,73 @@
-import React from 'react';
-import Sidebar from '../../components/MyPage/Sidebar';
+import React, { useEffect, useState } from 'react';
+import Menubar from '../../components/MyPage/Menubar';
 import Profile from '../../components/MyPage/Profile';
 import StudyCard from '../../components/StudyCard/StudyCard';
 import { Wrap, Box, Item } from './MyPage.styles';
+import axios from 'axios';
+
 const MyPage = () => {
-  const dumyData = [1, 2, 3];
+  const token = localStorage.getItem('userToken');
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const [category, setCategory] = useState('attend');
+  const changeMenu = (menu) => {
+    setCategory(menu);
+  };
+  const [userDatas, setUserDatas] = useState();
+  const [likes, setLikes] = useState();
+  const userInfo = async () => {
+    await axios
+      .get(`/api/user`, config)
+      .then((response) => {
+        setUserDatas(response.data[0]);
+        console.log(userDatas);
+      })
+      .catch((err) => console.log(err));
+  };
+  const likeList = async () => {
+    await axios
+      .get(`/api/study/mystudy/${category}`, config)
+      .then((response) => {
+        // console.log(response.data);
+        setLikes(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    userInfo();
+    likeList();
+  }, [category]);
   return (
     <Wrap>
-      <Profile />
-      <Sidebar />
+      <Profile
+        image={
+          'https://user-images.githubusercontent.com/65716445/209169292-b33725cc-0362-4cb4-976a-2e525b6943c5.png'
+        }
+        nickname={userDatas?.nickname}
+        introduce={userDatas?.introduce}
+        point={userDatas?.point}
+      />
+      <Menubar propFunction={changeMenu} />
       <Box>
         <Item>
-          {dumyData.map((i) => (
-            <StudyCard key={i} />
-          ))}
+          {likes &&
+            likes?.map((data) => (
+              <StudyCard
+                key={data.id}
+                id={data.id}
+                startDate={data.start_at}
+                people={data.limit_head_count}
+                title={data.title}
+                isOnline={data.is_online}
+                tag={data.StudyTags}
+                positon={data.position}
+                writer={data.User.nickname}
+                visit={data.visit_count}
+              />
+            ))}
         </Item>
       </Box>
     </Wrap>
