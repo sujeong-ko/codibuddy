@@ -74,6 +74,12 @@ const Payment = () => {
     } catch (err) {
       if (err.response.status === 405) {
         alert('이미 신청한 모임입니다.');
+        console.log(err);
+        navigate(`/study/${study_id}`);
+      }
+      if (err.response.status === 406) {
+        alert('모집인원이 마감된 스터디입니다.');
+        console.log(err);
         navigate(`/study/${study_id}`);
       }
       console.log(err);
