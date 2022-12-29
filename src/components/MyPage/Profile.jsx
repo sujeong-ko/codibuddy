@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { BsPen, BsUnlock } from 'react-icons/bs';
 import {
   Wrap,
   ProfileMain,
   ProfileImg,
   UserInfo,
-  Logout,
+  Icon,
+  Contents,
   SelfText,
   Point,
 } from './Profile.styles';
@@ -45,12 +47,27 @@ const Profile = ({ image, nickname, introduce, point }) => {
     <Wrap>
       <ProfileMain>
         <ProfileImg src={image} />
-        <UserInfo>{nickname}</UserInfo>
-        <Logout onClick={LogOut}>로그아웃</Logout>
-        <Link to='/update-mypage'>내 정보수정</Link>
-        <SelfText>{introduce}</SelfText>
-        <Point>{point} 포인트</Point>
+        <UserInfo>{nickname} 님</UserInfo>
+        <Icon>
+          <BsUnlock
+            onClick={LogOut}
+            size={25}
+            color='#52B4D0'
+            className='flex
+items-center
+cursor-pointer'></BsUnlock>
+          <BsPen
+            onClick={() => navigate('/update-mypage')}
+            size={25}
+            color='#52B4D0'
+            className='flex
+items-center cursor-pointer'></BsPen>
+        </Icon>
       </ProfileMain>
+      <Contents>
+        <SelfText>{introduce}</SelfText>
+        <Point>{point} point</Point>
+      </Contents>
     </Wrap>
   );
 };

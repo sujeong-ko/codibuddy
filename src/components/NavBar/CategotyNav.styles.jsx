@@ -16,6 +16,7 @@ font-bold
 ${(props) => (props.checked ? 'text-[#667288]' : 'text-slate-800')}
 ;
 cursor-pointer
+hover:text-[#52b4d0]
 `;
 
 export { Wrap, Button };

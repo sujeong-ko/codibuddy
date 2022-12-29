@@ -2,7 +2,7 @@ import tw from 'tailwind-styled-components';
 
 const Wrap = tw.div`
 flex
-flex-col
+flex-row
 justify-center
 items-center
 w-full
@@ -26,13 +26,14 @@ h-[100px]
 rounded-xl
 p-0.5
 m-4
-bg-[#667288]
 `;
-
-const Logout = tw.button`
+const Icon = tw.div`
 flex
 items-center
-ml-2
+gap-3
+`;
+const Contents = tw.div`
+flex
 `;
 const SelfText = tw.div`
 text-l
@@ -42,7 +43,6 @@ flex
 items-center
 justify-center
 `;
-
 const Point = tw.div`
 text-l
 ml-3
@@ -51,4 +51,13 @@ flex
 items-center
 justify-center
 `;
-export { Wrap, ProfileMain, ProfileImg, UserInfo, Logout, SelfText, Point };
+export {
+  Wrap,
+  ProfileMain,
+  ProfileImg,
+  UserInfo,
+  Icon,
+  SelfText,
+  Point,
+  Contents,
+};
