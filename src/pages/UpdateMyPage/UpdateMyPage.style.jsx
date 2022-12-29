@@ -33,7 +33,7 @@ w-5/6
 mt-5
 ml-auto
 mr-auto
-mb-auto
+mb-10
 `;
 
 const passwordBtn = tw.button`
