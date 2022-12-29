@@ -70,7 +70,7 @@ const UpdateMyPage = () => {
         headers: config,
       });
       alert(`정상적으로 정보가 업데이트 되었습니다.`);
-      console.log(result);
+      console.log('결과값', result);
     } catch (err) {
       console.log(err);
     }
