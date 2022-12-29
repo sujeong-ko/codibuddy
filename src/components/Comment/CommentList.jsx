@@ -5,7 +5,7 @@ import { CommentWrap, CommentInput } from './Comment.styles.jsx';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { token, config } from '../../utils/configCreator.jsx';
+import { config } from '../../utils/configCreator.jsx';
 
 const CommentList = () => {
   const [comments, setComments] = useState([]);
@@ -31,6 +31,7 @@ const CommentList = () => {
   }, []);
 
   const onSubmit = async (data) => {
+    const token = localStorage.getItem('userToken');
     try {
       if (!token) alert('로그인한 사용자만 등록할 수 있습니다.');
       await axios
@@ -61,9 +62,9 @@ const CommentList = () => {
         <Button type='basic' text='등록하기' />
       </div>
       {comments.map((item, idx) => {
-        return <Comment key={idx} {...item} />;
+        return <Comment key={idx} {...item} getComments={getComments} />;
       })}
-      {/* item에는 author, content, studyId, createdAt 들어있음 */}
+      {/* item에는 id, study_id, User 객체, studyId, createdAt 들어있음 */}
     </CommentWrap>
   );
 };

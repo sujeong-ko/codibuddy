@@ -13,14 +13,11 @@ import { useSelector } from 'react-redux';
 import { config } from '../../utils/configCreator.jsx';
 import getCurrentUserInfo from './../../utils/getCurrentUserInfo';
 
-const token = localStorage.getItem('userToken');
-
 const Payment = () => {
   const [currentUserPoint, setCurrentUserPoint] = useState(0);
   //   const currenteUserInfo = useSelector((state) => state.user.userInfo);
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    getCurrentUserInfo(token).then((response) => {
+    getCurrentUserInfo().then((response) => {
       const currentUserInfo = response.data[0];
       setCurrentUserPoint(currentUserInfo.point);
     });
@@ -30,11 +27,11 @@ const Payment = () => {
   const tempStudyInfo = useSelector((state) => state.study.tempStudyInfo);
   const tempStudyTag = useSelector((state) => state.study.tempStudyTag);
 
-  //   console.log(tempStudyInfo);
-
   const navigate = useNavigate();
 
   const handlePayment = async () => {
+    const token = localStorage.getItem('userToken');
+
     if (!token) alert('로그인이 필요합니다.');
 
     // 스터디를 처음 생성할 때 방장이 결제까지 완료해야 스터디 생성됨
@@ -118,9 +115,13 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
-        <span>
-          {(currentUserPoint - tempStudyInfo.price).toLocaleString()} 포인트
-        </span>
+        {currentUserPoint - tempStudyInfo.price < 0 ? (
+          <span className='text-red-500 font-bold'>포인트가 부족해요!</span>
+        ) : (
+          <span>
+            {(currentUserPoint - tempStudyInfo.price).toLocaleString()} 포인트
+          </span>
+        )}
       </PaymentAmountDetail>
       <Button
         onClick={handlePayment}

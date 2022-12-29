@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const getCurrentUserInfo = async (token) => {
+const getCurrentUserInfo = async () => {
+  const token = localStorage.getItem('userToken');
   try {
     const result = await axios.get(`/api/user`, {
       headers: {

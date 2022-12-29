@@ -23,6 +23,7 @@ const MyPage = () => {
       .get(`/api/user`, config)
       .then((response) => {
         setUserDatas(response.data[0]);
+        console.log(userDatas);
       })
       .catch((err) => console.log(err));
   };
@@ -42,7 +43,9 @@ const MyPage = () => {
   return (
     <Wrap>
       <Profile
-        image={userDatas?.profile_image}
+        image={
+          'https://user-images.githubusercontent.com/65716445/209169292-b33725cc-0362-4cb4-976a-2e525b6943c5.png'
+        }
         nickname={userDatas?.nickname}
         introduce={userDatas?.introduce}
         point={userDatas?.point}

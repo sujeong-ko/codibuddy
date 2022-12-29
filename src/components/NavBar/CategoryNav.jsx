@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Wrap, Button } from './CategotyNav.styles';
 const CategoryNav = (props) => {
-  const [menu, setMenu] = useState('');
-  const [check, setCheck] = useState(false);
+  const [menu, setMenu] = useState('all');
+  // const [check, setCheck] = useState(false);
   const menuChangeHandler = (e) => {
     setMenu(e.target.type);
-    console.log(menu);
-    setCheck(true);
+    // console.log('카네', menu);
+    // setCheck(true);
   };
   useEffect(() => {
     props.propFunction(menu);
   }, [menu]);
   return (
     <Wrap>
-      <Button onClick={menuChangeHandler} type='popular' checked={check}>
+      <Button onClick={menuChangeHandler} type='popular'>
         인기
       </Button>
       <Button onClick={menuChangeHandler} type='front_end'>
