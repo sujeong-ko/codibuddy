@@ -47,66 +47,16 @@ const Login = () => {
     //store에 token 저장
     dispatch(modalSlice.actions.loginToggle());
     dispatch(login(res.data.userToken));
-    console.log(res);
-    jwtDecode(res.data.userToken);
+    // console.log(res);
+    // jwtDecode(res.data.userToken);
   };
   //jwt 받아오는 decode
-  const jwtDecode = async (token) => {
-    const decoded = jwt_decode(token);
-    // console.log(decoded?.exp);
-    const reTime = decoded.exp;
-    const userId = decoded.userId;
-    // console.log('1.만료:', reTime);
+  // const jwtDecode = async (token) => {
+  //   const decoded = jwt_decode(token);
+  //   const { exp, userId } = decoded;
+  //   console.log(exp, userId);
+  // };
 
-    async function getTime() {
-      return new Promise(function (resolve, reject) {
-        const date = Date.now();
-        const nowTime = Math.floor(date / 1000);
-        // console.log("현재시간:", nowTime);
-        while (nowTime <= reTime) {
-          setTimeout(getTime, 1000);
-          return nowTime;
-        }
-        // console.log('2.빠져나옴');
-        resolve(nowTime);
-        isAccessTokenEnd(nowTime);
-      });
-    }
-    function isAccessTokenEnd(t) {
-      // console.log('3.비교');
-      if (t >= reTime) {
-        onSilentRefresh(userId);
-      }
-    }
-    await getTime();
-  };
-  const onSilentRefresh = (id) => {
-    console.log('엑세스 토큰 시간 만료');
-    const data = localStorage.getItem('refreshToken');
-    const userToken = localStorage.getItem('userToken');
-    // console.log(data);
-    // (axios.defaults.headers.common[
-    //   "Authorization"
-    // ] = `Bearer ${userToken}`)
-
-    axios
-      .post(
-        '/api/user/confirm_jwt',
-        {
-          user_id: id,
-          refresh_token: data,
-        },
-        { headers: { Authorization: `Bearer ${userToken}` } },
-      )
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem('userToken', res.data.newJwt);
-        jwtDecode(res.data.newJwt);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <>
       <S.ModalMain>
