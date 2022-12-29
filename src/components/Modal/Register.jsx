@@ -25,16 +25,16 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async ({ language }) => {
-    // const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
+    const isPasswordSame = registerInfo.pw === registerInfo.confirmPw;
     const isPasswordValid = registerInfo.pw.length >= 4;
 
     if (!isPasswordValid) {
       return alert('비밀번호는 4글자 이상이어야 합니다.');
     }
 
-    // if (!isPasswordSame) {
-    //   return alert('비밀번호가 일치하지 않습니다.');
-    // }
+    if (!isPasswordSame) {
+      return alert('비밀번호가 일치하지 않습니다.');
+    }
 
     try {
       const fullRegisterInfo = { ...registerInfo, tag: [...language] };
@@ -132,7 +132,7 @@ const Register = () => {
                 type='password'
                 placeholder='비밀번호 확인'
                 value={registerInfo.confirmPw}
-                // onChange={confirmPwHandler}
+                onChange={confirmPwHandler}
               />
 
               <S.TitleText id='nicktext'>Nickname</S.TitleText>

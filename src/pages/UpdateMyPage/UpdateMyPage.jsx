@@ -9,7 +9,7 @@ const UpdateMyPage = () => {
   //리듀서 접근
 
   const [updateMyInfo, setMyInfo] = useState({
-    // checkPassword: '',
+    checkPassword: '',
     pw: '',
     confirmPw: '',
     nickname: '',
@@ -31,7 +31,7 @@ const UpdateMyPage = () => {
         })
         .then((response) => {
           const MyData = response.data[0];
-          console.log(MyData);
+          console.log('get data', MyData);
           setMyInfo({
             ...updateMyInfo,
             nickname: MyData.nickname,
@@ -39,7 +39,6 @@ const UpdateMyPage = () => {
             introduce: MyData.introduce,
             UserTags: MyData.UserTags || [],
           });
-          console.log(MyData.nickname);
         })
         .catch((err) => console.log(err));
     };
@@ -50,7 +49,8 @@ const UpdateMyPage = () => {
   //submit
   const onSubmit = async ({ language }) => {
     const isPasswordSame = updateMyInfo.pw === updateMyInfo.confirmPw;
-    const isPasswordValid = updateMyInfo.pw.length >= 4;
+    const isPasswordValid =
+      updateMyInfo.pw.length >= 4 || updateMyInfo.pw.length == '';
 
     if (!isPasswordValid) {
       return alert('비밀번호는 4글자 이상이어야 합니다.');
@@ -65,7 +65,7 @@ const UpdateMyPage = () => {
     };
     try {
       const fullupdateMyInfo = { ...updateMyInfo, tag: language.toString() };
-      console.log(fullupdateMyInfo);
+      console.log('fullupdateMYInfo 데이터', fullupdateMyInfo);
       const result = await axios.patch('/api/user', fullupdateMyInfo, {
         headers: config,
       });
@@ -84,6 +84,8 @@ const UpdateMyPage = () => {
     setMyInfo({ ...updateMyInfo, confirmPw: e.target.value });
   const introduceHandler = (e) =>
     setMyInfo({ ...updateMyInfo, introduce: e.target.value });
+  const currentPwHandler = (e) =>
+    setMyInfo({ ...updateMyInfo, checkPassword: e.target.value });
 
   const CategorySelect = () => {
     const CategoryInput = ({ language, value, checked }) => (
@@ -155,13 +157,22 @@ const UpdateMyPage = () => {
         <div>
           <CategorySelect />
         </div>
+        <S.TitleText>현재 비밀번호</S.TitleText>
+        <S.Input
+          className='input'
+          id='newPasswordInput'
+          type='password'
+          placeholder='현재 비밀번호를 입력해주세요'
+          value={updateMyInfo.checkPassword}
+          onChange={currentPwHandler}
+        />
         <passwordDiv>
           <S.TitleText>새 비밀번호</S.TitleText>
           <S.Input
             className='input'
             id='newPasswordInput'
             type='password'
-            placeholder='변경할 비밀번호를 입력해주세요'
+            placeholder='변경을 원하신다면 새로운 비밀번호를 입력해주세요.'
             value={updateMyInfo.pw}
             onChange={pwHandler}
           />
@@ -171,7 +182,7 @@ const UpdateMyPage = () => {
             className='input'
             id='PWCheckInput'
             type='password'
-            placeholder='비밀번호 확인'
+            placeholder='새로운 비밀번호 확인'
             value={updateMyInfo.confirmPw}
             onChange={confirmPwHandler}
           />
