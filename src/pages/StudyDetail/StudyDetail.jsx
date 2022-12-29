@@ -64,6 +64,15 @@ const StudyDetail = () => {
       console.log(err);
     }
   }, []);
+
+  const handleRecruit = () => {
+    try {
+      navigate(`/payment/${study_id}`);
+    } catch (err) {
+      console.log('참여하기 버튼 에러', err.response);
+    }
+  };
+
   return (
     <>
       <div className='mt-8 mb-4'>
@@ -136,11 +145,7 @@ const StudyDetail = () => {
         <h2 className='font-bold text-lg mb-10'>스터디 소개</h2>
         <div>{studyInfo.contents}</div>
         <div className='flex justify-end'>
-          <Button
-            type='basic'
-            text='참여하기'
-            onClick={() => navigate(`/payment/${study_id}`)}
-          />
+          <Button type='basic' text='참여하기' onClick={handleRecruit} />
         </div>
       </StudyContentSection>
       <CommentList />
