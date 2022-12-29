@@ -115,9 +115,13 @@ const Payment = () => {
       </PaymentAmountDetail>
       <PaymentAmountDetail>
         <span>결제 후 포인트</span>
-        <span>
-          {(currentUserPoint - tempStudyInfo.price).toLocaleString()} 포인트
-        </span>
+        {currentUserPoint - tempStudyInfo.price < 0 ? (
+          <span className='text-red-500 font-bold'>포인트가 부족해요!</span>
+        ) : (
+          <span>
+            {(currentUserPoint - tempStudyInfo.price).toLocaleString()} 포인트
+          </span>
+        )}
       </PaymentAmountDetail>
       <Button
         onClick={handlePayment}
