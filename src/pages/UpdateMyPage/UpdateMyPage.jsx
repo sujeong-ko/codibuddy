@@ -72,6 +72,10 @@ const UpdateMyPage = () => {
       alert(`정상적으로 정보가 업데이트 되었습니다.`);
       console.log('결과값', result);
     } catch (err) {
+      if (err.response.status === 500) {
+        alert('현재 비밀번호 값이 일치하지 않습니다.');
+        console.log(err);
+      }
       console.log(err);
     }
   };
