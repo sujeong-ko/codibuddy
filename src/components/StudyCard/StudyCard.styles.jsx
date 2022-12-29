@@ -29,7 +29,6 @@ const ContentTitle = tw.div`
 const ContentDetail = tw.div`
   flex
   flex-[2_2_0%]
-
   flex-col
 `;
 const ContentTagsWrap = tw.div`
@@ -41,6 +40,7 @@ const ContentTags = tw.div`
 `;
 const Languages = tw.div`
   flex
+  flex-wrap
 `;
 const Tags = tw.div`
   text-xs
