@@ -17,7 +17,7 @@ const Home = () => {
   //   if (loginModalOpen === '1') dispatch(modalSlice.actions.loginOpen());
   // }, []);
 
-  const [category, setCategory] = useState('front_end');
+  const [category, setCategory] = useState('all');
   const changeMenu = (menu) => {
     // console.log(menu);
     setCategory(menu);
@@ -26,11 +26,12 @@ const Home = () => {
   const StudyList = async () => {
     if (category === 'all') {
       await axios.get(`/api/study`).then((response) => {
-        console.log(response);
+        // console.log('all:', response.data);
         setDatas(response.data);
       });
     } else {
       await axios.get(`/api/study/kind/${category}`).then((response) => {
+        // console.log(`${category}`, response.data);
         setDatas(response.data);
       });
     }
