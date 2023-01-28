@@ -12,8 +12,8 @@
 - **팀 명 :** C5DBUDDY(코5디버디)
 - **프로젝트 명 :** CODIBUDDY(코디버디)
 - **프로젝트 기간 :** 2022.12.12 - 2022.12.30
-- **노션 :** [CODIBUDDY 노션 링크](https://www.notion.so/2-5e3c4fefd6524d8fbf96c394f9ade828)
-- **배포 링크 :** [🤝 codibuddy.com](http://kdt-sw3-team05.elicecoding.com/)
+- **노션 :** [CODIBUDDY 노션 링크](https://sujeongko.notion.site/2-5e3c4fefd6524d8fbf96c394f9ade828)
+- **시연 영상 :** [🤝CODIBUDDY 시연 영상](https://youtu.be/fc29irO9Qb8)
 
 ## **❣️CODIBUDDY란?**
 
